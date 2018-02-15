@@ -2,10 +2,8 @@ package com.greenfield.servicetogo.dto;
 
 import java.util.Date;
 
-import com.greenfield.servicetogo.entity.VehicleDetailsEntity;
-
-public class RequestHeaderDTO {
-
+public class RequestHeaderDetailsDTO {
+	
 	private Integer reqId;
 	private Integer vendorId;
 	private String serviceType;
@@ -24,18 +22,12 @@ public class RequestHeaderDTO {
 	private String priority;
 	private Date  completionDatetime;
 	
-	
-	public RequestHeaderDTO(){
-		super();
-	}
-	
-	public RequestHeaderDTO(String serviceType, 
-			String firstName, Date requestDatetime) {
-		super();
-		this.serviceType = serviceType;
-		this.firstName = firstName;
-		this.requestDatetime = requestDatetime;
-	}
+	private Integer id;
+	private String vehicleLocation;
+	private String vehicleMake;
+	private String vehicleModel;
+	private String vehicleYear;
+	private String VIN;
 	
 	public Integer getReqId() {
 		return reqId;
@@ -139,6 +131,40 @@ public class RequestHeaderDTO {
 	public void setCompletionDatetime(Date completionDatetime) {
 		this.completionDatetime = completionDatetime;
 	}
-	
-	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getVehicleLocation() {
+		return vehicleLocation;
+	}
+	public void setVehicleLocation(String vehicleLocation) {
+		this.vehicleLocation = vehicleLocation;
+	}
+	public String getVehicleMake() {
+		return vehicleMake;
+	}
+	public void setVehicleMake(String vehicleMake) {
+		this.vehicleMake = vehicleMake;
+	}
+	public String getVehicleModel() {
+		return vehicleModel;
+	}
+	public void setVehicleModel(String vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
+	public String getVehicleYear() {
+		return vehicleYear;
+	}
+	public void setVehicleYear(String vehicleYear) {
+		this.vehicleYear = vehicleYear;
+	}
+	public String getVIN() {
+		return VIN;
+	}
+	public void setVIN(String vIN) {
+		VIN = vIN;
+	}
 }

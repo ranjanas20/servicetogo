@@ -73,7 +73,6 @@ public class RequestHeaderService {
 		rhDTO.setVendorId(rhEntity.getVendorId());
 		rhDTO.setRequestDatetime(rhEntity.getRequestDatetime());
 		rhDTO.setCustomerId(rhEntity.getCustomerId());
-		rhDTO.setVsdEntity(rhEntity.getVsdEntity());
 		return rhDTO;
 	}
 	

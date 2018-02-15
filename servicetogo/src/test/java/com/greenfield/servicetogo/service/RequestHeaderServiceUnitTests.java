@@ -47,10 +47,10 @@ public class RequestHeaderServiceUnitTests {
 		service = new RequestHeaderService();
 		service.setRepo(repo);
 		
-		VehicleDetailsEntity vsdEntity = new VehicleDetailsEntity("HynDai","1998","KLP-1234");
+		//VehicleDetailsEntity vsdEntity = new VehicleDetailsEntity("HynDai","1998","KLP-1234");
 		//VehicleServiceDetailsEntity vsdEntity1 = new VehicleServiceDetailsEntity("Honda","2008","MNL-4567");
 		//rhEntity = new RequestHeaderEntity(serviceType,name,new Date(),Arrays.asList(vsdEntity,vsdEntity1));
-		rhEntity = new RequestHeaderEntity(serviceType,name,new Date(),vsdEntity);
+		rhEntity = new RequestHeaderEntity(serviceType,name,new Date());
 		
 		Mockito.when(repo.findAll())
 	      .thenReturn(Arrays.asList(rhEntity));
@@ -68,7 +68,7 @@ public class RequestHeaderServiceUnitTests {
 		assertTrue(listrhEntity.size()==1);
 		assertTrue(listrhEntity.get(0).getFirstName().equals(name));
 		assertTrue(listrhEntity.get(0).getServiceType().equals(serviceType));
-		assertTrue(listrhEntity.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
+		//assertTrue(listrhEntity.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
 	}
 	
 	@Test
@@ -76,8 +76,8 @@ public class RequestHeaderServiceUnitTests {
 		RequestHeaderDTO rhEntity1 = service.addRequest(rhEntity);
 		assertTrue(rhEntity1.getFirstName().equals(name));
 		assertTrue(rhEntity1.getServiceType().equals(serviceType));
-		assertTrue(rhEntity1.getVsdEntity().getVehicleModel().equals("HynDai"));
-		assertTrue(rhEntity1.getVsdEntity().getVIN().equals("KLP-1234"));
+		//assertTrue(rhEntity1.getVsdEntity().getVehicleModel().equals("HynDai"));
+		//assertTrue(rhEntity1.getVsdEntity().getVIN().equals("KLP-1234"));
 	}
 
 	@Test
@@ -101,8 +101,8 @@ public class RequestHeaderServiceUnitTests {
 		//System.out.println(ReflectionTestUtils.getField(rhEntity1, "firstName"));
 		assertTrue(rhEntity1.getFirstName().equals(name));
 		assertTrue(rhEntity1.getServiceType().equals(serviceType));
-		assertTrue(rhEntity1.getVsdEntity().getVehicleModel().equals("HynDai"));
-		assertTrue(rhEntity1.getVsdEntity().getVIN().equals("KLP-1234"));
+		//assertTrue(rhEntity1.getVsdEntity().getVehicleModel().equals("HynDai"));
+		//assertTrue(rhEntity1.getVsdEntity().getVIN().equals("KLP-1234"));
 	}
 	
 	@Test
@@ -113,7 +113,7 @@ public class RequestHeaderServiceUnitTests {
 		assertTrue(listrhDTO.size()==1);
 		assertTrue(listrhDTO.get(0).getFirstName().equals(name));
 		assertTrue(listrhDTO.get(0).getServiceType().equals(serviceType));
-		assertTrue(listrhDTO.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
+		//assertTrue(listrhDTO.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
 	}
 	
 }
