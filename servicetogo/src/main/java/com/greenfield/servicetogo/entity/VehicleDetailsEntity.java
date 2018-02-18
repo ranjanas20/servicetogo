@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,7 +32,7 @@ public class VehicleDetailsEntity {
 	@Column(name = "vehicle_year")
 	private String vehicleYear;
 	
-	private String VIN;
+	private String vin;
 	
 	/*
 	@ManyToOne
@@ -49,18 +48,18 @@ public class VehicleDetailsEntity {
 		super();
 	}
 
-	public VehicleDetailsEntity(String vehicleModel, String vehicleYear, String vIN) {
+	public VehicleDetailsEntity(String vehicleModel, String vehicleYear, String vin) {
 		super();
 		this.vehicleModel = vehicleModel;
 		this.vehicleYear = vehicleYear;
-		this.VIN = vIN;
+		this.vin = vin;
 	}
 	
-	public VehicleDetailsEntity(String vehicleModel, String vehicleYear, String vIN, RequestHeaderEntity requestHeader) {
+	public VehicleDetailsEntity(String vehicleModel, String vehicleYear, String vin, RequestHeaderEntity requestHeader) {
 		super();
 		this.vehicleModel = vehicleModel;
 		this.vehicleYear = vehicleYear;
-		this.VIN = vIN;
+		this.vin = vin;
 		this.requestHeader = requestHeader;
 	}
 	
@@ -102,11 +101,11 @@ public class VehicleDetailsEntity {
 	public void setVehicleYear(String vehicleYear) {
 		this.vehicleYear = vehicleYear;
 	}
-	public String getVIN() {
-		return VIN;
+	public String getVin() {
+		return vin;
 	}
-	public void setVIN(String vIN) {
-		VIN = vIN;
+	public void setVin(String vin) {
+		this.vin = vin;
 	}
 	
 	public RequestHeaderEntity getRequestHeader() {

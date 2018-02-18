@@ -6,22 +6,12 @@ import static org.mockito.Mockito.mock;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.greenfield.servicetogo.dto.RequestHeaderDTO;
 import com.greenfield.servicetogo.dto.VehicleDetailsDTO;
 import com.greenfield.servicetogo.entity.RequestHeaderEntity;
 import com.greenfield.servicetogo.entity.VehicleDetailsEntity;
-import com.greenfield.servicetogo.repository.RequestHeaderRepository;
 import com.greenfield.servicetogo.repository.VehicleDetailsRepository;
 
 
@@ -73,7 +63,7 @@ public class VehicleDeatilsServiceUnitTests {
 		assertTrue(listVehicles.size()==1);
 		assertTrue(listVehicles.get(0).getVehicleModel().equals(model));
 		assertTrue(listVehicles.get(0).getVehicleYear().equals(year));
-		assertTrue(listVehicles.get(0).getVIN().equals(vin));
+		assertTrue(listVehicles.get(0).getVin().equals(vin));
 	}
 	
 	@Test
@@ -81,7 +71,7 @@ public class VehicleDeatilsServiceUnitTests {
 		VehicleDetailsDTO vdEntity1 = service.addVehicleDetails(vsdEntity);
 		assertTrue(vdEntity1.getVehicleModel().equals(model));
 		assertTrue(vdEntity1.getVehicleYear().equals(year));
-		assertTrue(vdEntity1.getVIN().equals(vin));
+		assertTrue(vdEntity1.getVin().equals(vin));
 	}
 
 

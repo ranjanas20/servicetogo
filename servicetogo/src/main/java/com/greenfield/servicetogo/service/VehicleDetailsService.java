@@ -6,12 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.greenfield.servicetogo.dto.RequestHeaderDTO;
 import com.greenfield.servicetogo.dto.VehicleDetailsDTO;
-import com.greenfield.servicetogo.entity.RequestHeaderEntity;
 import com.greenfield.servicetogo.entity.VehicleDetailsEntity;
-import com.greenfield.servicetogo.repository.RequestHeaderRepository;
 import com.greenfield.servicetogo.repository.VehicleDetailsRepository;
 
 @Service
@@ -64,7 +60,7 @@ public class VehicleDetailsService {
 		vsdDTO.setVehicleModel(vsdEntity.getVehicleModel());
 		vsdDTO.setVehicleYear(vsdEntity.getVehicleYear());
 		vsdDTO.setVendorId(vsdEntity.getVendorId());
-		vsdDTO.setVIN(vsdEntity.getVIN());
+		vsdDTO.setVin(vsdEntity.getVin());
 		return vsdDTO;
 	}
 	
@@ -76,7 +72,10 @@ public class VehicleDetailsService {
 			VehicleDetailsDTO vsdDTO = new VehicleDetailsDTO();
 			vsdDTO = setToDTO(entry);
 			vsdDTOList.add(vsdDTO);
+		
 		}
 		return vsdDTOList;
 	}
+	
+	
 }

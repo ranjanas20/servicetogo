@@ -2,12 +2,12 @@ package com.greenfield.servicetogo.dto;
 
 import java.util.Date;
 
-public class RequestHeaderDetailsDTO {
+public class SearchDTO {
 	
 	private Integer reqId;
-	private Integer vendorId;
 	private String serviceType;
 	private String firstName;
+	private String vin;
 	private String lastName;
 	private String email;
 	private String phone;
@@ -21,14 +21,42 @@ public class RequestHeaderDetailsDTO {
 	private Integer assigedToEmpId;
 	private String priority;
 	private Date  completionDatetime;
+	private Integer vendorId;
 	
 	private Integer id;
 	private String vehicleLocation;
 	private String vehicleMake;
 	private String vehicleModel;
 	private String vehicleYear;
-	private String VIN;
+	//private String vin;
 	
+	public SearchDTO(){
+		super();
+	}
+	
+	public SearchDTO( Integer reqId,
+								 String serviceType,
+								 String firstName,
+								 String vin){
+		super();
+		this.reqId = reqId;
+		this.serviceType = serviceType;
+		this.firstName = firstName;
+		this.vin = vin;
+	}
+	public SearchDTO(String serviceType, String firstName, 
+									Date requestDatetime, String vehicleModel, 
+									String vehicleYear, String vin ){
+		super();
+		this.serviceType = serviceType;
+		this.firstName = firstName;
+		this.requestDatetime =  requestDatetime;
+		this.vehicleModel = vehicleModel;
+		this.vehicleYear = vehicleYear;
+		this.vin = vin;
+		
+	}
+
 	public Integer getReqId() {
 		return reqId;
 	}
@@ -161,10 +189,10 @@ public class RequestHeaderDetailsDTO {
 	public void setVehicleYear(String vehicleYear) {
 		this.vehicleYear = vehicleYear;
 	}
-	public String getVIN() {
-		return VIN;
+	public String getVin() {
+		return vin;
 	}
-	public void setVIN(String vIN) {
-		VIN = vIN;
+	public void setVIN(String vin) {
+		this.vin = vin;
 	}
 }

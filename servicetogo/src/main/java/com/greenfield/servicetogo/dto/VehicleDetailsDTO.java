@@ -10,17 +10,17 @@ public class VehicleDetailsDTO {
 	private String vehicleMake;
 	private String vehicleModel;
 	private String vehicleYear;
-	private String VIN;
+	private String vin;
 	
 	public VehicleDetailsDTO(){
 		super();
 	}
 	
-	public VehicleDetailsDTO(String vehicleModel, String vehicleYear, String vIN) {
+	public VehicleDetailsDTO(String vehicleModel, String vehicleYear, String vin) {
 		super();
 		this.vehicleModel = vehicleModel;
 		this.vehicleYear = vehicleYear;
-		VIN = vIN;
+		this.vin = vin;
 	}
 	
 	public Integer getId() {
@@ -69,11 +69,11 @@ public class VehicleDetailsDTO {
 	public void setVehicleYear(String vehicleYear) {
 		this.vehicleYear = vehicleYear;
 	}
-	public String getVIN() {
-		return VIN;
+	public String getVin() {
+		return vin;
 	}
-	public void setVIN(String vIN) {
-		VIN = vIN;
+	public void setVin(String vin) {
+		this.vin = vin;
 	}
 	
 }

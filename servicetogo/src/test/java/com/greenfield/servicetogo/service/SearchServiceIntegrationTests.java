@@ -6,13 +6,25 @@ import static org.mockito.Mockito.mock;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import com.greenfield.servicetogo.dto.RequestHeaderDTO;
+import com.greenfield.servicetogo.dto.SearchDTO;
+import com.greenfield.servicetogo.dto.VehicleDetailsDTO;
 import com.greenfield.servicetogo.entity.RequestHeaderEntity;
+import com.greenfield.servicetogo.entity.VehicleDetailsEntity;
 import com.greenfield.servicetogo.repository.RequestHeaderRepository;
+import com.greenfield.servicetogo.repository.SearchRepository;
+import com.greenfield.servicetogo.repository.VehicleDetailsRepository;
 
 
 
@@ -20,48 +32,78 @@ import com.greenfield.servicetogo.repository.RequestHeaderRepository;
  * Test Order Service, runs the test in Spring container
  * */
 
-//@RunWith(SpringRunner.class)
-//@ContextConfiguration("ServicetogoApplication.class") 
-//@Transactional
-public class RequestHeaderServiceUnitTests {
-
-	private RequestHeaderService service;
+@RunWith(SpringRunner.class)
+@SpringBootTest 
+@Transactional
+public class SearchServiceIntegrationTests {
+	@Autowired
+	private SearchService service;
+	@Autowired
+    private SearchRepository repo;
 	
-    private RequestHeaderRepository repo = mock(RequestHeaderRepository.class);
-	
-	private String name="sanjay";
+	private String firstName="sanjay";
 	private String serviceType="auto";
-	private RequestHeaderEntity rhEntity=null; 
+	
+	 
+	@Autowired
+	private RequestHeaderService service1;
+	@Autowired
+	private RequestHeaderRepository repo1;
+	
+	@Autowired
+	private VehicleDetailsService service2;
+	@Autowired
+	private VehicleDetailsRepository repo2;
 	
 	@Before
 	public void setup(){
-		service = new RequestHeaderService();
-		service.setRepo(repo);
 		
-		//VehicleDetailsEntity vsdEntity = new VehicleDetailsEntity("HynDai","1998","KLP-1234");
-		//VehicleServiceDetailsEntity vsdEntity1 = new VehicleServiceDetailsEntity("Honda","2008","MNL-4567");
-		//rhEntity = new RequestHeaderEntity(serviceType,name,new Date(),Arrays.asList(vsdEntity,vsdEntity1));
-		rhEntity = new RequestHeaderEntity(serviceType,name,new Date());
-		
-		Mockito.when(repo.findAll())
-	      .thenReturn(Arrays.asList(rhEntity));
-		
-		Mockito.when(repo.saveAndFlush(rhEntity))
-	      .thenReturn(rhEntity);
-		 
-		
+		VehicleDetailsEntity vsdEntity = new VehicleDetailsEntity("HynDai","1998","KLP-1234");
+		RequestHeaderEntity rhEntity = new RequestHeaderEntity(serviceType,firstName,new Date());
+		vsdEntity.setRequestHeader(rhEntity);
+		VehicleDetailsDTO vdDTO = service2.addVehicleDetails(vsdEntity);
+		//System.out.println(vdDTO.getVin());
 	}
 	
 	@Test
-	public void testFindAll() {
-		List<RequestHeaderDTO> listrhEntity = service.findAllRequest();
-		System.out.println(listrhEntity.size());
-		assertTrue(listrhEntity.size()==1);
-		assertTrue(listrhEntity.get(0).getFirstName().equals(name));
-		assertTrue(listrhEntity.get(0).getServiceType().equals(serviceType));
+	public void testFindAllByName() {
+		String param = "sanjay";
+		
+		List<SearchDTO> listrhEntity = service.findByFirstName(param);
+		for(SearchDTO entry:listrhEntity){
+			System.out.println(entry.getFirstName());
+			System.out.println(entry.getServiceType());
+			System.out.println(entry.getVin());
+			System.out.println(entry.getReqId());
+		}
+		
+//		assertTrue(listrhEntity.size()==1);
+//		assertTrue(listrhEntity.get(0).getFirstName().equals(name));
+//		assertTrue(listrhEntity.get(0).getServiceType().equals(serviceType));
 		//assertTrue(listrhEntity.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
 	}
 	
+	@Test
+	public void testFindAllByAttribute() {
+		SearchDTO searchDTO = new SearchDTO(serviceType,firstName, 
+				new Date(),"HynDai","1998","KLP-1234");
+		
+		service.setRepo(repo);
+		List<SearchDTO> listrhEntity = service.findByAttributes(searchDTO);
+		for(SearchDTO entry:listrhEntity){
+			System.out.println(entry.getFirstName());
+			System.out.println(entry.getServiceType());
+			System.out.println(entry.getVin());
+			System.out.println(entry.getReqId());
+		}
+		
+//		assertTrue(listrhEntity.size()==1);
+//		assertTrue(listrhEntity.get(0).getFirstName().equals(name));
+//		assertTrue(listrhEntity.get(0).getServiceType().equals(serviceType));
+		//assertTrue(listrhEntity.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
+	}
+	
+	/*	
 	@Test
 	public void testAddReq() {
 		RequestHeaderDTO rhEntity1 = service.addRequest(rhEntity);
@@ -106,5 +148,5 @@ public class RequestHeaderServiceUnitTests {
 		assertTrue(listrhDTO.get(0).getServiceType().equals(serviceType));
 		//assertTrue(listrhDTO.get(0).getVsdEntity().getVehicleModel().equals("HynDai"));
 	}
-	
+*/	
 }

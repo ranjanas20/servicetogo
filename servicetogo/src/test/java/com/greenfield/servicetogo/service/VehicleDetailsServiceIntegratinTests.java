@@ -1,24 +1,16 @@
 package com.greenfield.servicetogo.service;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.greenfield.servicetogo.dto.VehicleDetailsDTO;
 import com.greenfield.servicetogo.entity.RequestHeaderEntity;
 import com.greenfield.servicetogo.entity.VehicleDetailsEntity;
@@ -77,7 +69,7 @@ public class VehicleDetailsServiceIntegratinTests {
 		assertTrue(listVehicles.size()==1);
 		assertTrue(listVehicles.get(0).getVehicleModel().equals(model));
 		assertTrue(listVehicles.get(0).getVehicleYear().equals(year));
-		assertTrue(listVehicles.get(0).getVIN().equals(vin));
+		assertTrue(listVehicles.get(0).getVin().equals(vin));
 	}
 	
 	@Test
@@ -92,7 +84,7 @@ public class VehicleDetailsServiceIntegratinTests {
 			
 		assertTrue(vdDTO.getVehicleModel().equals(model1));
 		assertTrue(vdDTO.getVehicleYear().equals(year1));
-		assertTrue(vdDTO.getVIN().equals(vin1));
+		assertTrue(vdDTO.getVin().equals(vin1));
 	}
 	
 	@Test
@@ -107,7 +99,7 @@ public class VehicleDetailsServiceIntegratinTests {
 			
 		assertTrue(vdDTO.getVehicleModel().equals(model1));
 		assertTrue(vdDTO.getVehicleYear().equals(year1));
-		assertTrue(vdDTO.getVIN().equals(vin1));
+		assertTrue(vdDTO.getVin().equals(vin1));
 	}
 	
 	@Test
@@ -118,7 +110,7 @@ public class VehicleDetailsServiceIntegratinTests {
 		
 		assertTrue(vdEntity.getVehicleModel().equals(model));
 		assertTrue(vdEntity.getVehicleYear().equals(year));
-		assertTrue(vdEntity.getVIN().equals(vin));
+		assertTrue(vdEntity.getVin().equals(vin));
 		
 		vdEntity.setVehicleMake(make);
 		vdEntity.setVehicleLocation(location);
@@ -128,7 +120,7 @@ public class VehicleDetailsServiceIntegratinTests {
 		assertTrue(entityUpdated.getVehicleModel().equals(model1));
 		assertTrue(entityUpdated.getVehicleMake().equals(make));
 		assertTrue(entityUpdated.getVehicleLocation().equals(location));
-		assertTrue(entityUpdated.getVIN().equals(vin));
+		assertTrue(entityUpdated.getVin().equals(vin));
 	}
 	
 	@Test
