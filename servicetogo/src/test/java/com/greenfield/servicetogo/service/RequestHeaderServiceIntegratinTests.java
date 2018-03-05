@@ -46,8 +46,8 @@ public class RequestHeaderServiceIntegratinTests {
 		//VehicleDetailsEntity vsdEntity = new VehicleDetailsEntity("HynDai","1998","KLP-1234");
 		//VehicleServiceDetailsEntity vsdEntity1 = new VehicleServiceDetailsEntity("Honda","2008","MNL-4567");
 		//RequestHeaderEntity rhEntity = new RequestHeaderEntity(serviceType, name, new Date(), Arrays.asList(vsdEntity,vsdEntity1));
-		RequestHeaderEntity rhEntity = new RequestHeaderEntity(serviceType, name, new Date());
-		rhService.addRequest(rhEntity);
+		RequestHeaderDTO rhDTO = new RequestHeaderDTO(serviceType, name, new Date());
+		rhService.addRequest(rhDTO);
 	}
 
 	@After
@@ -74,7 +74,7 @@ public class RequestHeaderServiceIntegratinTests {
 		//VehicleServiceDetailsEntity vsdEntity1 = new VehicleServiceDetailsEntity("Maruti","2008","MNL-9876");
 		//VehicleServiceDetailsEntity vsdEntity2 = new VehicleServiceDetailsEntity("Maruti 800","2019","ASD-9876");
 		//RequestHeaderEntity rhEntity = new RequestHeaderEntity(serviceType,name2 , new Date(), Arrays.asList(vsdEntity,vsdEntity1,vsdEntity2));
-		RequestHeaderEntity rhEntity = new RequestHeaderEntity(serviceType,name2 , new Date());
+		RequestHeaderDTO rhEntity = new RequestHeaderDTO(serviceType,name2 , new Date());
 		RequestHeaderDTO rhe = rhService.addRequest(rhEntity);
 			
 		assertTrue(rhe.getFirstName().equals(name2));
@@ -86,18 +86,18 @@ public class RequestHeaderServiceIntegratinTests {
 	
 	@Test
 	public void testUpdateRequest() {
-		List<RequestHeaderEntity> listOfRequests;
-		listOfRequests = repo.findAll();
-		RequestHeaderEntity rhEntity = listOfRequests.get(0);
+		List<RequestHeaderDTO> listOfRequests;
+		listOfRequests = rhService.findAllRequest();
+		RequestHeaderDTO rhDTO = listOfRequests.get(0);
 		
-		assertTrue(rhEntity.getFirstName().equals(name));
-		assertTrue(rhEntity.getServiceType().equals(serviceType));
+		assertTrue(rhDTO.getFirstName().equals(name));
+		assertTrue(rhDTO.getServiceType().equals(serviceType));
 		//assertTrue(rhEntity.getVsdEntity().getVIN().equals("KLP-1234"));
 		
-		rhEntity.setEmail(email);
-		rhEntity.setFirstName(name2);
+		rhDTO.setEmail(email);
+		rhDTO.setFirstName(name2);
 		
-		RequestHeaderDTO entityUpdated = rhService.updateRequest(rhEntity);
+		RequestHeaderDTO entityUpdated = rhService.updateRequest(rhDTO);
 		
 		assertTrue(entityUpdated.getEmail().equals(email));
 		assertTrue(entityUpdated.getFirstName().equals(name2));

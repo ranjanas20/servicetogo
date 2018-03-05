@@ -33,14 +33,14 @@ public class RequestHeaderService {
 		return rhDTO;
 	}
 
-	public RequestHeaderDTO addRequest(RequestHeaderEntity servRequest) {
-		RequestHeaderEntity rhEntity = repo.saveAndFlush(servRequest);
+	public RequestHeaderDTO addRequest(RequestHeaderDTO servRequest) {
+		RequestHeaderEntity rhEntity = repo.saveAndFlush(setToEntity(servRequest));
 		RequestHeaderDTO rhDTO = setToDTO(rhEntity);
 		return rhDTO;
 	}
 
-	public RequestHeaderDTO updateRequest(RequestHeaderEntity servRequest) {
-		RequestHeaderEntity rhEntity = repo.saveAndFlush(servRequest);
+	public RequestHeaderDTO updateRequest(RequestHeaderDTO servRequest) {
+		RequestHeaderEntity rhEntity = repo.saveAndFlush(setToEntity(servRequest));
 		RequestHeaderDTO rhDTO = setToDTO(rhEntity);
 		return rhDTO;
 	}
@@ -86,5 +86,28 @@ public class RequestHeaderService {
 			rhDTOList.add(rhDTO);
 		}
 		return rhDTOList;
+	}
+	
+	private RequestHeaderEntity  setToEntity(RequestHeaderDTO rhDTO){
+		RequestHeaderEntity rhEntity = new RequestHeaderEntity();
+		
+		rhEntity.setReqId(rhDTO.getReqId());
+		rhEntity.setFirstName(rhDTO.getFirstName());
+		rhEntity.setLastName(rhDTO.getLastName());
+		rhEntity.setPhone(rhDTO.getPhone());
+		rhEntity.setServiceType(rhDTO.getServiceType());
+		rhEntity.setStatus(rhDTO.getStatus());
+		rhEntity.setAddress(rhDTO.getAddress());
+		rhEntity.setEmail(rhDTO.getEmail());
+		rhEntity.setPriority(rhDTO.getPriority());
+		rhEntity.setSymptoms(rhDTO.getSymptoms());
+		rhEntity.setAssigedToEmpId(rhDTO.getAssigedToEmpId());
+		rhEntity.setCompletionDatetime(rhDTO.getCompletionDatetime());
+		rhEntity.setComments(rhDTO.getComments());
+		rhEntity.setPreferredContactMethod(rhDTO.getPreferredContactMethod());
+		rhEntity.setVendorId(rhDTO.getVendorId());
+		rhEntity.setRequestDatetime(rhDTO.getRequestDatetime());
+		rhEntity.setCustomerId(rhDTO.getCustomerId());
+		return rhEntity;
 	}
 }
