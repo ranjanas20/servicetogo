@@ -24,3 +24,5 @@ nbdist/
 .nb-gradle/
 /bin/
 **/node_modules
+**/resources/static
+**/resources/e2e

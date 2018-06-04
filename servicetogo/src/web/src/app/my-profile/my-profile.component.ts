@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-my-profile',
@@ -11,5 +12,7 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  onSubmit( form: NgForm){
+    
+  }
 }
