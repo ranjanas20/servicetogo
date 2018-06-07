@@ -34,7 +34,7 @@ export const REST_URL = new InjectionToken("rest_url");
     BrowserModule, FormsModule, HttpModule, AppRouteModule
   ],
   providers: [AuthService,
-    { provide: REST_URL, useValue: "http://localhost:3500" }],
+    { provide: REST_URL, useValue: "http://localhost:8080/servicetogo" }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
