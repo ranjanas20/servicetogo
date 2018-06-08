@@ -196,5 +196,31 @@ public class RequestHeaderEntity {
 	public void setVsdEntity(VehicleDetailsEntity vsdEntity) {
 		this.vsdEntity = vsdEntity;
 	}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((reqId == null) ? 0 : reqId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RequestHeaderEntity other = (RequestHeaderEntity) obj;
+        if (reqId == null) {
+            if (other.reqId != null)
+                return false;
+        } else if (!reqId.equals(other.reqId))
+            return false;
+        return true;
+    }
+	
   
 }

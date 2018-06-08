@@ -1,12 +1,11 @@
 package com.greenfield.servicetogo.controller;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -16,69 +15,61 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.greenfield.servicetogo.ServicetogoApplication;
 import com.greenfield.servicetogo.dto.RequestHeaderDTO;
-import com.greenfield.servicetogo.entity.RequestHeaderEntity;
-import com.greenfield.servicetogo.service.RequestHeaderService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServicetogoApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RequestHeaderRestControllerIntegrationTest {
-		@LocalServerPort
-		private int port;
+    @LocalServerPort
+    private int port;
 
-		TestRestTemplate restTemplate = new TestRestTemplate();
+    TestRestTemplate restTemplate = new TestRestTemplate();
 
-		HttpHeaders headers = new HttpHeaders();
-		
-		private String name="sanjay";
-		private String name2="Arnav";
-		private String serviceType="auto";
-		private String email="sanjays30@gmail.com";
+    HttpHeaders headers = new HttpHeaders();
 
-		@Test
-		public void testRetrieveAllRequests() {
+    private String name = "sanjay";
+    private String name2 = "Arnav";
+    private String serviceType = "auto";
+    private String email = "sanjays30@gmail.com";
 
-			HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+    @Test
+    public void testRetrieveAllRequests() {
 
-			ResponseEntity<String> response = restTemplate.exchange(
-					createURLWithPort("/requestHeaders"),
-					HttpMethod.GET, entity, String.class);
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-			String expected = "{id:Course1,name:Spring,description:10 Steps}";
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/requestHeaders"), HttpMethod.GET,
+                entity, String.class);
 
-			//JSONAssert.assertEquals(expected, response.getBody(), false);
-		}
+        String expected = "{id:Course1,name:Spring,description:10 Steps}";
 
-		@Test
-		public void addRequest() {
-			
-			
-			RequestHeaderDTO rhDTO = new RequestHeaderDTO(serviceType, name, new Date());
+        // JSONAssert.assertEquals(expected, response.getBody(), false);
+    }
 
-			HttpEntity<RequestHeaderDTO> entity = new HttpEntity<RequestHeaderDTO>(rhDTO, headers);
+    @Test
+    public void addRequest() {
 
-			ResponseEntity<String> response = restTemplate.exchange(
-					createURLWithPort("/requestHeaders"),
-					HttpMethod.POST, entity, String.class);
+        RequestHeaderDTO rhDTO = new RequestHeaderDTO(serviceType, name, new Date());
 
-			String actual = response.getBody();
-			System.out.println("actual "+ actual);
-			//assertTrue(actual.contains("/students/Student1/courses/"));
+        HttpEntity<RequestHeaderDTO> entity = new HttpEntity<RequestHeaderDTO>(rhDTO, headers);
 
-		}
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/requestHeaders"), HttpMethod.POST,
+                entity, String.class);
 
-		private String createURLWithPort(String uri) {
-			return "http://localhost:" + port + uri;
-		}
+        String actual = response.getBody();
+        HttpStatus status = response.getStatusCode();
+        if (HttpStatus.OK != status && HttpStatus.CREATED != status) {
+            System.out.println("status " + status);
+        }
+        System.out.println("actual " + actual);
 
-	
+        assertTrue(HttpStatus.OK == status || HttpStatus.CREATED == status);
+
+    }
+
+    private String createURLWithPort(String uri) {
+        return "http://localhost:" + port + uri;
+    }
+
 }

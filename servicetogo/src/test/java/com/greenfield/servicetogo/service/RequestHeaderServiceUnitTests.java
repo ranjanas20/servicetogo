@@ -43,7 +43,9 @@ public class RequestHeaderServiceUnitTests {
 		//VehicleServiceDetailsEntity vsdEntity1 = new VehicleServiceDetailsEntity("Honda","2008","MNL-4567");
 		//rhEntity = new RequestHeaderEntity(serviceType,name,new Date(),Arrays.asList(vsdEntity,vsdEntity1));
 		rhEntity = new RequestHeaderEntity(serviceType,name,new Date());
+		rhEntity.setReqId(100);
 		rhDTO = new RequestHeaderDTO(serviceType,name,new Date());
+		rhDTO.setReqId(100);
 		
 		Mockito.when(repo.findAll())
 	      .thenReturn(Arrays.asList(rhEntity));
