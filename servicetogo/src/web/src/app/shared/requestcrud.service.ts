@@ -1,7 +1,7 @@
 import { Injectable, Inject } from "@angular/core";
-import { REST_URL } from "../app.module";
+import { Environment } from "./environment.service";
 
 @Injectable()
 export class RequestCrudService{
-    constructor(@Inject(REST_URL) private url: string){ }
+    constructor(private env:Environment ){ }
 }

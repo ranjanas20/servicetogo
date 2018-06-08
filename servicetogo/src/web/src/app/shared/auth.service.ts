@@ -1,12 +1,13 @@
 import {Subject} from 'rxjs/Subject'
 import { Injectable, Inject } from '@angular/core';
-import { REST_URL } from '../app.module';
+import { Environment } from './environment.service';
 
 @Injectable()
 export class AuthService{
-    private url: string = "http://localhost:3500";
-    constructor(){ }
+    private url: string = this.env.REST_URL;
     loggedin: Subject<boolean> = new Subject();
+
+    constructor(private env:Environment){ }
     signup(username: String, password: string, email: String){
 
     } 

@@ -1,14 +1,14 @@
 import { Inject, Injectable } from "@angular/core";
-import { REST_URL } from "../app.module";
 import { Http, Headers, Response } from "@angular/http";
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
+import { Environment } from "./environment.service";
 
 @Injectable()
 export class AllRequestService{
-    constructor(@Inject(REST_URL) private url: string, private http: Http){ }
+    constructor( private env:Environment , private http: Http){ }
     getAllRequests(){
-        return this.http.get(this.url+'/requestHeaders')
+        return this.http.get(this.env.REST_URL+'/requestHeaders')
         .map(
             (response: Response)=>{
                 const data = response.json();

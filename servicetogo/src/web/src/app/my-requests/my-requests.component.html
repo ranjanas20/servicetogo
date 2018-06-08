@@ -9,8 +9,7 @@
         </li>
       </ul>
     </div>
-    <div class="card-body">
-      
+    <div class="card-body">      
         <table class="table table-hover">
             <thead>
               <tr>
@@ -25,36 +24,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>4/23/2018</td>
+              <tr *ngFor="let req of myRequests">
+                <th scope="row">{{req.reqId}}</th>
+                <td>{{req.requestDatetime}}</td>
                 <td>2012 Honda Civic</td>
-                <td>Completed</td>
+                <td>{{req.status}}</td>
                 <td>ISSAQUAH WA 98029</td>
                 <td>4/23/2018</td>
                 <td>Sanjay</td>
                 <td>Breaks Squaking, Brakes worn out</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>4/23/2018</td>
-                <td>2012 Honda Civic</td>
-                <td>Completed</td>
-                <td>ISSAQUAH WA 98029</td>
-                <td>4/23/2018</td>
-                <td>Sanjay</td>
-                <td>Breaks Squaking, Brakes worn out</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>4/23/2018</td>
-                <td>2012 Honda Civic</td>
-                <td>Completed</td>
-                <td>ISSAQUAH WA 98029</td>
-                <td>4/23/2018</td>
-                <td>Sanjay</td>
-                <td>Breaks Squaking, Brakes worn out</td>
-              </tr>
+              </tr>             
             </tbody>
           </table>
           <ul class="pagination">

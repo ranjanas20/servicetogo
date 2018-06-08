@@ -15,8 +15,10 @@ import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { AppRouteModule } from './approute.module';
 import { AuthService } from './shared/auth.service';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { Environment } from './shared/environment.service';
+import { MyRequestService } from './shared/myrequest.service';
 
-export const REST_URL = new InjectionToken("rest_url");
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +35,7 @@ export const REST_URL = new InjectionToken("rest_url");
   imports: [
     BrowserModule, FormsModule, HttpModule, AppRouteModule
   ],
-  providers: [AuthService,
-    { provide: REST_URL, useValue: "http://localhost:8080/servicetogo" }],
-  bootstrap: [AppComponent]
+  providers: [AuthService,Environment, MyRequestService],
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }
