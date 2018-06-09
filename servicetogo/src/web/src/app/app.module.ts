@@ -17,6 +17,7 @@ import { AuthService } from './shared/auth.service';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { Environment } from './shared/environment.service';
 import { MyRequestService } from './shared/myrequest.service';
+import { RequestCrudService } from './shared/requestcrud.service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { MyRequestService } from './shared/myrequest.service';
   imports: [
     BrowserModule, FormsModule, HttpModule, AppRouteModule
   ],
-  providers: [AuthService,Environment, MyRequestService],
+  providers: [AuthService,Environment, MyRequestService, RequestCrudService],
   bootstrap: [AppComponent] 
 })
 export class AppModule { }
