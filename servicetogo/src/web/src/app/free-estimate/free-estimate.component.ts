@@ -18,7 +18,7 @@ export class FreeEstimateComponent implements OnInit {
   onSubmit(form: NgForm){
     console.log(form);
     let req: RequestModel= new RequestModel();
-    req.reqId=70;
+    req.reqId=71;
     this.reqCrudSvc.newRequest(req)
     .subscribe(
       (response)=>{
