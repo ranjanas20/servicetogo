@@ -1,10 +1,10 @@
 -- Table: public.car_service_request
 
--- DROP TABLE public.car_service_request;
+--DROP TABLE public.car_service_request;
 
 -- SEQUENCE: public.car_service_request_request_id_seq
 
--- DROP SEQUENCE public.car_service_request_request_id_seq;
+DROP SEQUENCE public.car_service_request_request_id_seq;
 
 CREATE SEQUENCE public.car_service_request_request_id_seq;
 
@@ -36,11 +36,11 @@ CREATE TABLE public.car_service_request
     requested_date date,
     vehicle_location character varying(10) COLLATE pg_catalog."default",
     service_status character varying(10) COLLATE pg_catalog."default",
-    assigned_employee_id character varying(20) COLLATE pg_catalog."default",
+    assigned_employee_id int4  pg_catalog."default",
     assigned_priority character varying(10) COLLATE pg_catalog."default",
     service_schedule_datetime timestamp,
     service_completion_datetime timestamp,
-    service_completed_by character varying(20) COLLATE pg_catalog."default",
+    service_completed_by int4  pg_catalog."default",
     created_on timestamp ,
     created_by character varying(20) COLLATE pg_catalog."default",
     updated_on timestamp,

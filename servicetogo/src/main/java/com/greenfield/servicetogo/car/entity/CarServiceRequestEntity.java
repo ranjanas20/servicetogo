@@ -1,12 +1,16 @@
 package com.greenfield.servicetogo.car.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -72,8 +76,8 @@ public class CarServiceRequestEntity {
     @Column(name = "user_comments")
     private String userComments;
     
-    @Column(name = "requested_datetime")
-    private Date requested_datetime;
+    @Column(name = "requested_date")
+    private Date requestedDate;
     
     @Column(name = "vehicle_location")
     private String vehicleLocation;
@@ -81,30 +85,281 @@ public class CarServiceRequestEntity {
     @Column(name = "service_status")
     private String  serviceStatus;
     
-    @Column(name = "assigned_employee_id")
-    private String assigedEmployee;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="assigned_employee_id", referencedColumnName="employee_id")    
+    private EmployeeEntity assigedEmployee;
     
-    @Column(name = "service_priority")
+    @Column(name = "assigned_priority")
     private String servicePriority;
     
     @Column(name = "service_schedule_datetime")
-    private Date  serviceScheduleDatetime;    
+    private Timestamp  serviceScheduleDatetime;    
     
     @Column(name = "service_completion_datetime")
-    private Date  serviceCompletionDatetime;
+    private Timestamp  serviceCompletionDatetime;
     
-    @Column(name = "service_completed_by")
-    private String  serviceCompletedBy;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="service_completed_by", referencedColumnName="employee_id")
+    private EmployeeEntity  serviceCompletedBy;
     
     @Column(name = "created_on")
-    private Date  createdOn;
+    private Timestamp  createdOn;
     
     @Column(name = "created_by")
     private String  createdBy;
     
     @Column(name = "updated_on")
-    private Date  updatedOn;
+    private Timestamp  updatedOn;
     
     @Column(name = "updated_by")
     private String  updatedBy;
+
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
+
+    public Integer getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Integer tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerFirstName() {
+        return customerFirstName;
+    }
+
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
+    }
+
+    public String getCustomerLastName() {
+        return customerLastName;
+    }
+
+    public void setCustomerLastName(String customerLastName) {
+        this.customerLastName = customerLastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getPreferredContactMethod() {
+        return preferredContactMethod;
+    }
+
+    public void setPreferredContactMethod(String preferredContactMethod) {
+        this.preferredContactMethod = preferredContactMethod;
+    }
+
+    public String getVehicleMake() {
+        return vehicleMake;
+    }
+
+    public void setVehicleMake(String vehicleMake) {
+        this.vehicleMake = vehicleMake;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
+
+    public Integer getVehicleYear() {
+        return vehicleYear;
+    }
+
+    public void setVehicleYear(Integer vehicleYear) {
+        this.vehicleYear = vehicleYear;
+    }
+
+    public String getVehicleVin() {
+        return vehicleVin;
+    }
+
+    public void setVehicleVin(String vehicleVin) {
+        this.vehicleVin = vehicleVin;
+    }
+
+    public String getAddressLine1() {
+        return addressLine1;
+    }
+
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    public String getAddressCity() {
+        return addressCity;
+    }
+
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+
+    public String getAddressState() {
+        return addressState;
+    }
+
+    public void setAddressState(String addressState) {
+        this.addressState = addressState;
+    }
+
+    public String getAddressZip() {
+        return addressZip;
+    }
+
+    public void setAddressZip(String addressZip) {
+        this.addressZip = addressZip;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public String getUserComments() {
+        return userComments;
+    }
+
+    public void setUserComments(String userComments) {
+        this.userComments = userComments;
+    }
+
+    public Date getRequestedDate() {
+        return requestedDate;
+    }
+
+    public void setRequestedDate(Date requestedDate) {
+        this.requestedDate = requestedDate;
+    }
+
+    public String getVehicleLocation() {
+        return vehicleLocation;
+    }
+
+    public void setVehicleLocation(String vehicleLocation) {
+        this.vehicleLocation = vehicleLocation;
+    }
+
+    public String getServiceStatus() {
+        return serviceStatus;
+    }
+
+    public void setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
+    }
+
+    public EmployeeEntity getAssigedEmployee() {
+        return assigedEmployee;
+    }
+
+    public void setAssigedEmployee(EmployeeEntity assigedEmployee) {
+        this.assigedEmployee = assigedEmployee;
+    }
+
+    public String getServicePriority() {
+        return servicePriority;
+    }
+
+    public void setServicePriority(String servicePriority) {
+        this.servicePriority = servicePriority;
+    }
+
+    public Timestamp getServiceScheduleDatetime() {
+        return serviceScheduleDatetime;
+    }
+
+    public void setServiceScheduleDatetime(Timestamp serviceScheduleDatetime) {
+        this.serviceScheduleDatetime = serviceScheduleDatetime;
+    }
+
+    public Timestamp getServiceCompletionDatetime() {
+        return serviceCompletionDatetime;
+    }
+
+    public void setServiceCompletionDatetime(Timestamp serviceCompletionDatetime) {
+        this.serviceCompletionDatetime = serviceCompletionDatetime;
+    }
+
+    public EmployeeEntity getServiceCompletedBy() {
+        return serviceCompletedBy;
+    }
+
+    public void setServiceCompletedBy(EmployeeEntity serviceCompletedBy) {
+        this.serviceCompletedBy = serviceCompletedBy;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Timestamp getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Timestamp updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+    
 }
