@@ -23,6 +23,7 @@ import com.greenfield.servicetogo.car.repository.CarServiceRequestRepository;
 public class CarServiceRequestService {
     @Autowired
     private CarServiceRequestRepository carServiceRequestRepository;
+    
     public CarServiceRequestTrackerDTO addRequest(CarServiceRequestFormDTO rhDTO) {
         CarServiceRequestEntity savedEntity = carServiceRequestRepository.save(toNewRequestEntity(rhDTO));
         return toRequestTrackerDTO(savedEntity);
@@ -36,6 +37,7 @@ public class CarServiceRequestService {
     public List<CarServiceRequestTrackerDTO> findAllRequest(Integer pageNo, Integer pageSize) {
         Pageable page = PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "requestId");
         Page<CarServiceRequestEntity> pages= carServiceRequestRepository.findAll(page);
+        
         return pages.getContent().stream().map(r-> { return toRequestTrackerDTO(r);})
                 .collect(Collectors.toList());
     }
@@ -44,10 +46,14 @@ public class CarServiceRequestService {
         carServiceRequestRepository.deleteById(reqId);        
     }
 
-    public void updateRequest(Long reqId, CarServiceRequestFormDTO rhDTO) {
+    public void updateRequestForm(Long reqId, CarServiceRequestFormDTO rhDTO) {
         CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
-        DTOtoEntityDataMapper.updateEntityFromDTO(entity,rhDTO);
+        DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
         carServiceRequestRepository.save(entity);
     }
-
+    public void updateRequest(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
+        CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
+        DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
+        carServiceRequestRepository.save(entity);
+    }
 }

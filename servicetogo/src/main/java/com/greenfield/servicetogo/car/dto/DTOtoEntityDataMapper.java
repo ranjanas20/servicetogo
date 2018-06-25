@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
 import com.greenfield.servicetogo.car.entity.EmployeeEntity;
+import com.greenfield.servicetogo.car.repository.EntityRepositoryHelper;
 
 public class DTOtoEntityDataMapper {
     public static CarServiceRequestEntity toNewRequestEntity(CarServiceRequestFormDTO dto){
@@ -76,7 +77,7 @@ public class DTOtoEntityDataMapper {
         dto.setCreatedBy(entity.getCreatedBy());
         return dto;
     }
-    public static void updateEntityFromDTO(CarServiceRequestEntity entity, CarServiceRequestFormDTO dto){
+    public static void updateEntityWithFromDTO(CarServiceRequestEntity entity, CarServiceRequestFormDTO dto){
         entity.setCustomerId(dto.getCustomerId());
         entity.setCustomerFirstName(dto.getCustomerFirstName());
         entity.setCustomerLastName(dto.getCustomerLastName());
@@ -90,31 +91,17 @@ public class DTOtoEntityDataMapper {
         entity.setAddressState(dto.getAddressState());
         entity.setAddressZip(dto.getAddressZip());
         entity.setRequestedDate(toSqlDate(dto.getRequestedDate()));
-        
+        entity.setVehicleLocation(dto.getVehicleLocation());
         entity.setUpdatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
         entity.setUpdatedBy("admin");
        
     }
-    public static void updateEntityFromDTO(CarServiceRequestEntity entity, CarServiceRequestTrackerDTO dto){
-        entity.setCustomerId(dto.getCustomerId());
-        entity.setCustomerFirstName(dto.getCustomerFirstName());
-        entity.setCustomerLastName(dto.getCustomerLastName());
-        entity.setEmail(dto.getEmail());
-        entity.setCustomerPhone(dto.getCustomerPhone());
-        entity.setVehicleMake(dto.getVehicleMake());
-        entity.setVehicleModel(dto.getVehicleModel());
-        entity.setVehicleYear(dto.getVehicleYear());
-        entity.setVehicleVin(dto.getVehicleVin());
-        entity.setAddressCity(dto.getAddressCity());
-        entity.setAddressState(dto.getAddressState());
-        entity.setAddressZip(dto.getAddressZip());
-        entity.setRequestedDate(toSqlDate(dto.getRequestedDate()));
-        
+    public static void updateEntityWithRequestTrackerDTO(CarServiceRequestEntity entity, CarServiceRequestTrackerDTO dto, EntityRepositoryHelper erh){
+        updateEntityWithFromDTO(entity, dto);
+
         entity.setServiceStatus(dto.getServiceStatus());
         if(dto.getAssigedEmployeeId()!=null){
-            EmployeeEntity assigned = new EmployeeEntity();
-            assigned.setEmployeeId(dto.getAssigedEmployeeId());
-            entity.setAssigedEmployee(assigned);
+            entity.setAssigedEmployee(erh.getEmployeeReference(dto.getAssigedEmployeeId()));
         }else{
             entity.setAssigedEmployee(null);
         }
@@ -122,14 +109,10 @@ public class DTOtoEntityDataMapper {
         entity.setServiceScheduleDatetime(toSqlTimeStamp(dto.getServiceScheduleDatetime()));    
         entity.setServiceCompletionDatetime(toSqlTimeStamp(dto.getServiceCompletionDatetime()));
         if(dto.getServiceCompletedById()!=null){
-            EmployeeEntity completedBy = new EmployeeEntity();
-            completedBy.setEmployeeId(dto.getServiceCompletedById());            
-            entity.setServiceCompletedBy(completedBy);
+            entity.setServiceCompletedBy(erh.getEmployeeReference(dto.getServiceCompletedById()));
         }else{
             entity.setServiceCompletedBy(null);
         }
-        entity.setUpdatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
-        entity.setUpdatedBy("admin");
     }
     private static Timestamp toSqlTimeStamp(LocalDateTime dt){
         return ( dt!=null?Timestamp.valueOf(dt):null);

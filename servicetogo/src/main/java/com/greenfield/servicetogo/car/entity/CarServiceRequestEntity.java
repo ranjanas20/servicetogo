@@ -3,7 +3,6 @@ package com.greenfield.servicetogo.car.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "car_service_request")
-public class CarServiceRequestEntity {
+public class CarServiceRequestEntity extends Auditable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "request_id", nullable = false)
@@ -85,7 +84,7 @@ public class CarServiceRequestEntity {
     @Column(name = "service_status")
     private String  serviceStatus;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="assigned_employee_id", referencedColumnName="employee_id")    
     private EmployeeEntity assigedEmployee;
     
@@ -98,22 +97,10 @@ public class CarServiceRequestEntity {
     @Column(name = "service_completion_datetime")
     private Timestamp  serviceCompletionDatetime;
     
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="service_completed_by", referencedColumnName="employee_id")
     private EmployeeEntity  serviceCompletedBy;
     
-    @Column(name = "created_on")
-    private Timestamp  createdOn;
-    
-    @Column(name = "created_by")
-    private String  createdBy;
-    
-    @Column(name = "updated_on")
-    private Timestamp  updatedOn;
-    
-    @Column(name = "updated_by")
-    private String  updatedBy;
-
     public Long getRequestId() {
         return requestId;
     }
@@ -330,36 +317,90 @@ public class CarServiceRequestEntity {
         this.serviceCompletedBy = serviceCompletedBy;
     }
 
-    public Timestamp getCreatedOn() {
-        return createdOn;
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((customerFirstName == null) ? 0 : customerFirstName.hashCode());
+        result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+        result = prime * result + ((customerLastName == null) ? 0 : customerLastName.hashCode());
+        result = prime * result + ((customerPhone == null) ? 0 : customerPhone.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((requestedDate == null) ? 0 : requestedDate.hashCode());
+        result = prime * result + ((tenantId == null) ? 0 : tenantId.hashCode());
+        result = prime * result + ((vehicleMake == null) ? 0 : vehicleMake.hashCode());
+        result = prime * result + ((vehicleModel == null) ? 0 : vehicleModel.hashCode());
+        result = prime * result + ((vehicleVin == null) ? 0 : vehicleVin.hashCode());
+        result = prime * result + ((vehicleYear == null) ? 0 : vehicleYear.hashCode());
+        return result;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Timestamp getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(Timestamp updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CarServiceRequestEntity other = (CarServiceRequestEntity) obj;
+        if (customerFirstName == null) {
+            if (other.customerFirstName != null)
+                return false;
+        } else if (!customerFirstName.equals(other.customerFirstName))
+            return false;
+        if (customerId == null) {
+            if (other.customerId != null)
+                return false;
+        } else if (!customerId.equals(other.customerId))
+            return false;
+        if (customerLastName == null) {
+            if (other.customerLastName != null)
+                return false;
+        } else if (!customerLastName.equals(other.customerLastName))
+            return false;
+        if (customerPhone == null) {
+            if (other.customerPhone != null)
+                return false;
+        } else if (!customerPhone.equals(other.customerPhone))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (requestedDate == null) {
+            if (other.requestedDate != null)
+                return false;
+        } else if (!requestedDate.equals(other.requestedDate))
+            return false;
+        if (tenantId == null) {
+            if (other.tenantId != null)
+                return false;
+        } else if (!tenantId.equals(other.tenantId))
+            return false;
+        if (vehicleMake == null) {
+            if (other.vehicleMake != null)
+                return false;
+        } else if (!vehicleMake.equals(other.vehicleMake))
+            return false;
+        if (vehicleModel == null) {
+            if (other.vehicleModel != null)
+                return false;
+        } else if (!vehicleModel.equals(other.vehicleModel))
+            return false;
+        if (vehicleVin == null) {
+            if (other.vehicleVin != null)
+                return false;
+        } else if (!vehicleVin.equals(other.vehicleVin))
+            return false;
+        if (vehicleYear == null) {
+            if (other.vehicleYear != null)
+                return false;
+        } else if (!vehicleYear.equals(other.vehicleYear))
+            return false;
+        return true;
     }
     
 }

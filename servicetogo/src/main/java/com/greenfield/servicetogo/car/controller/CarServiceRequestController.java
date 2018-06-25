@@ -45,15 +45,15 @@ public class CarServiceRequestController {
         return dto;
     }
 
-    @PostMapping(value = "/request")
-    public ResponseDTO<CarServiceRequestFormDTO> createRequest(@RequestBody CarServiceRequestFormDTO rhDTO) {
+    @PostMapping(value = "/requestForm")
+    public ResponseDTO<CarServiceRequestFormDTO> createRequestForm(@RequestBody CarServiceRequestFormDTO rhDTO) {
         ResponseDTO<CarServiceRequestFormDTO> dto = new ResponseDTO<CarServiceRequestFormDTO>();
         dto.setData(rhService.addRequest(rhDTO));
         return dto;
     }
 
     @DeleteMapping("/request/{reqId}")
-    public ResponseEntity<String> deleteRequestHeader(@PathVariable Long reqId) {
+    public ResponseEntity<String> deleteRequest(@PathVariable Long reqId) {
 
         rhService.deleteRequestById(reqId);
 
@@ -61,10 +61,13 @@ public class CarServiceRequestController {
 
     }
 
-    @PutMapping("/request/{reqId}")
-    public void updateRequest(@PathVariable Long reqId, @RequestBody CarServiceRequestFormDTO rhDTO) {
+    @PutMapping("/requestForm/{reqId}")
+    public void updateRequestForm(@PathVariable Long reqId, @RequestBody CarServiceRequestFormDTO rhDTO) {
 
+        rhService.updateRequestForm(reqId, rhDTO);
+    }
+    @PutMapping("/request/{reqId}")
+    public void updateRequest(@PathVariable Long reqId, @RequestBody CarServiceRequestTrackerDTO rhDTO) {
         rhService.updateRequest(reqId, rhDTO);
     }
-
 }

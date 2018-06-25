@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-public class EmployeeEntity {
+public class EmployeeEntity extends Auditable  {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "employee_id")
