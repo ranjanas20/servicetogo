@@ -402,5 +402,20 @@ public class CarServiceRequestEntity extends Auditable {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "CarServiceRequestEntity [requestId=" + requestId + ", tenantId=" + tenantId + ", customerId="
+                + customerId + ", customerFirstName=" + customerFirstName + ", customerLastName=" + customerLastName
+                + ", email=" + email + ", customerPhone=" + customerPhone + ", preferredContactMethod="
+                + preferredContactMethod + ", vehicleMake=" + vehicleMake + ", vehicleModel=" + vehicleModel
+                + ", vehicleYear=" + vehicleYear + ", vehicleVin=" + vehicleVin + ", addressLine1=" + addressLine1
+                + ", addressLine2=" + addressLine2 + ", addressCity=" + addressCity + ", addressState=" + addressState
+                + ", addressZip=" + addressZip + ", symptoms=" + symptoms + ", userComments=" + userComments
+                + ", requestedDate=" + requestedDate + ", vehicleLocation=" + vehicleLocation + ", serviceStatus="
+                + serviceStatus + ", assigedEmployee=" + assigedEmployee + ", servicePriority=" + servicePriority
+                + ", serviceScheduleDatetime=" + serviceScheduleDatetime + ", serviceCompletionDatetime="
+                + serviceCompletionDatetime + ", serviceCompletedBy=" + serviceCompletedBy + "]";
+    }
     
 }

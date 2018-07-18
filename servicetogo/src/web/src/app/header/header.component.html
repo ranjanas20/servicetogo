@@ -35,10 +35,10 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer" routerLink="/signup" *ngIf="!loggedIn" routerLinkActive="active">signup</a>
+          <a class="nav-link" style="cursor: pointer" routerLink="/signup" *ngIf="!loggedIn" routerLinkActive="active">Sign up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer" routerLink="/login" *ngIf="!loggedIn" routerLinkActive="active">login</a>
+          <a class="nav-link" style="cursor: pointer" routerLink="/login" *ngIf="!loggedIn" routerLinkActive="active">Login</a>
         </li>
         <li class="nav-item" *ngIf="loggedIn">
           <a style="cursor: pointer" class="nav-link" (click)="onLogout()">

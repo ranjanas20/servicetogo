@@ -3,6 +3,7 @@ package com.greenfield.servicetogo.car.service;
 import static com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper.toNewRequestEntity;
 import static com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper.toRequestTrackerDTO;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.greenfield.servicetogo.car.dto.CarServiceRequestFormDTO;
 import com.greenfield.servicetogo.car.dto.CarServiceRequestTrackerDTO;
 import com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper;
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
@@ -24,7 +24,7 @@ public class CarServiceRequestService {
     @Autowired
     private CarServiceRequestRepository carServiceRequestRepository;
     
-    public CarServiceRequestTrackerDTO addRequest(CarServiceRequestFormDTO rhDTO) {
+    public CarServiceRequestTrackerDTO addRequest(CarServiceRequestTrackerDTO rhDTO) {
         CarServiceRequestEntity savedEntity = carServiceRequestRepository.save(toNewRequestEntity(rhDTO));
         return toRequestTrackerDTO(savedEntity);
     }
@@ -46,7 +46,7 @@ public class CarServiceRequestService {
         carServiceRequestRepository.deleteById(reqId);        
     }
 
-    public void updateRequestForm(Long reqId, CarServiceRequestFormDTO rhDTO) {
+    public void updateRequestForm(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
         CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
         DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
         carServiceRequestRepository.save(entity);
@@ -55,5 +55,18 @@ public class CarServiceRequestService {
         CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
         DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
         carServiceRequestRepository.save(entity);
+    }
+
+    public List<CarServiceRequestTrackerDTO> searchRequests(CarServiceRequestTrackerDTO rhDTO, Integer pageNo, Integer pageSize) {
+        Pageable page = PageRequest.of((pageNo-1), pageSize, Sort.Direction.ASC, "requestId");
+        Page<CarServiceRequestEntity> pages= carServiceRequestRepository.findAll(page);
+        List<CarServiceRequestTrackerDTO> ret = new LinkedList<>();
+        for ( CarServiceRequestEntity r: pages){
+            ret.add(toRequestTrackerDTO(r));
+        }
+        return ret;
+    }
+    public Long getRowCount(CarServiceRequestTrackerDTO rhDTO) {
+        return carServiceRequestRepository.count();
     }
 }

@@ -82,10 +82,7 @@ public class EmployeeEntity extends Auditable  {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((employeeFirstName == null) ? 0 : employeeFirstName.hashCode());
-        result = prime * result + ((employeeLastName == null) ? 0 : employeeLastName.hashCode());
         result = prime * result + ((loginId == null) ? 0 : loginId.hashCode());
-        result = prime * result + ((tenantId == null) ? 0 : tenantId.hashCode());
         return result;
     }
 
@@ -98,28 +95,14 @@ public class EmployeeEntity extends Auditable  {
         if (getClass() != obj.getClass())
             return false;
         EmployeeEntity other = (EmployeeEntity) obj;
-        if (employeeFirstName == null) {
-            if (other.employeeFirstName != null)
-                return false;
-        } else if (!employeeFirstName.equals(other.employeeFirstName))
-            return false;
-        if (employeeLastName == null) {
-            if (other.employeeLastName != null)
-                return false;
-        } else if (!employeeLastName.equals(other.employeeLastName))
-            return false;
         if (loginId == null) {
             if (other.loginId != null)
                 return false;
         } else if (!loginId.equals(other.loginId))
             return false;
-        if (tenantId == null) {
-            if (other.tenantId != null)
-                return false;
-        } else if (!tenantId.equals(other.tenantId))
-            return false;
         return true;
     }
+
 
 
 

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, InjectionToken } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -34,7 +34,7 @@ import { RequestCrudService } from './shared/requestcrud.service';
     MyProfileComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpModule, AppRouteModule
+    BrowserModule, FormsModule, HttpClientModule, AppRouteModule
   ],
   providers: [AuthService,Environment, MyRequestService, RequestCrudService],
   bootstrap: [AppComponent] 

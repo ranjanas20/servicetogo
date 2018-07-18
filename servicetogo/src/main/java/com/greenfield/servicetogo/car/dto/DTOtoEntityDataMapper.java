@@ -7,11 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
-import com.greenfield.servicetogo.car.entity.EmployeeEntity;
 import com.greenfield.servicetogo.car.repository.EntityRepositoryHelper;
 
 public class DTOtoEntityDataMapper {
-    public static CarServiceRequestEntity toNewRequestEntity(CarServiceRequestFormDTO dto){
+    public static CarServiceRequestEntity toNewRequestEntity(CarServiceRequestTrackerDTO dto){
         CarServiceRequestEntity entity = new CarServiceRequestEntity();
         entity.setCustomerId(dto.getCustomerId());
         entity.setCustomerFirstName(dto.getCustomerFirstName());
@@ -77,7 +76,7 @@ public class DTOtoEntityDataMapper {
         dto.setCreatedBy(entity.getCreatedBy());
         return dto;
     }
-    public static void updateEntityWithFromDTO(CarServiceRequestEntity entity, CarServiceRequestFormDTO dto){
+    public static void updateEntityWithFromDTO(CarServiceRequestEntity entity, CarServiceRequestTrackerDTO dto){
         entity.setCustomerId(dto.getCustomerId());
         entity.setCustomerFirstName(dto.getCustomerFirstName());
         entity.setCustomerLastName(dto.getCustomerLastName());
