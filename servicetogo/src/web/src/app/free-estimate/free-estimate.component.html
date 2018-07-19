@@ -1,150 +1,182 @@
-<div class="row">
-  <div class=" col-12 col-sm-12 col-md-10  col-lg-8">
-    <h3 class="text-secondary">Free Estimate</h3>
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="firstname">First Name</label>
-            <input name="firstname" type="text" class="form-control" id="name" placeholder="First Name" ngModel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name" ngModel>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" ngModel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" name="phone" class="form-control" id="phone" placeholder="000-000-0000" ngModel>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="zip">Zip</label>
-            <input name="zip" type="text" class="form-control" id="zip" ngModel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="city">City</label>
-            <input name="city" type="text" class="form-control" id="city" ngModel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="state">State</label>
-            <select name="state" class="form-control" id="state" ngModel>
-              <option>CA</option>
-              <option>WA</option>
-              <option>NV</option>
-              <option>NY</option>
-              <option>MA</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="make">Make</label>
-            <select name="make" class="form-control" id="make" ngModel>
-              <option>Honda</option>
-              <option>Toyota</option>
-              <option>Chrysler</option>
-              <option>GM</option>
-              <option>Ford</option>
-            </select>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="model">Model</label>
-            <input name="model" type="text" class="form-control" id="model" ngModel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="year">year</label>
-            <input name="year" type="number" class="form-control" id="year" ngModel>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <label>How should we contact you?</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="contactMethod" value="phone" checked ngModel>
-            <label class="form-check-label" for="phone">
-              Phone
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="contactMethod" value="email" ngModel>
-            <label class="form-check-label" for="email">
-              Email
-            </label>
-          </div>
-          <div class="form-check disabled">
-            <input class="form-check-input" type="radio" name="contactMethod" value="sms" ngModel>
-            <label class="form-check-label" for="text">
-              SMS Text
-            </label>
-          </div>
-        </div>
-        <div class="col">
-          <label>Vehicle Location</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="vehicleLocation" id="home" value="home" checked ngModel>
-            <label class="form-check-label" for="home">
-              Home
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="vehicleLocation" id="work" value="work" ngModel>
-            <label class="form-check-label" for="work">
-              Work
-            </label>
-          </div>
-          <div class="form-check ">
-            <input class="form-check-input" type="radio" name="otherLocation" id="otherLocation" value="text" ngModel>
-            <label class="form-check-label" for="otherLocation">
-              Others
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="symptoms">Symptoms</label>
-            <textarea name="symptoms" class="form-control" id="symptoms" rows="3" ngModel></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label for="otherComments">Other Comments</label>
-            <textarea name="otherComments" class="form-control" id="otherComments" rows="3" ngModel></textarea>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary" name="submit" type="submit" [disabled]="!f.valid">Submit</button>
-    </form>
+<div class="container" style="max-width: 950px;">
+  <h3 class="text-secondary">Free Estimate</h3>
+  <div class="row">
+    <div class="col text-right">
+      <button class="btn btn-primary" name="submit2" type="submit" [disabled]="!f.valid">Submit</button>
+      <button class="btn btn-secomdary" name="reset" type="reset">Reset</button>
+      <button class="btn btn-secomdary" name="cancel" type="cancel">Cancel</button>
+    </div>
   </div>
+
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="customerFirstName">First Name</label>
+          <input name="customerFirstName" type="text" class="form-control" id="customerFirstName" placeholder="First Name" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="customerLastName">Last Name</label>
+          <input name="customerLastName" type="text" class="form-control" id="customerLastName" placeholder="Last Name" ngModel>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="customerPhone">Phone</label>
+          <input type="text" name="customerPhone" class="form-control" id="customerPhone" placeholder="0000000000" ngModel>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="requestedDate">Service Requested On</label>
+          <input name="requestedDate" type="date" class="form-control" id="requestedDate" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <legend class="col-form-label">How should we contact you?</legend>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="preferredContactMethod" value="phone" checked ngModel>
+          <label class="form-check-label" for="phone">
+            Phone
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="preferredContactMethod" value="email" ngModel>
+          <label class="form-check-label" for="email">
+            Email
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="preferredContactMethod" value="sms" ngModel>
+          <label class="form-check-label" for="sms">
+            Sms
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="addressLine1">Address Line 1</label>
+          <input name="addressLine1" type="text" class="form-control" id="addressLine1" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="addressLine2">Address Line 2</label>
+          <input name="addressLine2" type="text" class="form-control" id="addressLine2" ngModel>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="addressZip">Zip</label>
+          <input name="addressZip" type="text" class="form-control" id="addressZip" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="addressCity">City</label>
+          <input name="addressCity" type="text" class="form-control" id="addressCity" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="addressState">State</label>
+          <select name="addressState" class="form-control" id="addressState" ngModel>
+            <option>CA</option>
+            <option>WA</option>
+            <option>NV</option>
+            <option>NY</option>
+            <option>MA</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="vehicleMake">Make</label>
+          <select name="vehicleMake" class="form-control" id="vehicleMake" ngModel>
+            <option>Honda</option>
+            <option>Toyota</option>
+            <option>Chrysler</option>
+            <option>GM</option>
+            <option>Ford</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="vehicleModel">Model</label>
+          <input name="vehicleModel" type="text" class="form-control" id="vehicleModel" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="vehicleYear">year</label>
+          <input name="vehicleYear" type="number" class="form-control" id="vehicleYear" ngModel>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="vehicleVin">Car VIN# (If available)</label>
+          <input name="vehicleVin" type="text" class="form-control" id="vehicleVin" placeholder="VIN" ngModel>
+        </div>
+      </div>
+      <div class="col">
+        <legend class="col-form-label">Car Location </legend>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="vehicleLocation" id="home" value="home" checked ngModel>
+          <label class="form-check-label" for="home">
+            Home
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="vehicleLocation" id="work" value="work" ngModel>
+          <label class="form-check-label" for="work">
+            Work
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="vehicleLocation" id="otherLocation" value="text" ngModel>
+          <label class="form-check-label" for="otherLocation">
+            Others
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
+          <label for="symptoms">Symptoms</label>
+          <textarea name="symptoms" class="form-control" id="symptoms" rows="3" ngModel></textarea>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="userComments">Other Comments</label>
+          <textarea name="userComments" class="form-control" id="userComments" rows="3" ngModel></textarea>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" name="submit" type="submit" [disabled]="!f.valid">Submit</button>
+  </form>
 </div>

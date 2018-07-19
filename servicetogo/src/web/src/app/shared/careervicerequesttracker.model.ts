@@ -1,4 +1,9 @@
 export class CarServiceRequestTrackerModel{
+    symptoms: string;
+    userComments: string;
+    preferredContactMethod: string;
+    vehicleLocation: string;
+
     requestId: number;
     customerId: number;
     customerFirstName: string;

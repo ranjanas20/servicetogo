@@ -10,7 +10,7 @@ export class RequestCrudService{
     constructor(private env:Environment, private http: HttpClient ){ }
     newRequest(request: CarServiceRequestTrackerModel){
         const cheaders = new HttpHeaders({'Content-Type':'application/json'});
-       return  this.http.post(this.env.REST_URL+'/requestHeaders',
+       return  this.http.post(this.env.REST_URL+'/requestForm',
                                 request,
                                 {headers: cheaders}
                                 );
@@ -18,14 +18,14 @@ export class RequestCrudService{
     }
     updateRequest(request: CarServiceRequestTrackerModel){
         const cheaders = new HttpHeaders({'Content-Type':'application/json'});
-       return  this.http.put(this.env.REST_URL+'/requestHeaders',
+       return  this.http.put(this.env.REST_URL+'/requestForm/'+request.requestId,
                                 request,
                                 {headers: cheaders}
                                 );
        
     }
     getRequest(requestId: number){
-       return  this.http.get(this.env.REST_URL+'/requestHeaders/'+requestId)
+       return  this.http.get(this.env.REST_URL+'/requestForm/'+requestId)
             .map(
                     (response: Response)=>{
                         const data = response.json();

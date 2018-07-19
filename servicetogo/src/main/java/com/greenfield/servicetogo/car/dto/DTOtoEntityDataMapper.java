@@ -24,7 +24,12 @@ public class DTOtoEntityDataMapper {
         entity.setAddressCity(dto.getAddressCity());
         entity.setAddressState(dto.getAddressState());
         entity.setAddressZip(dto.getAddressZip());
+        entity.setVehicleLocation(dto.getVehicleLocation());
         entity.setRequestedDate(toSqlDate(dto.getRequestedDate()));
+        entity.setPreferredContactMethod(dto.getPreferredContactMethod());
+        entity.setServiceStatus("NEW");
+        entity.setSymptoms(dto.getSymptoms());
+        entity.setUserComments(dto.getUserComments());
         
         entity.setUpdatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
         entity.setCreatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));

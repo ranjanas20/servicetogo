@@ -15,23 +15,49 @@ export class MyRequestsComponent implements OnInit {
   totalPages: number=3;  
   myRequests: CarServiceRequestTrackerModel[];
   pageArray: number[];
+  searchForm: CarServiceRequestTrackerModel
   constructor(private myReqSvc: MyRequestService) { }
-  getPageArray(): number[]{
-    if(!this.pageArray){
-      this.pageArray = new Array();
-      for (let i = 1; i <= this.totalPages; i++) {
-        this.pageArray.push(i);
-     }
+
+  previous(){
+    if(this.currentPage!=1){
+      this.currentPage = this.currentPage -1;
+      this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
+        (resp: SearchResponseModel)=>{
+          this.myRequests=resp.data;
+          this.currentPage=resp.pageNumber;
+          this.totalPages=resp.totalPapges;
+          this.setPageArray();
+        }, 
+        (error)=>{
+          console.log(error);
+        } 
+      );
     }
-    return this.pageArray;
-  } 
+  }
+  next(){
+    if(this.currentPage!=this.totalPages){
+      this.currentPage = this.currentPage +1;
+      this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
+        (resp: SearchResponseModel)=>{
+          this.myRequests=resp.data;
+          this.currentPage=resp.pageNumber;
+          this.totalPages=resp.totalPapges;
+          this.setPageArray();
+        }, 
+        (error)=>{
+          console.log(error);
+        }
+      );
+    }
+  }
   onSubmit(form: NgForm){
-    let searchForm: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
-    this.myReqSvc.search(1, 20, searchForm).subscribe(
+    this.setSearchForm(form);
+    this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
       (resp: SearchResponseModel)=>{
         this.myRequests=resp.data;
         this.currentPage=resp.pageNumber;
-        this.totalPages=resp.totalPapges
+        this.totalPages=resp.totalPapges;
+        this.setPageArray();
       }, 
       (error)=>{
         console.log(error);
@@ -39,17 +65,28 @@ export class MyRequestsComponent implements OnInit {
     );
   }
   ngOnInit() {
-    let searchForm: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
-    this.myReqSvc.search(1, 20, searchForm).subscribe(
+    this.searchForm = new CarServiceRequestTrackerModel();
+    this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
       (resp: SearchResponseModel)=>{
         this.myRequests=resp.data;        
         this.currentPage=resp.pageNumber;
-        this.totalPages=resp.totalPapges
+        this.totalPages=resp.totalPapges;
+        this.setPageArray();
       }, 
       (error)=>{
         console.log(error);
       }
     );
   }
-
+  setSearchForm(form: NgForm){
+    this.searchForm = new CarServiceRequestTrackerModel();
+    this.searchForm.customerLastName = form.value.customerLastName;
+    this.searchForm.customerFirstName = form.value.customerFirstName;
+  }
+  setPageArray(){
+    this.pageArray = new Array();
+      for (let i = 1; i <= this.totalPages; i++) {
+        this.pageArray.push(i);
+     }
+  }
 }
