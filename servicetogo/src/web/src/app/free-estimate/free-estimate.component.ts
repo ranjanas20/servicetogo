@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RequestCrudService } from '../shared/requestcrud.service';
@@ -10,10 +10,13 @@ import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracke
   styleUrls: ['./free-estimate.component.css']
 })
 export class FreeEstimateComponent implements OnInit {
-
+  @ViewChild('f') feform : NgForm; 
   constructor(private router: Router, private reqCrudSvc: RequestCrudService) { }
 
   ngOnInit() {
+  }
+  resetForm(){
+    this.feform.reset();
   }
   onSubmit(form: NgForm) {
     console.log(form);

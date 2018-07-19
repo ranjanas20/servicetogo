@@ -15,7 +15,7 @@
         <i class="fa fa-caret-square-o-down"></i> Search </a>
     </h5>
     <div id="searchform" class="collapse">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
         <div class="form-row">
           <div class="col-md-6">
             <div class="form-group">
@@ -33,7 +33,7 @@
         <div class="form-row">
           <div class="col">
             <button class="btn btn-primary mb-1" type="submit" [disabled]="!f.valid">Search</button>
-            <button class="btn btn-info mb-1" type="button">Clear</button>
+            <button class="btn btn-info mb-1" type="button" (click)="clearSearchForm()">Clear</button>
           </div>
         </div>
       </form>
@@ -42,13 +42,13 @@
         <div class="col-md-3 text-left">
             <ul class="pagination">
               <li class="page-item">
-                <a class="page-link" href="#" (onClick)="previous()">Previous</a>
+                <a class="page-link" href="#" (click)="previous()">Previous</a>
               </li>
               <li class="page-item" [class.active]="p==currentPage"  *ngFor="let p of pageArray">
                 <a class="page-link" href="#">{{p}}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="#" (onClick)="next()" [class.disabled]="currentPage==totalPages">Next</a>
+                <a class="page-link" href="#" (click)="next()" [class.disabled]="currentPage==totalPages">Next</a>
               </li>
             </ul> 
           </div>

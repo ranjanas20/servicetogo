@@ -3,8 +3,8 @@
   <div class="row">
     <div class="col text-right">
       <button class="btn btn-primary" name="submit2" type="submit" [disabled]="!f.valid">Submit</button>
-      <button class="btn btn-secomdary" name="reset" type="reset">Reset</button>
-      <button class="btn btn-secomdary" name="cancel" type="cancel">Cancel</button>
+      <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
+      <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
     </div>
   </div>
 

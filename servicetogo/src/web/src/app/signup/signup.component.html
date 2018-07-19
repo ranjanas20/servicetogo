@@ -32,7 +32,9 @@
           <label for="answer1">Answer</label>
           <input type="answer1" id="answer1" class="form-control" ngModel name="answer1"  required>
         </div>
-        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>        
+      <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
+      <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
       </form>
     </div>
   </div>

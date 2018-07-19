@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -7,10 +7,13 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./my-profile.component.css']
 })
 export class MyProfileComponent implements OnInit {
-
+  @ViewChild('f') feform : NgForm; 
   constructor() { }
 
   ngOnInit() {
+  }
+  resetForm(){
+    this.feform.reset();
   }
   onSubmit( form: NgForm){
     

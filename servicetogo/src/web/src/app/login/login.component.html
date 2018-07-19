@@ -11,7 +11,8 @@
           <label for="password">Password</label>
           <input type="password" id="password" class="form-control" ngModel name="password" required placeholder="Enter Password">
         </div>
-    <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign In</button>    
+    <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
     </form>
   </div>
 </div>

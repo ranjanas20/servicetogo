@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, ViewChild } from '@angular/core';
 import { MyRequestService } from '../shared/myrequest.service';
 import { NgForm } from '@angular/forms';
 import { SearchResponseModel } from '../shared/searchresponse.model';
@@ -15,9 +15,14 @@ export class MyRequestsComponent implements OnInit {
   totalPages: number=3;  
   myRequests: CarServiceRequestTrackerModel[];
   pageArray: number[];
-  searchForm: CarServiceRequestTrackerModel
+  searchForm: CarServiceRequestTrackerModel;
+  @ViewChild('f') searchformView : NgForm; 
   constructor(private myReqSvc: MyRequestService) { }
 
+  clearSearchForm(){
+    this.searchformView.reset();
+    this.searchForm = new CarServiceRequestTrackerModel();
+  }
   previous(){
     if(this.currentPage!=1){
       this.currentPage = this.currentPage -1;
