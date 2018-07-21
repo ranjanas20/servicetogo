@@ -32,6 +32,9 @@ public class CarServiceRequestEntity extends Auditable {
     @Column(name = "customer_last_name")
     private String customerLastName;
     
+    @Column(name = "customer_middle_name")
+    private String customerMiddleName;
+    
     @Column(name = "customer_email")
     private String email;
     
@@ -317,6 +320,14 @@ public class CarServiceRequestEntity extends Auditable {
         this.serviceCompletedBy = serviceCompletedBy;
     }
 
+
+    public String getCustomerMiddleName() {
+        return customerMiddleName;
+    }
+
+    public void setCustomerMiddleName(String customerMiddleName) {
+        this.customerMiddleName = customerMiddleName;
+    }
 
     @Override
     public int hashCode() {

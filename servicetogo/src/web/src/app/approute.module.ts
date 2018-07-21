@@ -14,6 +14,7 @@ const appRoutes: Routes=[
   {path: 'home', component: HomeComponent},
   {path:'faq', component: FaqComponent},
   {path:'free-estimate', component: FreeEstimateComponent},
+  {path:'free-estimate/:requestId/:mode', component: FreeEstimateComponent},
   {path: 'my-requests', component: MyRequestsComponent},
   {path: 'howitworks', component: HowitworksComponent},
   {path: 'signup', component: SignupComponent},

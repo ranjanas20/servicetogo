@@ -56,13 +56,11 @@ public class CarServiceRequestController {
     public SearchResponseDTO<CarServiceRequestTrackerDTO> search(@RequestBody CarServiceRequestTrackerDTO searchDTO, 
             @RequestParam(required = false, defaultValue = "1", value="pn") Integer pageNo, 
             @RequestParam(required = false, defaultValue = "20", value="ps") Integer pageSize) {
-        SearchResponseDTO<CarServiceRequestTrackerDTO> dto = new SearchResponseDTO<CarServiceRequestTrackerDTO>();
+        SearchResponseDTO<CarServiceRequestTrackerDTO> dto = rhService.searchRequests(searchDTO, pageNo,pageSize);
         dto.setSuccess(Boolean.TRUE);
         dto.setPageNumber(pageNo);
         dto.setRespCode("OK");
-        dto.setTotalPapges((long)Math.ceil(rhService.getRowCount(searchDTO)*1.0/pageSize));
         dto.setRespMessage("ALL SET");
-        dto.setData(rhService.searchRequests(searchDTO, pageNo,pageSize));
         return dto;
     }
     @DeleteMapping("/request/{reqId}")
@@ -75,12 +73,10 @@ public class CarServiceRequestController {
     }
 
     @PutMapping("/requestForm/{reqId}")
-    public void updateRequestForm(@PathVariable Long reqId, @RequestBody CarServiceRequestTrackerDTO rhDTO) {
-        rhService.updateRequestForm(reqId, rhDTO);
+    public ResponseDTO<CarServiceRequestTrackerDTO> updateRequestForm(@PathVariable Long reqId, @RequestBody CarServiceRequestTrackerDTO rhDTO) {
+        ResponseDTO<CarServiceRequestTrackerDTO> dto = new ResponseDTO<CarServiceRequestTrackerDTO>();
+        dto.setData(rhService.updateRequestForm(reqId, rhDTO));
+        return dto;
         //put check on only specific fields can be updated by user vs admin
-    }
-    @PutMapping("/request/{reqId}")
-    public void updateRequest(@PathVariable Long reqId, @RequestBody CarServiceRequestTrackerDTO rhDTO) {
-        rhService.updateRequest(reqId, rhDTO);
     }
 }

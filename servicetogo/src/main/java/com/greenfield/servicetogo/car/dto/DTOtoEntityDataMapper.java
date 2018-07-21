@@ -85,6 +85,7 @@ public class DTOtoEntityDataMapper {
         entity.setCustomerId(dto.getCustomerId());
         entity.setCustomerFirstName(dto.getCustomerFirstName());
         entity.setCustomerLastName(dto.getCustomerLastName());
+        entity.setCustomerMiddleName(dto.getCustomerMiddleName());
         entity.setEmail(dto.getEmail());
         entity.setCustomerPhone(dto.getCustomerPhone());
         entity.setVehicleMake(dto.getVehicleMake());

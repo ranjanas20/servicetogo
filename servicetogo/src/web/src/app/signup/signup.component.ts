@@ -7,13 +7,12 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  @ViewChild('f') feform : NgForm; 
   constructor() { }
 
   ngOnInit() {
   }
-  resetForm(){
-    this.feform.reset();
+  resetForm(form: NgForm){
+    form.reset();
   }
   onSubmit( form: NgForm){
     

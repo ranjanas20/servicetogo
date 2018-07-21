@@ -3,6 +3,7 @@ import { MyRequestService } from '../shared/myrequest.service';
 import { NgForm } from '@angular/forms';
 import { SearchResponseModel } from '../shared/searchresponse.model';
 import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracker.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-requests',
@@ -12,52 +13,64 @@ import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracke
 
 export class MyRequestsComponent implements OnInit {
   currentPage: number=1;
-  totalPages: number=3;  
+  totalPages: number=1;  
+  pageSize: number=5;
   myRequests: CarServiceRequestTrackerModel[];
   pageArray: number[];
   searchForm: CarServiceRequestTrackerModel;
-  @ViewChild('f') searchformView : NgForm; 
-  constructor(private myReqSvc: MyRequestService) { }
-
-  clearSearchForm(){
-    this.searchformView.reset();
+  tabname:string='OPEN';
+  alertMessage:string="No message";
+  hide:number=1;
+  constructor(private myReqSvc: MyRequestService, private router: Router) { }
+  hideAlert(){
+    this.hide=1;
+  }
+  clearSearchForm(form: NgForm){
+    form.reset();
     this.searchForm = new CarServiceRequestTrackerModel();
   }
-  previous(){
-    if(this.currentPage!=1){
-      this.currentPage = this.currentPage -1;
-      this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
-        (resp: SearchResponseModel)=>{
-          this.myRequests=resp.data;
-          this.currentPage=resp.pageNumber;
-          this.totalPages=resp.totalPapges;
-          this.setPageArray();
-        }, 
-        (error)=>{
-          console.log(error);
-        } 
-      );
-    }
+  getRequests(event,status:string){
+    this.currentPage=1;
+    this.totalPages=1;  
+    this.tabname = status;
+    this.search();  
+    event.preventDefault();
   }
-  next(){
-    if(this.currentPage!=this.totalPages){
-      this.currentPage = this.currentPage +1;
-      this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
-        (resp: SearchResponseModel)=>{
-          this.myRequests=resp.data;
-          this.currentPage=resp.pageNumber;
-          this.totalPages=resp.totalPapges;
-          this.setPageArray();
-        }, 
-        (error)=>{
-          console.log(error);
-        }
-      );
+  gotoPage(event,newPage:number){
+   
+    if(newPage!=this.currentPage){
+      this.currentPage=newPage;
+      this.search();
     }
+    event.preventDefault();
   }
-  onSubmit(form: NgForm){
-    this.setSearchForm(form);
-    this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
+  sort(event,field:string){
+    event.preventDefault();
+  }
+  editRequest(event,requestId:number){
+    this.router.navigate(['/free-estimate/'+requestId+'/EDIT']);
+    event.preventDefault();
+  }
+  viewRequest(event,requestId:number){
+    this.router.navigate(['/free-estimate/'+requestId+'/VIEW']);
+    event.preventDefault();
+  }
+  deleteMe(event,requestId:number){
+    this.myReqSvc.delete(requestId).subscribe(
+      (resp: string)=>{
+        this.alertMessage="Request Id "+requestId+" deleted successfully!";
+        this.hide=0;
+        this.search();
+      }, 
+      (error)=>{
+        console.log(error);
+      } 
+    );
+    event.preventDefault();
+  }
+  search(){
+    this.searchForm.serviceStatus=this.tabname;
+    this.myReqSvc.search(this.currentPage, this.pageSize, this.searchForm).subscribe(
       (resp: SearchResponseModel)=>{
         this.myRequests=resp.data;
         this.currentPage=resp.pageNumber;
@@ -66,22 +79,33 @@ export class MyRequestsComponent implements OnInit {
       }, 
       (error)=>{
         console.log(error);
-      }
+      } 
     );
+  }
+  previous(event){
+    if(this.currentPage!=1){
+      this.currentPage = this.currentPage -1;
+      this.search();
+    }     
+    event.preventDefault();
+  }
+  next(event){
+    if(this.currentPage!=this.totalPages){
+      this.currentPage = this.currentPage +1;
+      this.search();      
+    }
+    event.preventDefault();
+  }
+  onSubmit(form: NgForm){
+    this.setSearchForm(form);
+    this.search();
   }
   ngOnInit() {
     this.searchForm = new CarServiceRequestTrackerModel();
-    this.myReqSvc.search(this.currentPage, 20, this.searchForm).subscribe(
-      (resp: SearchResponseModel)=>{
-        this.myRequests=resp.data;        
-        this.currentPage=resp.pageNumber;
-        this.totalPages=resp.totalPapges;
-        this.setPageArray();
-      }, 
-      (error)=>{
-        console.log(error);
-      }
-    );
+    this.search();    
+  }
+  ngOnDestroy(){
+
   }
   setSearchForm(form: NgForm){
     this.searchForm = new CarServiceRequestTrackerModel();

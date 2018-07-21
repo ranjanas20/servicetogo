@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.greenfield.servicetogo.car.controller.SearchResponseDTO;
 import com.greenfield.servicetogo.car.dto.CarServiceRequestTrackerDTO;
 import com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper;
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
@@ -48,37 +49,66 @@ public class CarServiceRequestService {
         carServiceRequestRepository.deleteById(reqId);        
     }
 
-    public void updateRequestForm(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
+    public CarServiceRequestTrackerDTO updateRequestForm(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
         CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
         DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
-        carServiceRequestRepository.save(entity);
-    }
-    public void updateRequest(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
-        CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
-        DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
-        carServiceRequestRepository.save(entity);
+        CarServiceRequestEntity savedEntity = carServiceRequestRepository.save(entity);
+        return toRequestTrackerDTO(savedEntity);
     }
 
-    public List<CarServiceRequestTrackerDTO> searchRequests(CarServiceRequestTrackerDTO rhDTO, Integer pageNo, Integer pageSize) {
+    public SearchResponseDTO<CarServiceRequestTrackerDTO>  searchRequests(CarServiceRequestTrackerDTO rhDTO, Integer pageNo, Integer pageSize) {
+        SearchResponseDTO<CarServiceRequestTrackerDTO>  dto = new SearchResponseDTO<>();
         Pageable pageable = PageRequest.of((pageNo-1), pageSize, Sort.Direction.ASC, "requestId");
         CarServiceRequestEntity probe = new CarServiceRequestEntity();
-        probe.setCustomerFirstName(rhDTO.getCustomerFirstName());
-        probe.setCustomerLastName(rhDTO.getCustomerLastName());
-        
-        ExampleMatcher matcher = ExampleMatcher.matching()                
-                .withMatcher("customerFirstName", match -> match.startsWith())
-                .withMatcher("customerLastName", match -> match.startsWith());
+        ExampleMatcher matcher = ExampleMatcher.matching() ;
+        if(rhDTO.getCustomerFirstName()!=null && rhDTO.getCustomerFirstName().length()>0){
+            probe.setCustomerFirstName(rhDTO.getCustomerFirstName());
+            matcher.withMatcher("customerFirstName", match -> match.startsWith());
+        }
+        if(rhDTO.getCustomerLastName()!=null && rhDTO.getCustomerLastName().length()>0){
+            probe.setCustomerLastName(rhDTO.getCustomerLastName());
+            matcher.withMatcher("customerLastName", match -> match.startsWith());
+        }
+        if(rhDTO.getServiceStatus()!=null && rhDTO.getServiceStatus().length()>0){
+            if(!"COMPLETED".equalsIgnoreCase(rhDTO.getServiceStatus())){
+                probe.setServiceStatus("NEW");
+            }else{
+                probe.setServiceStatus(rhDTO.getServiceStatus());
+            }
+            
+        }
         
         Example<CarServiceRequestEntity> example = Example.of(probe,matcher);
         Page<CarServiceRequestEntity> page= carServiceRequestRepository.findAll(example, pageable);
-        //Page<CarServiceRequestEntity> page= carServiceRequestRepository.findAll(pageable);
         List<CarServiceRequestTrackerDTO> ret = new LinkedList<>();
         for ( CarServiceRequestEntity r: page){
             ret.add(toRequestTrackerDTO(r));
         }
-        return ret;
+        dto.setTotalPapges(Math.round(((carServiceRequestRepository.count(example)*1.0)/pageSize)+.5));
+        dto.setData(ret);
+        return dto;
     }
     public Long getRowCount(CarServiceRequestTrackerDTO rhDTO) {
-        return carServiceRequestRepository.count();
+        CarServiceRequestEntity probe = new CarServiceRequestEntity();
+        ExampleMatcher matcher = ExampleMatcher.matching() ;
+        if(rhDTO.getCustomerFirstName()!=null && rhDTO.getCustomerFirstName().length()>0){
+            probe.setCustomerFirstName(rhDTO.getCustomerFirstName());
+            matcher.withMatcher("customerFirstName", match -> match.startsWith());
+        }
+        if(rhDTO.getCustomerLastName()!=null && rhDTO.getCustomerLastName().length()>0){
+            probe.setCustomerLastName(rhDTO.getCustomerLastName());
+            matcher.withMatcher("customerLastName", match -> match.startsWith());
+        }
+        if(rhDTO.getServiceStatus()!=null && rhDTO.getServiceStatus().length()>0){
+            if(!"COMPLETED".equalsIgnoreCase(rhDTO.getServiceStatus())){
+                probe.setServiceStatus("NEW");
+            }else{
+                probe.setServiceStatus(rhDTO.getServiceStatus());
+            }
+            
+        }
+        
+        Example<CarServiceRequestEntity> example = Example.of(probe,matcher);
+        return carServiceRequestRepository.count(example);
     }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RequestCrudService } from '../shared/requestcrud.service';
 import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracker.model';
+import { MyRequestService } from '../shared/myrequest.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-free-estimate',
@@ -10,28 +12,96 @@ import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracke
   styleUrls: ['./free-estimate.component.css']
 })
 export class FreeEstimateComponent implements OnInit {
-  @ViewChild('f') feform : NgForm; 
-  constructor(private router: Router, private reqCrudSvc: RequestCrudService) { }
+  mode:string='NEW';  
+  hide:number=1;
+  alertMessage:string="No message";
+  req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
+  requestId:number;
+  @ViewChild('f') form;
+  requestIdSubscription: Subscription;
+  selectRequestSubscription: Subscription;
+
+  constructor(private router: Router, 
+    private reqCrudSvc: RequestCrudService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-  resetForm(){
-    this.feform.reset();
-  }
-  onSubmit(form: NgForm) {
-    console.log(form);
-    let req: CarServiceRequestTrackerModel = this.toModel(form);
-   
-    this.reqCrudSvc.newRequest(req)
-      .subscribe(
-        (response) => {
-          console.log(response);
+    this.requestIdSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+      let paramMode=params['mode'];
+      if(paramMode){
+        this.mode = paramMode;
+      }
+      let requestIdLocal = params['requestId'];
+      if(requestIdLocal){
+        this.requestId=requestIdLocal;
+      }
+      console.log(this.mode);
+    });
+    if(this.requestId && this.mode!='NEW'){
+      this.selectRequestSubscription = this.reqCrudSvc.getRequest(this.requestId).subscribe(
+        (record: CarServiceRequestTrackerModel) => {
+          this.req=record;
+          console.log(record);
         },
         (error) => {
           console.log(error);
-        }); 
-
-        //form.reset();
+        }
+      );
+    }
+  }
+  ngOnDestroy(){
+    if(this.requestIdSubscription){
+      this.requestIdSubscription.unsubscribe();
+    }
+    if(this.selectRequestSubscription){
+      this.selectRequestSubscription.unsubscribe();
+    }
+    
+  }
+  cancel(){
+    if(this.mode=='NEW'){
+      this.router.navigate(['/home']);
+    }else{
+      this.router.navigate(['/my-requests']);
+    }
+  }
+  resetForm(form: NgForm){
+    form.reset();
+  }
+  edit(form){
+    this.mode='EDIT';
+    this.hideAlert();
+  }
+  hideAlert(){
+    this.hide=1;
+  }
+  showAlert(msg:string){
+    this.alertMessage=msg;
+    this.hide=0;
+  }
+  onSubmit(form: NgForm) {
+    if(this.mode=='EDIT'){
+      this.reqCrudSvc.updateRequest(this.req).subscribe(
+        (response) => {          
+          this.req=response.data;
+          this.mode='VIEW';
+          this.showAlert('Saved successfully');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }else{
+      this.reqCrudSvc.newRequest(this.req).subscribe(
+          (response) => {
+            this.req=response.data;
+            this.mode='VIEW';
+            this.showAlert('Created a new estimate request successfully, Request Id: '+this.req.requestId);
+          },
+          (error) => {
+            console.log(error);
+          });  
+    }
   }
   toModel(form: NgForm): CarServiceRequestTrackerModel{
     let req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();

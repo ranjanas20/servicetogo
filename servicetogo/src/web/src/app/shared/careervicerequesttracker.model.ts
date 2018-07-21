@@ -8,6 +8,7 @@ export class CarServiceRequestTrackerModel{
     customerId: number;
     customerFirstName: string;
     customerLastName: string;
+    customerMiddleName: string;
     email: string;
     customerPhone: string;
     vehicleMake: string;

@@ -16,6 +16,7 @@ public class CarServiceRequestTrackerDTO {
     private Long customerId;
     private String customerFirstName;
     private String customerLastName;
+    private String customerMiddleName;
     private String email;
     private String customerPhone;
     private String vehicleMake;
@@ -250,6 +251,13 @@ public class CarServiceRequestTrackerDTO {
     }
     public void setPreferredContactMethod(String preferredContactMethod) {
         this.preferredContactMethod = preferredContactMethod;
+    }
+    
+    public String getCustomerMiddleName() {
+        return customerMiddleName;
+    }
+    public void setCustomerMiddleName(String customerMiddleName) {
+        this.customerMiddleName = customerMiddleName;
     }
     @Override
     public String toString() {
