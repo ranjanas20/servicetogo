@@ -12,12 +12,19 @@ ALTER SEQUENCE public.user_credentials_credential_id_seq
     OWNER TO postgres;
 
 
+
+    
+
 CREATE TABLE public.user_credentials
 (
     credential_id integer NOT NULL DEFAULT nextval('user_credentials_credential_id_seq'::regclass),
     login_id character varying(150) COLLATE pg_catalog."default" NOT NULL,
     login_password character varying(20) COLLATE pg_catalog."default" NOT NULL,
     user_type character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    secretquestion1_code_id varchar(50),
+    secretquestion2_code_id varchar(50),
+    secretanswer1 varchar(50),
+    secretanswer2 varchar(50),
     created_on timestamp ,
     tenant_id character varying(10),
     created_by character varying(20) COLLATE pg_catalog."default",

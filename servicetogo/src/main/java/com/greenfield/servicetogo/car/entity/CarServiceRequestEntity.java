@@ -21,7 +21,7 @@ public class CarServiceRequestEntity extends Auditable {
     private Long requestId;
     
     @Column(name = "tenant_id")
-    private Integer tenantId;
+    private String tenantId;
     
     @Column(name = "customer_id")
     private Long customerId;
@@ -112,11 +112,11 @@ public class CarServiceRequestEntity extends Auditable {
         this.requestId = requestId;
     }
 
-    public Integer getTenantId() {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(Integer tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 

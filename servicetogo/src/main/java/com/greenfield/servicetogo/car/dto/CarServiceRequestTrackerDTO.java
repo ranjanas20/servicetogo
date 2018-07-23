@@ -3,7 +3,7 @@ package com.greenfield.servicetogo.car.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class CarServiceRequestTrackerDTO {
+public class CarServiceRequestTrackerDTO extends AuditableDTO {
 
 
     private String symptoms;
@@ -11,7 +11,7 @@ public class CarServiceRequestTrackerDTO {
     private String preferredContactMethod;
 
     private String vehicleLocation;
-    
+
     private Long requestId;
     private Long customerId;
     private String customerFirstName;
@@ -41,12 +41,6 @@ public class CarServiceRequestTrackerDTO {
     
     private String addressLine1;
     private String addressLine2;
-    
-    private LocalDateTime  createdOn;
-    private String  createdBy;
-    private LocalDateTime  updatedOn;
-    private String  updatedBy;
-    
     
     public String getServiceStatus() {
         return serviceStatus;
@@ -120,30 +114,7 @@ public class CarServiceRequestTrackerDTO {
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-    public String getCreatedBy() {
-        return createdBy;
-    }
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+    
     public String getSymptoms() {
         return symptoms;
     }
@@ -261,21 +232,11 @@ public class CarServiceRequestTrackerDTO {
     }
     @Override
     public String toString() {
-        return "CarServiceRequestTrackerDTO [symptoms=" + symptoms + ", userComments=" + userComments
-                + ", preferredContactMethod=" + preferredContactMethod + ", vehicleLocation=" + vehicleLocation
-                + ", requestId=" + requestId + ", customerId=" + customerId + ", customerFirstName=" + customerFirstName
-                + ", customerLastName=" + customerLastName + ", email=" + email + ", customerPhone=" + customerPhone
-                + ", vehicleMake=" + vehicleMake + ", vehicleModel=" + vehicleModel + ", vehicleYear=" + vehicleYear
-                + ", vehicleVin=" + vehicleVin + ", addressCity=" + addressCity + ", addressState=" + addressState
-                + ", addressZip=" + addressZip + ", requestedDate=" + requestedDate + ", serviceStatus=" + serviceStatus
-                + ", assigedEmployeeId=" + assigedEmployeeId + ", assigedEmployeeFirstName=" + assigedEmployeeFirstName
-                + ", assigedEmployeeLastName=" + assigedEmployeeLastName + ", servicePriority=" + servicePriority
-                + ", serviceScheduleDatetime=" + serviceScheduleDatetime + ", serviceCompletionDatetime="
-                + serviceCompletionDatetime + ", serviceCompletedById=" + serviceCompletedById
-                + ", serviceCompletedByFirstName=" + serviceCompletedByFirstName + ", serviceCompletedByLastName="
-                + serviceCompletedByLastName + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
-                + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", updatedOn=" + updatedOn + ", updatedBy="
-                + updatedBy + "]";
+        return "CarServiceRequestTrackerDTO [requestId=" + requestId + ", customerId=" + customerId
+                + ", customerFirstName=" + customerFirstName + ", customerLastName=" + customerLastName + ", email="
+                + email + ", customerPhone=" + customerPhone + ", requestedDate=" + requestedDate + ", serviceStatus="
+                + serviceStatus + "]";
     }
+    
     
 }

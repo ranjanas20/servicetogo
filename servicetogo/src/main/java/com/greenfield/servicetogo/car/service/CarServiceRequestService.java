@@ -1,11 +1,13 @@
 package com.greenfield.servicetogo.car.service;
 
-import static com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper.toNewRequestEntity;
-import static com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper.toRequestTrackerDTO;
+import static com.greenfield.servicetogo.car.service.RequestTrackerDTOtoEntityMap.toNewRequestEntity;
+import static com.greenfield.servicetogo.car.service.RequestTrackerDTOtoEntityMap.toRequestTrackerDTO;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import com.greenfield.servicetogo.car.controller.SearchResponseDTO;
 import com.greenfield.servicetogo.car.dto.CarServiceRequestTrackerDTO;
-import com.greenfield.servicetogo.car.dto.DTOtoEntityDataMapper;
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
 import com.greenfield.servicetogo.car.repository.CarServiceRequestRepository;
 
@@ -27,6 +28,7 @@ public class CarServiceRequestService {
     @Autowired
     private CarServiceRequestRepository carServiceRequestRepository;
     
+    @Transactional
     public CarServiceRequestTrackerDTO addRequest(CarServiceRequestTrackerDTO rhDTO) {
         CarServiceRequestEntity savedEntity = carServiceRequestRepository.save(toNewRequestEntity(rhDTO));
         return toRequestTrackerDTO(savedEntity);
@@ -49,9 +51,10 @@ public class CarServiceRequestService {
         carServiceRequestRepository.deleteById(reqId);        
     }
 
+    @Transactional
     public CarServiceRequestTrackerDTO updateRequestForm(Long reqId, CarServiceRequestTrackerDTO rhDTO) {
         CarServiceRequestEntity entity = carServiceRequestRepository.getOne(reqId) ;  
-        DTOtoEntityDataMapper.updateEntityWithFromDTO(entity,rhDTO);
+        RequestTrackerDTOtoEntityMap.updateEntityWithFromDTO(entity,rhDTO);
         CarServiceRequestEntity savedEntity = carServiceRequestRepository.save(entity);
         return toRequestTrackerDTO(savedEntity);
     }

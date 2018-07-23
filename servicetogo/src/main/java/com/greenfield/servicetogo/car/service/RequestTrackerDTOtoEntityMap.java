@@ -1,15 +1,13 @@
-package com.greenfield.servicetogo.car.dto;
+package com.greenfield.servicetogo.car.service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.Clock;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.greenfield.servicetogo.car.dto.CarServiceRequestTrackerDTO;
 import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
 import com.greenfield.servicetogo.car.repository.EntityRepositoryHelper;
-
-public class DTOtoEntityDataMapper {
+import static com.greenfield.servicetogo.car.service.DataConvertUtil.*;
+public class RequestTrackerDTOtoEntityMap {
     public static CarServiceRequestEntity toNewRequestEntity(CarServiceRequestTrackerDTO dto){
         CarServiceRequestEntity entity = new CarServiceRequestEntity();
         entity.setCustomerId(dto.getCustomerId());
@@ -31,11 +29,8 @@ public class DTOtoEntityDataMapper {
         entity.setSymptoms(dto.getSymptoms());
         entity.setUserComments(dto.getUserComments());
         
-        entity.setUpdatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
-        entity.setCreatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
-        entity.setUpdatedBy("admin");
-        entity.setCreatedBy("admin");
-
+        setAuditableNEW(entity);
+        entity.setTenantId(DEFAULT_TENANT);
         return entity;
     }
     public static CarServiceRequestTrackerDTO toRequestTrackerDTO(CarServiceRequestEntity entity){
@@ -97,8 +92,8 @@ public class DTOtoEntityDataMapper {
         entity.setAddressZip(dto.getAddressZip());
         entity.setRequestedDate(toSqlDate(dto.getRequestedDate()));
         entity.setVehicleLocation(dto.getVehicleLocation());
-        entity.setUpdatedOn(toSqlTimeStamp(LocalDateTime.now(Clock.systemUTC())));
-        entity.setUpdatedBy("admin");
+        setAuditableMODIFY(entity);
+        entity.setTenantId(DEFAULT_TENANT);
        
     }
     public static void updateEntityWithRequestTrackerDTO(CarServiceRequestEntity entity, CarServiceRequestTrackerDTO dto, EntityRepositoryHelper erh){
@@ -118,18 +113,6 @@ public class DTOtoEntityDataMapper {
         }else{
             entity.setServiceCompletedBy(null);
         }
-    }
-    private static Timestamp toSqlTimeStamp(LocalDateTime dt){
-        return ( dt!=null?Timestamp.valueOf(dt):null);
-    }
-    private static Date toSqlDate(LocalDate dt){
-        return ( dt!=null?Date.valueOf(dt):null);
-    }
-    private static LocalDateTime toLocalDateTime(Timestamp dt){
-        return (dt!=null?dt.toLocalDateTime():null);
-    }
-    private static LocalDate toLocalDate(Date dt){
-        return (dt!=null?dt.toLocalDate():null);
     }
 
 }
