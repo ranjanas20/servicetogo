@@ -28,7 +28,7 @@ public class EmployeeEntity extends Auditable  {
     private String loginId;
     
     @Column(name = "tenant_Id")
-    private Integer tenantId;
+    private String tenantId;
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -70,11 +70,11 @@ public class EmployeeEntity extends Auditable  {
         this.loginId = loginId;
     }
 
-    public Integer getTenantId() {
+    public String getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(Integer tenantId) {
+    public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
     }
 

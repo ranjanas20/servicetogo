@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, InjectionToken } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
@@ -34,7 +34,7 @@ import { RequestCrudService } from './shared/requestcrud.service';
     MyProfileComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, AppRouteModule
+    BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
   ],
   providers: [AuthService,Environment, MyRequestService, RequestCrudService],
   bootstrap: [AppComponent] 

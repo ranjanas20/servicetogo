@@ -24,5 +24,14 @@ public class UserProfileController {
         dto.setData("");
         return dto;
     }
+    @PostMapping(value = "/applogin")
+    public ResponseDTO<String> applogin(UserCredentialDTO credential){
+        ResponseDTO<String> dto = new ResponseDTO<>();
+        dto.setSuccess(Boolean.TRUE);
+        dto.setRespCode("OK");
+        dto.setRespMessage("Signup successfull");
+        dto.setData("");
+        return dto;
+    }
     
 }

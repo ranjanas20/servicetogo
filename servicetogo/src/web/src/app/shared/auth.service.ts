@@ -1,21 +1,41 @@
-import {Subject} from 'rxjs/Subject'
-import { Injectable, Inject } from '@angular/core';
+import { Subject } from 'rxjs/Subject'
+import { Injectable } from '@angular/core';
 import { Environment } from './environment.service';
-
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http'
+import { ResponseModel } from './response.model';
+import { Observable } from 'rxjs/Observable';
+import { UserCredentialModel } from './usercredential.model';
 @Injectable()
-export class AuthService{
+export class AuthService {
     private url: string = this.env.REST_URL;
     loggedin: Subject<boolean> = new Subject();
+    username: Subject<string> = new Subject();
+    constructor(private env: Environment, private http: HttpClient) { }
+    signup(username: String, password: string, email: String) {
 
-    constructor(private env:Environment){ }
-    signup(username: String, password: string, email: String){
+    }
 
-    } 
-    login(username: string, password: string){
-
-        this.loggedin.next(true);
-    }  
-    logout(){
+    logout() {
         this.loggedin.next(false);
-    } 
+        this.username.next('');
+    }
+    login(user: string, pwd: string) {
+        let cred: UserCredentialModel = new UserCredentialModel();
+        cred.loginId=user;
+        cred.loginPassword=pwd;
+        return this.http.post<ResponseModel>(this.env.REST_URL + '/applogin',cred, {
+                observe: 'body',
+                responseType: 'json',
+                headers: new HttpHeaders().set("token", "Sanjay")
+            })
+            .map(
+                (data) => {
+                    return data;
+                }
+            ).catch((error) => {
+                console.log(error);
+                return Observable.throw("Something went wrong");
+
+            });
+    }
 }
