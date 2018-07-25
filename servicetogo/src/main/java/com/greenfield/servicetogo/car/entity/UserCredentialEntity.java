@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_credential")
+@Table(name="user_credentials")
 public class UserCredentialEntity extends Auditable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

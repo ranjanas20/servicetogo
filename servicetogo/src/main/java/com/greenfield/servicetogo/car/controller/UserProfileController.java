@@ -16,21 +16,23 @@ public class UserProfileController {
     
     @PostMapping(value = "/signup")
     public ResponseDTO<String> customerSignup(@RequestBody UserCredentialDTO userCredential){
-        userService.customerSignup(userCredential);
+        Integer id = userService.customerSignup(userCredential);
         ResponseDTO<String> dto = new ResponseDTO<>();
         dto.setSuccess(Boolean.TRUE);
         dto.setRespCode("OK");
-        dto.setRespMessage("Signup successfull");
-        dto.setData("");
+        dto.setRespMessage("Signup successfull");        
+        dto.setData(id+" created successfully");
         return dto;
     }
     @PostMapping(value = "/applogin")
-    public ResponseDTO<String> applogin(UserCredentialDTO credential){
+    public ResponseDTO<String> applogin(@RequestBody UserCredentialDTO credential){
+        boolean success = userService.login(credential.getUserType(), credential.getLoginId(),
+                credential.getLoginPassword());
         ResponseDTO<String> dto = new ResponseDTO<>();
-        dto.setSuccess(Boolean.TRUE);
+        dto.setSuccess(success);
         dto.setRespCode("OK");
-        dto.setRespMessage("Signup successfull");
-        dto.setData("");
+        dto.setRespMessage(success?"Signin successfull":"Signin error");
+        dto.setData(credential.getLoginId());
         return dto;
     }
     

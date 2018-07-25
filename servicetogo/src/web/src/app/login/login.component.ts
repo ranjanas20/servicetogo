@@ -11,6 +11,8 @@ import { ResponseModel } from '../shared/response.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  hide:number=1;
+  alertMessage:string='';
   constructor(private authsvc: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -24,6 +26,9 @@ export class LoginComponent implements OnInit {
         ])
     });
   }
+  hideAlert(){
+    this.hide=1;
+  }
   onSubmit() {
     console.log(this.loginForm);
     this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
@@ -33,6 +38,8 @@ export class LoginComponent implements OnInit {
           this.authsvc.username.next(this.loginForm.value.username);          
           this.router.navigate(['home']);
       } else {
+          this.alertMessage="Login unsuccessful, try again.";
+          this.hide=0;
           console.log(data.respMessage);
       }
       }, 

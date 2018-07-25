@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-my-profile',
@@ -7,15 +10,35 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./my-profile.component.css']
 })
 export class MyProfileComponent implements OnInit {
-  @ViewChild('f') feform : NgForm; 
-  constructor() { }
+  profileForm: FormGroup;
+  username:string='';
+  subscription: Subscription
+  constructor(private authsvc: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.profileForm = new FormGroup({
+      'loginId': new FormControl(this.authsvc.loginId, [Validators.required]),
+      'email': new FormControl('', [Validators.required]),
+      'userType': new FormControl('', [Validators.required]),
+      'secretQuestion1CodeId': new FormControl('', [Validators.required]),
+      'secretQuestion2CodeId': new FormControl('', [Validators.required]),
+      'secretAnswer1': new FormControl('', [Validators.required]),
+      'secretAnswer2': new FormControl('', [Validators.required])
+    });
+    this.subscription = this.authsvc.username.subscribe((username: string)=>{
+      this.username = username;
+    });
+    this.username = this.authsvc.loginId;
   }
   resetForm(){
-    this.feform.reset();
+    this.profileForm.reset();
   }
-  onSubmit( form: NgForm){
+  onSubmit(){
     
+  }
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
   }
 }

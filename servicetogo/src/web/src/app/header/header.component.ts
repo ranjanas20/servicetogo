@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   loggedIn: boolean;
+  username:string='';
   subscription: Subscription;
+  subscription2: Subscription;
   constructor(private authsvc: AuthService, private router: Router) {
 
    }
@@ -18,6 +20,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.authsvc.loggedin.subscribe((loggedin: boolean)=>{
       this.loggedIn = loggedin;
+    })
+    this.subscription2 = this.authsvc.username.subscribe((username: string)=>{
+      this.username = username;
     })
   }
   ngOnDestroy(){

@@ -2,38 +2,49 @@
   <h3>No account? Let's create one for you!</h3>
   <div class="row">
     <div class="col">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form (ngSubmit)="onSubmit()" #f="ngForm" [formGroup]="signupForm">
         <div id="user-data">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="form-control" ngModel name="username">
+            <label for="loginId">User name</label>
+            <input type="text" id="loginId" class="form-control" formControlName="loginId" >
           </div>
           <div class="form-group">
             <label for="email">E-mail</label>
-            <input type="email" id="email" class="form-control" ngModel name="email" required>
+            <input type="email" id="email" class="form-control" formControlName="email" >
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" class="form-control" ngModel name="password" required>
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" >
           </div>
           <div class="form-group">
-            <label for="retypepassword">Re-enter Password</label>
-            <input type="retypepassword" id="retypepassword" class="form-control" ngModel name="retypepassword" required>
+            <label for="retypePassword">Re-enter Password</label>
+            <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" >
           </div>
         </div>
         <div class="form-group">
-          <label for="secret">Secret Questions</label>
-          <select id="secret" class="form-control" ngModel name="secret">
+          <label for="secretQuestion1CodeId">Secret Question 1</label>
+          <select id="secretQuestion1CodeId" class="form-control" formControlName="secretQuestion1CodeId" >
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="answer1">Answer</label>
-          <input type="answer1" id="answer1" class="form-control" ngModel name="answer1" required>
+          <label for="secretAnswer1">Answer 1</label>
+          <input type="secretAnswer1" id="secretAnswer1" class="form-control" formControlName="secretAnswer1" >
         </div>
-        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
-        <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm(f)">Reset</button>
+        <div class="form-group">
+          <label for="secretQuestion2CodeId">Secret Question 2</label>
+          <select id="secretQuestion2CodeId" class="form-control" formControlName="secretQuestion2CodeId" >
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="secretAnswer2">Answer 2</label>
+          <input type="secretAnswer2" id="secretAnswer2" class="form-control" formControlName="secretAnswer2" >
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
         <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
       </form>
     </div>
