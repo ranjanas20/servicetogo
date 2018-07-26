@@ -38,6 +38,7 @@ public class RequestTrackerDTOtoEntityMap {
         dto.setRequestId(entity.getRequestId());
         dto.setCustomerId(entity.getCustomerId());
         dto.setCustomerFirstName(entity.getCustomerFirstName());
+        dto.setCustomerMiddleName(entity.getCustomerMiddleName());
         dto.setCustomerLastName(entity.getCustomerLastName());
         dto.setEmail(entity.getEmail());
         dto.setPreferredContactMethod(entity.getPreferredContactMethod());
@@ -82,6 +83,7 @@ public class RequestTrackerDTOtoEntityMap {
         entity.setCustomerLastName(dto.getCustomerLastName());
         entity.setCustomerMiddleName(dto.getCustomerMiddleName());
         entity.setEmail(dto.getEmail());
+        entity.setPreferredContactMethod(dto.getPreferredContactMethod());
         entity.setCustomerPhone(dto.getCustomerPhone());
         entity.setVehicleMake(dto.getVehicleMake());
         entity.setVehicleModel(dto.getVehicleModel());
@@ -92,6 +94,10 @@ public class RequestTrackerDTOtoEntityMap {
         entity.setAddressZip(dto.getAddressZip());
         entity.setRequestedDate(toSqlDate(dto.getRequestedDate()));
         entity.setVehicleLocation(dto.getVehicleLocation());
+        entity.setSymptoms(dto.getSymptoms());
+        entity.setUserComments(dto.getUserComments());
+        entity.setAddressLine1(dto.getAddressLine1());
+        entity.setAddressLine2(dto.getAddressLine2());
         setAuditableMODIFY(entity);
         entity.setTenantId(DEFAULT_TENANT);
        

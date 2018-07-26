@@ -1,43 +1,140 @@
-<div class="container mt-3" style="max-width: 700px;">
-  <h3 class="text-secondary">Update Profile</h3>
-    <div class="row">
-      <div class="col">
-        <form (ngSubmit)="onSubmit()"  [formGroup]="profileForm">
-          <div id="user-data">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" readonly id="username" class="form-control" formControlName="loginId">
-            </div>
-            <button class="btn btn-primary" type="button" >Change Login Information</button>
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email" class="form-control" formControlName="email"  required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="phone" id="phone" class="form-control"  name="phone">
-              </div>
-            <div class="form-group">
-              <label for="address">Address</label>
-              <input type="address" id="address" class="form-control"  name="address" >
-            </div>
-            <div class="form-group">
-              <label for="city">City</label>
-              <input type="city" id="city" class="form-control"  name="city">
-            </div>
-            <div class="form-group">
-                <label for="state">State</label>
-                <input type="state" id="state" class="form-control"  name="state">
-              </div>
-              <div class="form-group">
-                  <label for="zip">Zip Code</label>
-                  <input type="zip" id="zip" class="form-control"  name="zip">
-                </div>                
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="tabname=='PROFILE'" href="#" (click)="activateTab($event,'PROFILE')">Update Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" [class.active]="tabname=='LOGIN'" (click)="activateTab($event,'LOGIN')">Change Login Information</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="panel" name="passwordTab" style="max-width: 900px;" [class.d-none]="tabname=='PROFILE'" [class.d-block]="tabname=='LOGIN'">
+      <h5 class="card-title">Change Password</h5>
+      <form (ngSubmit)="onSubmitLoginForm()" #f="ngForm" [formGroup]="loginForm">
+        <div class="form-group row">
+          <label for="loginId" class="col-sm-2 col-form-label">User name</label>
+          <div class="col-sm-10">
+            <input type="text" id="loginId" readonly class="form-control" formControlName="loginId">
           </div>
-          <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>                  
-          <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
-          <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
-        </form>
+        </div>
+        <div class="form-group row">
+          <label for="oldPassword" class="col-sm-2 col-form-label">Current Password</label>
+          <div class="col-sm-10">
+            <input type="password" id="oldPassword" class="form-control" formControlName="oldPassword">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="loginPassword" class="col-sm-2 col-form-label">NEW Password</label>
+          <div class="col-sm-5">
+            <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" placeholder="New Password">
+          </div>
+          <div class="col-sm-5">
+              <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" placeholder="Retype New password">
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="secretQuestion1CodeId" class="col-sm-2 col-form-label">Secret Question 1</label>
+          <div class="col-sm-10">
+            <select id="secretQuestion1CodeId" class="form-control" formControlName="secretQuestion1CodeId">
+              <option value="pet">Your first Pet?</option>
+              <option value="teacher">Your first teacher?</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="secretAnswer1" class="col-sm-2 col-form-label">Answer 1</label>
+          <div class="col-sm-10">
+
+            <input type="secretAnswer1" id="secretAnswer1" class="form-control" formControlName="secretAnswer1">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="secretQuestion2CodeId" class="col-sm-2 col-form-label">Secret Question 2</label>
+          <div class="col-sm-10">
+
+            <select id="secretQuestion2CodeId" class="form-control" formControlName="secretQuestion2CodeId">
+              <option value="pet">Your first Pet?</option>
+              <option value="teacher">Your first teacher?</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="secretAnswer2" class="col-sm-2 col-form-label">Answer 2</label>
+          <div class="col-sm-10">
+
+            <input type="secretAnswer2" id="secretAnswer2" class="form-control" formControlName="secretAnswer2">
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
+        <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
+      </form>
+
+    </div>
+    <div class="panel" name="profileTab" style="max-width: 900px;" [class.d-none]="tabname=='LOGIN'" [class.d-block]="tabname=='PROFILE'">
+      <h5 class="card-title">Update Profile</h5>
+      <div class="row">
+        <div class="col">
+          <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+            <div id="user-data">
+              <div class="form-group row">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" readonly id="username" class="form-control" formControlName="loginId">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Contact</label>
+                <div class="col-sm-5">
+                  <input type="text" id="email" class="form-control" formControlName="email" required placeholder="E-mail">
+                </div>
+                <div class="col-sm-5">
+                  <input type="text" id="customerPhone" class="form-control" formControlName="customerPhone" placeholder="Phone">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="customerFirstName" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-4">
+                  <input type="text" id="customerFirstName" class="form-control" formControlName="customerFirstName" required placeholder="First Name">
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" id="customerMiddleName" class="form-control" formControlName="customerMiddleName" placeholder="Middle">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" id="customerLastName" class="form-control" formControlName="customerLastName" required placeholder="Last Name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="addressLine1" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-6">
+                  <input type="text" id="addressLine1" class="form-control" formControlName="addressLine1" placeholder="Address Line 1">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" id="addressLine2" class="form-control" formControlName="addressLine2" placeholder="Address Line 2">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="addressCity" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                  <input type="text" id="addressCity" class="form-control" formControlName="addressCity" placeholder="City">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" id="addressState" class="form-control" formControlName="addressState" placeholder="State">
+                </div>
+                <div class="col-sm-3">
+                  <input type="text" id="addressZip" class="form-control" formControlName="addressZip" placeholder="Zip">
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>
+            <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
+            <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+</div>

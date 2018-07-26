@@ -10,29 +10,51 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./my-profile.component.css']
 })
 export class MyProfileComponent implements OnInit {
+  tabname:string='PROFILE';
   profileForm: FormGroup;
+  loginForm: FormGroup;
   username:string='';
-  subscription: Subscription
+  subscription: Subscription;
   constructor(private authsvc: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.profileForm = new FormGroup({
       'loginId': new FormControl(this.authsvc.loginId, [Validators.required]),
       'email': new FormControl('', [Validators.required]),
+      'customerFirstName': new FormControl('', [Validators.required]),
+      'customerLastName': new FormControl('', [Validators.required]),
+      'customerMiddleName': new FormControl('', [Validators.required]),
+      'customerPhone': new FormControl('', [Validators.required]),
+      'addressLine1': new FormControl('', [Validators.required]),
+      'addressLine2': new FormControl('', [Validators.required]),
+      'addressCity': new FormControl('', [Validators.required]),
+      'addressZip': new FormControl('', [Validators.required]),
+      'addressState': new FormControl('', [Validators.required])
+    });
+    this.subscription = this.authsvc.username.subscribe((username: string)=>{
+      this.username = username;
+    });
+    this.username = this.authsvc.loginId;
+    this.loginForm = new FormGroup({
+      'loginId': new FormControl(this.authsvc.loginId, [Validators.required]),
+      'loginPassword': new FormControl('', [Validators.required]),
+      'retypePassword': new FormControl('', [Validators.required]),
+      'oldPassword': new FormControl('', [Validators.required]),
       'userType': new FormControl('', [Validators.required]),
       'secretQuestion1CodeId': new FormControl('', [Validators.required]),
       'secretQuestion2CodeId': new FormControl('', [Validators.required]),
       'secretAnswer1': new FormControl('', [Validators.required]),
       'secretAnswer2': new FormControl('', [Validators.required])
     });
-    this.subscription = this.authsvc.username.subscribe((username: string)=>{
-      this.username = username;
-    });
-    this.username = this.authsvc.loginId;
   }
   resetForm(){
     this.profileForm.reset();
   }
+  activateTab(event,tabName:string){
+    this.tabname=tabName;
+    event.preventDefault();
+  }
+
   onSubmit(){
     
   }

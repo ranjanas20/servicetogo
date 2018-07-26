@@ -3,45 +3,50 @@
   <div class="row">
     <div class="col">
       <form (ngSubmit)="onSubmit()" #f="ngForm" [formGroup]="signupForm">
-        <div id="user-data">
-          <div class="form-group">
-            <label for="loginId">User name</label>
-            <input type="text" id="loginId" class="form-control" formControlName="loginId" >
-          </div>
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" class="form-control" formControlName="email" >
-          </div>
-          <div class="form-group">
-            <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" >
-          </div>
-          <div class="form-group">
-            <label for="retypePassword">Re-enter Password</label>
-            <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" >
-          </div>
+        <div class="form-group">
+          <label for="loginId">User name</label>
+          <input type="text" id="loginId" class="form-control" formControlName="loginId">
         </div>
         <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" class="form-control" formControlName="email">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <div class="row">
+            <div class="col">
+                <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" placeholder="Enter password">
+
+            </div>
+            <div class="col">
+                <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" placeholder="Re-enter Password">
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="secretQuestion1CodeId">Secret Question 1</label>
-          <select id="secretQuestion1CodeId" class="form-control" formControlName="secretQuestion1CodeId" >
+          <select id="secretQuestion1CodeId" class="form-control" formControlName="secretQuestion1CodeId">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
         <div class="form-group">
           <label for="secretAnswer1">Answer 1</label>
-          <input type="secretAnswer1" id="secretAnswer1" class="form-control" formControlName="secretAnswer1" >
+          <input type="secretAnswer1" id="secretAnswer1" class="form-control" formControlName="secretAnswer1">
         </div>
         <div class="form-group">
           <label for="secretQuestion2CodeId">Secret Question 2</label>
-          <select id="secretQuestion2CodeId" class="form-control" formControlName="secretQuestion2CodeId" >
+          <select id="secretQuestion2CodeId" class="form-control" formControlName="secretQuestion2CodeId">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
         <div class="form-group">
           <label for="secretAnswer2">Answer 2</label>
-          <input type="secretAnswer2" id="secretAnswer2" class="form-control" formControlName="secretAnswer2" >
+          <input type="secretAnswer2" id="secretAnswer2" class="form-control" formControlName="secretAnswer2">
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
         <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
