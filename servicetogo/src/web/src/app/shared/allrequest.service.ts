@@ -1,9 +1,9 @@
 import { Inject, Injectable } from "@angular/core";
-import 'rxjs/Rx';
+import 'rxjs';
 import { Observable } from "rxjs/Observable";
 import { Environment } from "./environment.service";
 import { SearchResponseModel } from "./searchresponse.model";
-import { CarServiceRequestTrackerModel } from "./careervicerequesttracker.model";
+import { CarServiceRequestTrackerModel } from "./carservicerequesttracker.model";
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http'
 
 @Injectable()

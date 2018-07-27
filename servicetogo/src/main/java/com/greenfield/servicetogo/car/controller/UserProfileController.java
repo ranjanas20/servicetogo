@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.greenfield.servicetogo.car.dto.CustomerProfileDTO;
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
+import com.greenfield.servicetogo.car.service.CustomerService;
 import com.greenfield.servicetogo.car.service.UserProfileService;
 
 @RestController
@@ -13,6 +15,7 @@ public class UserProfileController {
     
     @Autowired
     private UserProfileService userService;
+    
     
     @PostMapping(value = "/signup")
     public ResponseDTO<String> customerSignup(@RequestBody UserCredentialDTO userCredential){

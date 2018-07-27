@@ -1,5 +1,6 @@
 export class CustomerProfileModel{
     customerId:number;
+    loginId:string;
     customerFirstName:string;
     customerLastName:string;
     customerMiddleName:string;

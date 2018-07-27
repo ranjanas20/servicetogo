@@ -17,10 +17,10 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'loginId': new FormControl('', [Validators.required]),
-      'loginPassword': new FormControl('', [Validators.required]),
-      'retypePassword': new FormControl('', [Validators.required]),
-      'email': new FormControl('', [Validators.required]),
+      'loginId': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      'loginPassword': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      'retypePassword': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      'email': new FormControl('', [Validators.required, Validators.email]),
       'userType': new FormControl('', [Validators.required]),
       'secretQuestion1CodeId': new FormControl('', [Validators.required]),
       'secretQuestion2CodeId': new FormControl('', [Validators.required]),

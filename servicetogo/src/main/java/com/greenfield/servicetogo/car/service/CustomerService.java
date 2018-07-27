@@ -26,4 +26,8 @@ public class CustomerService {
         CustomerEntity entity = customerRepository.getOne(customerId);
         return UserDTOtoEntityMap.toCustomerProfileDTO(entity);
     }
+    public CustomerProfileDTO getProfileByLoginId(String loginId) {
+        CustomerEntity entity = customerRepository.findByLoginId(loginId);
+        return UserDTOtoEntityMap.toCustomerProfileDTO(entity);
+    }
 }

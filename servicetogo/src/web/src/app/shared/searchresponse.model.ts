@@ -1,5 +1,5 @@
 
-import { CarServiceRequestTrackerModel } from "./careervicerequesttracker.model";
+import { CarServiceRequestTrackerModel } from "./carservicerequesttracker.model";
 
 export class SearchResponseModel{
     success: boolean;

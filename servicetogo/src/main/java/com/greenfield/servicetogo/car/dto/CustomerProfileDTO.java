@@ -2,6 +2,7 @@ package com.greenfield.servicetogo.car.dto;
 
 public class CustomerProfileDTO  extends AuditableDTO{
     private Long customerId;
+    private String loginId;
     private String customerFirstName;
     private String customerLastName;
     private String customerMiddleName;
@@ -14,6 +15,12 @@ public class CustomerProfileDTO  extends AuditableDTO{
     private String addressState;
     private String addressZip;
     
+    public String getLoginId() {
+        return loginId;
+    }
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
     public Long getCustomerId() {
         return customerId;
     }

@@ -52,6 +52,7 @@ public class UserDTOtoEntityMap {
         CustomerProfileDTO dto = new CustomerProfileDTO();
         dto.setCustomerId(entity.getCustomerId());
         dto.setEmail(entity.getEmail());
+        dto.setLoginId(entity.getLoginId());
         dto.setCustomerFirstName(entity.getCustomerFirstName());
         dto.setCustomerMiddleName(entity.getCustomerMiddleName());
         dto.setCustomerLastName(entity.getCustomerLastName());

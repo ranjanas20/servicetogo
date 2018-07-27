@@ -6,4 +6,6 @@ import com.greenfield.servicetogo.car.entity.CustomerEntity;
 
 public interface CustomerRepository extends JpaRepository<CustomerEntity, Long>{
 
+    CustomerEntity findByLoginId(String loginId);
+
 }

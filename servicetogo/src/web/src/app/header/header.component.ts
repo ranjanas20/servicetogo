@@ -21,9 +21,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.authsvc.loggedin.subscribe((loggedin: boolean)=>{
       this.loggedIn = loggedin;
     })
-    this.subscription2 = this.authsvc.username.subscribe((username: string)=>{
-      this.username = username;
-    })
+    this.authsvc.username.subscribe(
+      (name)=>{
+        this.username=name;
+      }
+    );
   }
   ngOnDestroy(){
     this.subscription.unsubscribe();

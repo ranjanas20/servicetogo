@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +17,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { Environment } from './shared/environment.service';
 import { MyRequestService } from './shared/myrequest.service';
 import { RequestCrudService } from './shared/requestcrud.service';
+import { CustomerService } from './shared/customer.service';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { RequestCrudService } from './shared/requestcrud.service';
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
   ],
-  providers: [AuthService,Environment, MyRequestService, RequestCrudService],
+  providers: [AuthService,Environment, MyRequestService, RequestCrudService, CustomerService],
   bootstrap: [AppComponent] 
 })
 export class AppModule { }

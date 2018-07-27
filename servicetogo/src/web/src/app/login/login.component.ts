@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       (data: ResponseModel)=>{        
         if (data.success) {
+          this.authsvc.loginId=this.loginForm.value.username;
           this.authsvc.loggedin.next(true);
           this.authsvc.username.next(this.loginForm.value.username);          
           this.router.navigate(['home']);

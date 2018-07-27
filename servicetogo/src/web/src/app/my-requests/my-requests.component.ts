@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable, ViewChild } from '@angular/core';
 import { MyRequestService } from '../shared/myrequest.service';
 import { NgForm } from '@angular/forms';
 import { SearchResponseModel } from '../shared/searchresponse.model';
-import { CarServiceRequestTrackerModel } from '../shared/careervicerequesttracker.model';
+import { CarServiceRequestTrackerModel } from '../shared/carservicerequesttracker.model';
 import { Router } from '@angular/router';
 
 @Component({

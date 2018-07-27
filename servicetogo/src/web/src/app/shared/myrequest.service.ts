@@ -3,12 +3,12 @@ import { Inject, Injectable } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http'
 
-import 'rxjs/Rx';
+import 'rxjs';
 import { Observable } from "rxjs/Observable";
 import { Environment } from "./environment.service";
 import { SearchResponseModel } from "./searchresponse.model";
-import { CarServiceRequestTrackerModel } from "./careervicerequesttracker.model";
-import { Subject } from "rxjs/Rx";
+import { CarServiceRequestTrackerModel } from "./carservicerequesttracker.model";
+import { Subject } from "rxjs";
 @Injectable()
 export class MyRequestService{
     constructor(private env:Environment, private http: HttpClient){ }

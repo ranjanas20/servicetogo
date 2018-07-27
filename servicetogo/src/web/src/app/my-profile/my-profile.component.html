@@ -14,7 +14,7 @@
       <h5 class="card-title">Change Password</h5>
       <form (ngSubmit)="onSubmitLoginForm()" #f="ngForm" [formGroup]="loginForm">
         <div class="form-group row">
-          <label for="loginId" class="col-sm-2 col-form-label">User name</label>
+          <label for="loginId" class="col-sm-2 col-form-label">Username</label>
           <div class="col-sm-10">
             <input type="text" id="loginId" readonly class="form-control" formControlName="loginId">
           </div>
@@ -26,12 +26,12 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="loginPassword" class="col-sm-2 col-form-label">NEW Password</label>
+          <label for="loginPassword" class="col-sm-2 col-form-label">New Password</label>
           <div class="col-sm-5">
             <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" placeholder="New Password">
           </div>
           <div class="col-sm-5">
-              <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" placeholder="Retype New password">
+              <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" placeholder="Re-enter New password">
             </div>
         </div>
 
@@ -69,7 +69,6 @@
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
-        <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
         <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
       </form>
 
@@ -78,7 +77,7 @@
       <h5 class="card-title">Update Profile</h5>
       <div class="row">
         <div class="col">
-          <form (ngSubmit)="onSubmit()" [formGroup]="profileForm">
+          <form (ngSubmit)="onSubmitProfileForm()" [formGroup]="profileForm">
             <div id="user-data">
               <div class="form-group row">
                 <label for="username" class="col-sm-2 col-form-label">Username</label>
@@ -130,7 +129,6 @@
               </div>
             </div>
             <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Submit</button>
-            <button class="btn btn-secomdary" name="reset" type="reset" (click)="resetForm()">Reset</button>
             <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home">Cancel</button>
           </form>
         </div>

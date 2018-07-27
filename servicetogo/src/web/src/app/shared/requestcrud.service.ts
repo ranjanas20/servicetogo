@@ -3,7 +3,7 @@ import { Environment } from "./environment.service";
 
 import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http'
 import { Observable } from "rxjs/Observable";
-import { CarServiceRequestTrackerModel } from "./careervicerequesttracker.model";
+import { CarServiceRequestTrackerModel } from "./carservicerequesttracker.model";
 import { ResponseModel } from "./response.model";
 
 @Injectable()
