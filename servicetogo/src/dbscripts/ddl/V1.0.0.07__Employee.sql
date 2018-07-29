@@ -19,6 +19,10 @@ CREATE TABLE public.employee
     employee_mname character varying(50) COLLATE pg_catalog."default",
     login_id character varying(150) COLLATE pg_catalog."default",
     tenant_id character varying(10),
+    created_on timestamp ,
+    created_by character varying(20) COLLATE pg_catalog."default",
+    updated_on timestamp,
+    updated_by character varying(20) COLLATE pg_catalog."default",
     CONSTRAINT employee_pkey PRIMARY KEY (employee_id)
 )
 WITH (
