@@ -17,15 +17,10 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.signupForm = new FormGroup({
-      'loginId': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      'loginId': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
       'loginPassword': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
       'retypePassword': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
-      'email': new FormControl('', [Validators.required, Validators.email]),
-      'userType': new FormControl('', [Validators.required]),
-      'secretQuestion1CodeId': new FormControl('', [Validators.required]),
-      'secretQuestion2CodeId': new FormControl('', [Validators.required]),
-      'secretAnswer1': new FormControl('', [Validators.required]),
-      'secretAnswer2': new FormControl('', [Validators.required])
+      'email': new FormControl('', [Validators.required, Validators.email,Validators.maxLength(100)])
     });
   }
   resetForm() {
@@ -36,10 +31,6 @@ export class SignupComponent implements OnInit {
     model.loginId = this.signupForm.value.loginId;
     model.loginPassword = this.signupForm.value.loginPassword;
     model.email = this.signupForm.value.email;
-    model.secretQuestion1CodeId=this.signupForm.value.secretQuestion1CodeId;
-    model.secretQuestion2CodeId=this.signupForm.value.secretQuestion2CodeId;
-    model.secretAnswer1=this.signupForm.value.secretAnswer1;
-    model.secretAnswer2=this.signupForm.value.secretAnswer2;
     model.userType='customer';
 
     this.authsvc.signup(model).subscribe(

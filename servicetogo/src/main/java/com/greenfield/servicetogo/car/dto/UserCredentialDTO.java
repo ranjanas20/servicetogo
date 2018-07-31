@@ -1,7 +1,7 @@
 package com.greenfield.servicetogo.car.dto;
 
 public class UserCredentialDTO extends AuditableDTO {
-    private Integer credentialId;
+    private Long credentialId;
     private String userType;
     private String tenantId;
     private String loginId;
@@ -14,10 +14,10 @@ public class UserCredentialDTO extends AuditableDTO {
     
    
     
-    public Integer getCredentialId() {
+    public Long getCredentialId() {
         return credentialId;
     }
-    public void setCredentialId(Integer credentialId) {
+    public void setCredentialId(Long credentialId) {
         this.credentialId = credentialId;
     }
     public String getUserType() {

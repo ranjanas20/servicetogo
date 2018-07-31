@@ -30,12 +30,12 @@ public class CustomerController {
     
     
     @PutMapping(value = "/saveprofile")
-    public ResponseDTO<CustomerProfileDTO> saveProfile(CustomerProfileDTO dto){
+    public ResponseDTO<CustomerProfileDTO> saveProfile(@RequestBody CustomerProfileDTO dto){
         ResponseDTO<CustomerProfileDTO> resp = new ResponseDTO<>();
         resp.setData(cpservice.saveProfile(dto));
         resp.setSuccess(true);
         resp.setRespCode("200");
-        resp.setRespMessage("SUCESS");
+        resp.setRespMessage("SUCCESS");
         return resp; 
     }
     @GetMapping("/customerprofile/{customerId}")

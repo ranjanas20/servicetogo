@@ -1,77 +1,83 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { CustomerProfileModel } from '../shared/customerprofile.model';
 import { UserCredentialModel } from '../shared/usercredential.model';
 import { CustomerService } from '../shared/customer.service';
+import { ResponseModel } from '../shared/response.model';
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.css']
+
 })
 export class MyProfileComponent implements OnInit {
-  tabname:string='PROFILE';
+  message: string = "No message from my profile";
+  hideMessage: number = 1;
+  tabname: string = 'PROFILE';
   profileForm: FormGroup;
   loginForm: FormGroup;
-  username:string='';
+  username: string = '';
   subscription: Subscription;
   profile: CustomerProfileModel = new CustomerProfileModel();
   cred: UserCredentialModel = new UserCredentialModel();
 
   constructor(private authsvc: AuthService, private custsvc: CustomerService, private router: Router) { }
-  initForms(){
+  onMessageHidden() {
+    this.hideMessage = 1;
+  }
+  initForms() {
     this.profileForm = new FormGroup({
       'loginId': new FormControl('', [Validators.required]),
-      'email': new FormControl('', [Validators.required]),
-      'customerFirstName': new FormControl('', [Validators.required]),
-      'customerLastName': new FormControl('', [Validators.required]),
-      'customerMiddleName': new FormControl('', [Validators.required]),
-      'customerPhone': new FormControl('', [Validators.required]),
-      'addressLine1': new FormControl('', [Validators.required]),
-      'addressLine2': new FormControl('', [Validators.required]),
-      'addressCity': new FormControl('', [Validators.required]),
-      'addressZip': new FormControl('', [Validators.required]),
-      'addressState': new FormControl('', [Validators.required])
+      'email': new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
+      'customerFirstName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'customerLastName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'customerMiddleName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'customerPhone': new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      'addressLine1': new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      'addressLine2': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'addressCity': new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      'addressZip': new FormControl('', [Validators.required, Validators.maxLength(5)]),
+      'addressState': new FormControl('', [Validators.required, Validators.maxLength(50)])
     });
 
     this.loginForm = new FormGroup({
       'loginId': new FormControl('', [Validators.required]),
-      'loginPassword': new FormControl('', [Validators.required]),
-      'retypePassword': new FormControl('', [Validators.required]),
-      'oldPassword': new FormControl('', [Validators.required]),
-      'userType': new FormControl('', [Validators.required]),
-      'secretQuestion1CodeId': new FormControl('', [Validators.required]),
-      'secretQuestion2CodeId': new FormControl('', [Validators.required]),
-      'secretAnswer1': new FormControl('', [Validators.required]),
-      'secretAnswer2': new FormControl('', [Validators.required])
+      'loginPassword': new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      'retypePassword': new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      'oldPassword': new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      'secretQuestion1CodeId': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'secretQuestion2CodeId': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'secretAnswer1': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'secretAnswer2': new FormControl('', [Validators.required, Validators.maxLength(50)])
     });
   }
   ngOnInit() {
     this.initForms();
-    this.username=this.authsvc.loginId;
+    this.username = this.authsvc.loginId;
     this.authsvc.username.subscribe(
-      (name)=>{
-        this.username=name;
+      (name) => {
+        this.username = name;
       }
     );
     this.loadProfileFromServer();
 
   }
-  loadProfileFromServer(){
+  loadProfileFromServer() {
     this.custsvc.getCustProfile(this.username).subscribe(
-      (data: CustomerProfileModel)=>{
-        this.profile=data;
+      (data: CustomerProfileModel) => {
+        this.profile = data;
         this.displayProfile();
-      }, 
-      (error)=>{
+      },
+      (error) => {
         console.log(error);
-      } 
+      }
     );
   }
-  displayProfile(){
+  displayProfile() {
     this.loginForm.get('loginId').setValue(this.profile.loginId);
 
     this.profileForm.get('loginId').setValue(this.profile.loginId);
@@ -90,28 +96,55 @@ export class MyProfileComponent implements OnInit {
 
 
   }
-  resetFormProfileForm(){
+  resetFormProfileForm() {
     this.profileForm.reset();
   }
-  resetFormLoginForm(){
+  resetFormLoginForm() {
     this.loginForm.reset();
   }
-  activateTab(event,tabName:string){
-    this.tabname=tabName;
+  activateTab(event, tabName: string) {
+    this.tabname = tabName;
     event.preventDefault();
   }
+  populateProfileModel() {
+    this.profile.loginId = this.profileForm.get('loginId').value;
 
-  onSubmitProfileForm(){
-    
+    this.profile.email = this.profileForm.get('email').value;
+    this.profile.customerFirstName = this.profileForm.get('customerFirstName').value;
+    this.profile.customerLastName = this.profileForm.get('customerLastName').value;
+    this.profile.customerMiddleName = this.profileForm.get('customerMiddleName').value
+    this.profile.customerPhone = this.profileForm.get('customerPhone').value;
+    this.profile.addressLine1 = this.profileForm.get('addressLine1').value;
+    this.profile.addressLine2 = this.profileForm.get('addressLine2').value;
+
+    this.profile.addressCity = this.profileForm.get('addressCity').value;
+    this.profile.addressZip = this.profileForm.get('addressZip').value;
+    this.profile.addressState = this.profileForm.get('addressState').value;
   }
-  onSubmitLoginForm(){
-    
+  showMessage(msg:string){
+    this.message = msg;
+    this.hideMessage = 0;
   }
-  toCustomerProfileModel(){
+  onSubmitProfileForm() {
+    this.populateProfileModel() ;
+    this.custsvc.updateProfile(this.profile).subscribe(
+      (resp: ResponseModel) => {
+        this.profile = resp.data;
+        this.displayProfile();
+        this.showMessage("Saved successfuly");
+      },
+      (error) => {
+        console.log(error);
+        this.showMessage("Error saving profile");
+
+      }
+    );
+  }
+  onSubmitLoginForm() {
 
   }
-  ngOnDestroy(){
-    if(this.subscription){
+  ngOnDestroy() {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }

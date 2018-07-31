@@ -10,6 +10,7 @@
     </ul>
   </div>
   <div class="card-body">
+    <app-msg-util [alertMessage]="message" [hide]="hideMessage" (msgHidden)="onMessageHidden()"></app-msg-util>
     <div class="panel" name="passwordTab" style="max-width: 900px;" [class.d-none]="tabname=='PROFILE'" [class.d-block]="tabname=='LOGIN'">
       <h5 class="card-title">Change Password</h5>
       <form (ngSubmit)="onSubmitLoginForm()" #f="ngForm" [formGroup]="loginForm">
@@ -39,8 +40,8 @@
           <label for="secretQuestion1CodeId" class="col-sm-2 col-form-label">Secret Question 1</label>
           <div class="col-sm-10">
             <select id="secretQuestion1CodeId" class="form-control" formControlName="secretQuestion1CodeId">
-              <option value="pet">Your first Pet?</option>
-              <option value="teacher">Your first teacher?</option>
+              <option value="firstpetname">Your first Pet?</option>
+              <option value="firstteachername">Your first teacher?</option>
             </select>
           </div>
         </div>
@@ -56,8 +57,8 @@
           <div class="col-sm-10">
 
             <select id="secretQuestion2CodeId" class="form-control" formControlName="secretQuestion2CodeId">
-              <option value="pet">Your first Pet?</option>
-              <option value="teacher">Your first teacher?</option>
+              <option value="firstpetname">Your first Pet?</option>
+              <option value="firstteachername">Your first teacher?</option>
             </select>
           </div>
         </div>
@@ -88,7 +89,7 @@
               <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Contact</label>
                 <div class="col-sm-5">
-                  <input type="text" id="email" class="form-control" formControlName="email" required placeholder="E-mail">
+                  <input type="text" id="email" class="form-control" formControlName="email" placeholder="E-mail">
                 </div>
                 <div class="col-sm-5">
                   <input type="text" id="customerPhone" class="form-control" formControlName="customerPhone" placeholder="Phone">

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenfield.servicetogo.dto.RequestHeaderDTO;
 import com.greenfield.servicetogo.service.RequestHeaderService;
 
-@RestController
+//@RestController
 public class RequestHeaderRestController {
 
 	

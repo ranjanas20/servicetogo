@@ -18,6 +18,7 @@ import { Environment } from './shared/environment.service';
 import { MyRequestService } from './shared/myrequest.service';
 import { RequestCrudService } from './shared/requestcrud.service';
 import { CustomerService } from './shared/customer.service';
+import { MsgUtilComponent } from './msg-util/msg-util.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CustomerService } from './shared/customer.service';
     LoginComponent,
     SignupComponent,
     MyRequestsComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    MsgUtilComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule

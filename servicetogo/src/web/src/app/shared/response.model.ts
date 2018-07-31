@@ -6,5 +6,5 @@ export class ResponseModel{
     respMessage: string;
     pageNumber: number;
     totalPapges: number;
-    data: CarServiceRequestTrackerModel; 
+    data: any; 
 }

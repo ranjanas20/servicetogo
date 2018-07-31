@@ -18,7 +18,7 @@ public class UserCredentialEntity extends Auditable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="credential_id")
-    private Integer credentialId;
+    private Long credentialId;
     
     @Column(name="user_type")
     private String userType;
@@ -58,11 +58,11 @@ public class UserCredentialEntity extends Auditable{
     @OneToMany
     private Set<RoleEntity> roles;
 
-    public Integer getCredentialId() {
+    public Long getCredentialId() {
         return credentialId;
     }
 
-    public void setCredentialId(Integer credentialId) {
+    public void setCredentialId(Long credentialId) {
         this.credentialId = credentialId;
     }
 

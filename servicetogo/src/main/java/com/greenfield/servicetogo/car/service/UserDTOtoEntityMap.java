@@ -24,6 +24,17 @@ public class UserDTOtoEntityMap {
         setAuditableNEW(entity);
         return entity;        
     }
+    public static void setToCredentialEntity(UserCredentialEntity entity,UserCredentialDTO dto){
+        entity.setTenantId(DEFAULT_TENANT);
+        entity.setLoginId(dto.getLoginId());
+        entity.setLoginPassword(dto.getLoginPassword());
+        entity.setUserType("customer");
+        entity.setSecretQuestion1CodeId(dto.getSecretQuestion1CodeId());
+        entity.setSecretQuestion2CodeId(dto.getSecretQuestion2CodeId());
+        entity.setSecretAnswer1(dto.getSecretAnswer1());
+        entity.setSecretAnswer2(dto.getSecretAnswer2());
+        setAuditableMODIFY(entity);
+    }
     public static CustomerEntity toNewCustomerEntity(UserCredentialDTO dto){
         CustomerEntity entity = new CustomerEntity();
         entity.setTenantId(DEFAULT_TENANT);

@@ -29,7 +29,21 @@ export class AuthService {
 
         });
     }
+    changeCredentials(cred: UserCredentialModel){
+        return this.http.post<ResponseModel>(this.env.REST_URL + '/credupdate',cred, {
+            observe: 'body',
+            responseType: 'json'
+        })
+        .map(
+            (data) => {
+                return data;
+            }
+        ).catch((error) => {
+            console.log(error);
+            return Observable.throw("Something went wrong");
 
+        });
+    }
     logout() {
         this.loggedin.next(false);
         this.username.next('');

@@ -10,7 +10,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
-import com.greenfield.servicetogo.car.entity.CarServiceRequestEntity;
 import com.greenfield.servicetogo.car.entity.CustomerEntity;
 import com.greenfield.servicetogo.car.entity.UserCredentialEntity;
 import com.greenfield.servicetogo.car.repository.CustomerRepository;
@@ -24,14 +23,20 @@ public class UserProfileService {
     private CustomerRepository customerRepository;
 
     @Transactional
-    public Integer customerSignup(UserCredentialDTO userCredential) {
+    public Long customerSignup(UserCredentialDTO userCredential) {
         UserCredentialEntity userentity = UserDTOtoEntityMap.toNewUserCredentialEntity(userCredential);
         credentialRepository.save(userentity);
         CustomerEntity customerEntity = UserDTOtoEntityMap.toNewCustomerEntity(userCredential);
         customerRepository.save(customerEntity);
         return userentity.getCredentialId();
     }
-
+    @Transactional
+    public Long updateCrdentials(UserCredentialDTO dto) {
+        Optional<UserCredentialEntity> entityO = credentialRepository.findById(dto.getCredentialId());
+        UserDTOtoEntityMap.setToCredentialEntity(entityO.get(), dto);
+        UserCredentialEntity savedUserentity = credentialRepository.save(entityO.get());
+        return savedUserentity.getCredentialId();
+    }
     public boolean login(String userType, String loginId, String loginPassword) {
         if (userType == null) {
             userType="customer";
