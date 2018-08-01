@@ -6,23 +6,23 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges,EventEmitter, Output
   styleUrls: ['./msg-util.component.css']
 })
 export class MsgUtilComponent implements OnInit, OnChanges {
-  @Input('alertMessage') alertMessage: string;
-  @Input('hide') hide: number;
-  @Output() msgHidden= new EventEmitter<number>();
+  @Input('messageText') messageText: string;
+  @Input('showMessage') showMessage: boolean;
+  @Output() msgHidden= new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit() {
   }
 
   hideAlert(){
-    this.msgHidden.emit(1);
+    this.msgHidden.emit(true);
   }
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['hide']){
-      this.hide = changes['hide'].currentValue;
+    if(changes['showMessage']){
+      this.showMessage = changes['showMessage'].currentValue;
     }
-    if(changes.alertMessage){
-      this.alertMessage=changes.alertMessage.currentValue;
+    if(changes.messageText){
+      this.messageText=changes.messageText.currentValue;
     }
     console.log(changes);
   }

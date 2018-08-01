@@ -16,7 +16,11 @@ import { ResponseModel } from '../shared/response.model';
 })
 export class MyProfileComponent implements OnInit {
   message: string = "No message from my profile";
-  hideMessage: number = 1;
+  showMessage: boolean = false;
+
+  showProgressBar: boolean=true;
+  progressPct: number=50;
+
   tabname: string = 'PROFILE';
   profileForm: FormGroup;
   loginForm: FormGroup;
@@ -27,7 +31,19 @@ export class MyProfileComponent implements OnInit {
 
   constructor(private authsvc: AuthService, private custsvc: CustomerService, private router: Router) { }
   onMessageHidden() {
-    this.hideMessage = 1;
+    this.showMessage = false;
+  }
+  showProgress(pct: number){
+    this.progressPct=pct;
+    if(pct>=100){
+      this.showProgressBar=false;
+    }else{
+      this.showProgressBar=true;
+    }
+  }
+  showMessageNow(msg:string){
+    this.message = msg;
+    this.showMessage = true;
   }
   initForms() {
     this.profileForm = new FormGroup({
@@ -121,22 +137,21 @@ export class MyProfileComponent implements OnInit {
     this.profile.addressZip = this.profileForm.get('addressZip').value;
     this.profile.addressState = this.profileForm.get('addressState').value;
   }
-  showMessage(msg:string){
-    this.message = msg;
-    this.hideMessage = 0;
-  }
+  
   onSubmitProfileForm() {
     this.populateProfileModel() ;
+    this.showProgress(40)
     this.custsvc.updateProfile(this.profile).subscribe(
       (resp: ResponseModel) => {
         this.profile = resp.data;
         this.displayProfile();
-        this.showMessage("Saved successfuly");
+        this.showMessageNow("Saved successfuly");
+        this.showProgress(100);
       },
       (error) => {
         console.log(error);
-        this.showMessage("Error saving profile");
-
+        this.showMessageNow("Error saving profile");
+        this.showProgress(100);
       }
     );
   }

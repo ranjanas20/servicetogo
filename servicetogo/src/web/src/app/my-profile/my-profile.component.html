@@ -10,7 +10,7 @@
     </ul>
   </div>
   <div class="card-body">
-    <app-msg-util [alertMessage]="message" [hide]="hideMessage" (msgHidden)="onMessageHidden()"></app-msg-util>
+    <app-msg-util [messageText]="message" [showMessage]="showMessage" (msgHidden)="onMessageHidden()"></app-msg-util>
     <div class="panel" name="passwordTab" style="max-width: 900px;" [class.d-none]="tabname=='PROFILE'" [class.d-block]="tabname=='LOGIN'">
       <h5 class="card-title">Change Password</h5>
       <form (ngSubmit)="onSubmitLoginForm()" #f="ngForm" [formGroup]="loginForm">

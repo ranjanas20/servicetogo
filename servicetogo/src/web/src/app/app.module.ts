@@ -19,6 +19,7 @@ import { MyRequestService } from './shared/myrequest.service';
 import { RequestCrudService } from './shared/requestcrud.service';
 import { CustomerService } from './shared/customer.service';
 import { MsgUtilComponent } from './msg-util/msg-util.component';
+import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MsgUtilComponent } from './msg-util/msg-util.component';
     SignupComponent,
     MyRequestsComponent,
     MyProfileComponent,
-    MsgUtilComponent
+    MsgUtilComponent,
+    ProgressMaskComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
