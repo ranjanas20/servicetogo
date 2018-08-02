@@ -6,8 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./progress-mask.component.css']
 })
 export class ProgressMaskComponent implements OnInit {
-  @Input() showProgress:boolean=false;
-  @Input() progressPct:number=25;
+  @Input() showProgress:boolean = false;
   constructor() { }
 
   ngOnInit() {

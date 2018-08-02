@@ -18,8 +18,7 @@ export class MyProfileComponent implements OnInit {
   message: string = "No message from my profile";
   showMessage: boolean = false;
 
-  showProgressBar: boolean=true;
-  progressPct: number=50;
+  showProgressBar: boolean=false;
 
   tabname: string = 'PROFILE';
   profileForm: FormGroup;
@@ -32,14 +31,6 @@ export class MyProfileComponent implements OnInit {
   constructor(private authsvc: AuthService, private custsvc: CustomerService, private router: Router) { }
   onMessageHidden() {
     this.showMessage = false;
-  }
-  showProgress(pct: number){
-    this.progressPct=pct;
-    if(pct>=100){
-      this.showProgressBar=false;
-    }else{
-      this.showProgressBar=true;
-    }
   }
   showMessageNow(msg:string){
     this.message = msg;
@@ -140,18 +131,18 @@ export class MyProfileComponent implements OnInit {
   
   onSubmitProfileForm() {
     this.populateProfileModel() ;
-    this.showProgress(40)
+    this.showProgressBar=true;
     this.custsvc.updateProfile(this.profile).subscribe(
       (resp: ResponseModel) => {
         this.profile = resp.data;
         this.displayProfile();
         this.showMessageNow("Saved successfuly");
-        this.showProgress(100);
+        this.showProgressBar=false;
       },
       (error) => {
         console.log(error);
         this.showMessageNow("Error saving profile");
-        this.showProgress(100);
+        this.showProgressBar=false;
       }
     );
   }
