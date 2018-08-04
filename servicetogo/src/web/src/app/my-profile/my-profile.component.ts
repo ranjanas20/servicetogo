@@ -64,7 +64,6 @@ export class MyProfileComponent implements OnInit {
   }
   ngOnInit() {
     this.initForms();
-    this.username = this.authsvc.loginId;
     this.authsvc.username.subscribe(
       (name) => {
         this.username = name;

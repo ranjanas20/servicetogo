@@ -11,7 +11,7 @@ import { ResponseModel } from '../shared/response.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  hide:number=1;
+  showMessage:boolean=false;
   alertMessage:string='';
   constructor(private authsvc: AuthService, private router: Router) { }
 
@@ -27,20 +27,19 @@ export class LoginComponent implements OnInit {
     });
   }
   hideAlert(){
-    this.hide=1;
+    this.showMessage=false;
   }
   onSubmit() {
     console.log(this.loginForm);
     this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       (data: ResponseModel)=>{        
         if (data.success) {
-          this.authsvc.loginId=this.loginForm.value.username;
           this.authsvc.loggedin.next(true);
           this.authsvc.username.next(this.loginForm.value.username);          
           this.router.navigate(['home']);
       } else {
           this.alertMessage="Login unsuccessful, try again.";
-          this.hide=0;
+          this.showMessage=true;
           console.log(data.respMessage);
       }
       }, 

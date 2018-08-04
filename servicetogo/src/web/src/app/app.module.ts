@@ -21,6 +21,7 @@ import { CustomerService } from './shared/customer.service';
 import { MsgUtilComponent } from './msg-util/msg-util.component';
 import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
 import { AuthGuard } from './shared/auth-guard.service';
+import { FreeEstimateWizardComponent } from './free-estimate-wizard/free-estimate-wizard.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AuthGuard } from './shared/auth-guard.service';
     MyRequestsComponent,
     MyProfileComponent,
     MsgUtilComponent,
-    ProgressMaskComponent
+    ProgressMaskComponent,
+    FreeEstimateWizardComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule

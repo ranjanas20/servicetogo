@@ -6,13 +6,13 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/comm
 import { ResponseModel } from './response.model';
 import { Observable } from 'rxjs/Observable';
 import { UserCredentialModel } from './usercredential.model';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthService { 
     private url: string = this.env.REST_URL;
-    loginId:string='';
-    loggedin: Subject<boolean> = new Subject();
-    username: Subject<string>=new Subject();
+    loggedin: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    username: BehaviorSubject<string>=new BehaviorSubject('');
     constructor(private env: Environment, private http: HttpClient) { }
     signup(cred: UserCredentialModel) {
         return this.http.post<ResponseModel>(this.env.REST_URL + '/signup',cred, {
