@@ -20,6 +20,7 @@ import { RequestCrudService } from './shared/requestcrud.service';
 import { CustomerService } from './shared/customer.service';
 import { MsgUtilComponent } from './msg-util/msg-util.component';
 import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
+import { AuthGuard } from './shared/auth-guard.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
   ],
-  providers: [AuthService,Environment, MyRequestService, RequestCrudService, CustomerService],
-  bootstrap: [AppComponent] 
+  providers: [AuthService,Environment, MyRequestService, RequestCrudService, CustomerService, AuthGuard],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

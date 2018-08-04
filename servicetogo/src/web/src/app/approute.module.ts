@@ -9,17 +9,19 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { config } from 'process';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AuthGuard } from './shared/auth-guard.service';
+
 const appRoutes: Routes=[
   {path:'',  redirectTo: 'home',pathMatch:'full' },
   {path: 'home', component: HomeComponent},
   {path:'faq', component: FaqComponent},
   {path:'free-estimate', component: FreeEstimateComponent},
   {path:'free-estimate/:requestId/:mode', component: FreeEstimateComponent},
-  {path: 'my-requests', component: MyRequestsComponent},
+  {path: 'my-requests', component: MyRequestsComponent, canActivate: [AuthGuard]},
   {path: 'howitworks', component: HowitworksComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'my-profile', component: MyProfileComponent}
+  {path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
