@@ -11,6 +11,9 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./free-estimate-wizard.component.css']
 })
 export class FreeEstimateWizardComponent implements OnInit {
+  currentStep: string="contact";
+  stepCarOK: boolean=false;
+  stepContactOK: boolean=false;
   mode:string='NEW';  
   hide:number=1;
   alertMessage:string="No message";
@@ -56,6 +59,24 @@ export class FreeEstimateWizardComponent implements OnInit {
       this.selectRequestSubscription.unsubscribe();
     }
     
+  }
+  next(){
+    if(this.currentStep=='car'){
+      this.currentStep='finish';
+      this.stepCarOK=true;
+    }
+    if(this.currentStep=='contact'){
+      this.currentStep='car'
+      this.stepContactOK=true;
+    }
+  }
+  previous(){
+    if(this.currentStep=='car'){
+      this.currentStep='contact';
+    }
+    if(this.currentStep=='finish'){
+      this.currentStep='car'
+    }
   }
   cancel(){
     if(this.mode=='NEW'){
