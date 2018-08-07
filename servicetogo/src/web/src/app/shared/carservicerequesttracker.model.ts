@@ -1,9 +1,4 @@
 export class CarServiceRequestTrackerModel{
-    symptoms: string;
-    userComments: string;
-    preferredContactMethod: string;
-    vehicleLocation: string;
-
     requestId: number;
     customerId: number;
     customerFirstName: string;
@@ -11,15 +6,22 @@ export class CarServiceRequestTrackerModel{
     customerMiddleName: string;
     email: string;
     customerPhone: string;
-    vehicleMake: string;
-    vehicleModel: string;
-    vehicleYear: number;
-    vehicleVin: string;
+    addressLine1:string;
+    addressLine2:string;
     addressCity: string;
     addressState: string;
     addressZip: string;
     requestedDate: Date;
-    
+
+    vehicleMake: string;
+    vehicleModel: string;
+    vehicleYear: number;
+    vehicleVin: string;
+    symptoms: string;
+    userComments: string;
+    preferredContactMethod: string;
+    vehicleLocation: string;
+
     serviceStatus: string;
     assigedEmployeeId: string;
     assigedEmployeeFirstName: string;
@@ -31,9 +33,6 @@ export class CarServiceRequestTrackerModel{
     serviceCompletedByFirstName: string;
     serviceCompletedByLastName: string;
 
-    addressLine1:string;
-    addressLine2:string;
-    
     createdOn:Date;
     createdBy:string;
     updatedOn:Date;

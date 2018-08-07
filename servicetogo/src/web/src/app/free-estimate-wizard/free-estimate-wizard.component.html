@@ -16,8 +16,8 @@
         <i class="fa fa-circle-o" [class.fa-lg]="currentStep=='finish'" aria-hidden="true"></i> Finish</div>
     </div>
   </div>
-  <app-msg-util [messageText]="alertMessage" [showMessage]="hide==0" (msgHidden)="hideAlert()"></app-msg-util>
-  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <app-msg-util [messageText]="alertMessage" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
+  <form (ngSubmit)="onSubmit()" [formGroup]="wizardForm">
      <div class="panel" *ngIf="currentStep=='contact'">
       <div class="form-group row" [class.d-none]="mode=='NEW'" [class.visible]="mode!='NEW'">
         <label for="customerFirstName">Request ID: {{req.requestId}}</label>
@@ -25,50 +25,47 @@
       <div class="form-group row">
         <label for="customerFirstName" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-4">
-          <input name="customerFirstName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerFirstName" required
-            [(ngModel)]="req.customerFirstName">
+          <input formControlName="customerFirstName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerFirstName" >
         </div>
         <div class="col-sm-2">
-          <input name="customerMiddleName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerMiddleName" [(ngModel)]="req.customerMiddleName">
+          <input formControlName="customerMiddleName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerMiddleName" >
         </div>
         <div class="col-sm-4">
-          <input name="customerLastName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerLastName" [(ngModel)]="req.customerLastName">
+          <input formControlName="customerLastName" type="text" [readonly]="mode=='VIEW'" class="form-control" id="customerLastName" >
         </div>
       </div>
       <div class="form-group row">
         <label for="email" class="col-sm-2 col-form-label">Contact</label>
         <div class="col-sm-5">
-          <input type="email" name="email" [readonly]="mode=='VIEW'" class="form-control" maxlength="100" id="email" placeholder="name@example.com"
-            [(ngModel)]="req.email" email #email="ngModel">
-          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email</span>
+          <input type="email" formControlName="email" [readonly]="mode=='VIEW'" class="form-control" maxlength="100" id="email" placeholder="name@example.com">
+          <span class="help-block" *ngIf="!wizardForm.get('email').valid && wizardForm.get('email').touched">Please enter a valid email</span>
         </div>
         <div class="col-sm-5">
-          <input type="text" name="customerPhone" [readonly]="mode=='VIEW'" maxlength="10" class="form-control" id="customerPhone"
-            placeholder="0000000000" [(ngModel)]="req.customerPhone">
+          <input type="text" formControlName="customerPhone" [readonly]="mode=='VIEW'" maxlength="10" class="form-control" id="customerPhone"
+            placeholder="0000000000" >
         </div>
       </div>
       <div class="form-group row">
         <label for="requestedDate" class="col-sm-2 col-form-label">Service Requested On</label>
         <div class="col-sm-4">
-          <input name="requestedDate" type="date" [readonly]="mode=='VIEW'" class="form-control" id="requestedDate" [(ngModel)]="req.requestedDate">
+          <input formControlName="requestedDate" type="date" [readonly]="mode=='VIEW'" class="form-control" id="requestedDate">
         </div>
         <legend class="col-sm-2 col-form-label">Preferred contact</legend>
         <div class="col-sm-4">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="preferredContactMethod" value="phone" checked
-              [(ngModel)]="req.preferredContactMethod">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="preferredContactMethod" value="phone">
             <label class="form-check-label" for="phone">
               Phone
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="preferredContactMethod" value="email" [(ngModel)]="req.preferredContactMethod">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="preferredContactMethod" value="email" >
             <label class="form-check-label" for="email">
               Email
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="preferredContactMethod" value="sms" [(ngModel)]="req.preferredContactMethod">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="preferredContactMethod" value="sms">
             <label class="form-check-label" for="sms">
               Text Message
             </label>
@@ -79,25 +76,24 @@
       <div class="form-group row">
         <label for="addressLine1" class="col-sm-2 col-form-label">Address</label>
         <div class="col-sm-5">
-          <input name="addressLine1" type="text" [readonly]="mode=='VIEW'" maxlength="100" class="form-control" id="addressLine1" [(ngModel)]="req.addressLine1">
+          <input formControlName="addressLine1" type="text" [readonly]="mode=='VIEW'" maxlength="100" class="form-control" id="addressLine1" >
         </div>
         <div class="col-sm-5">
-          <input name="addressLine2" type="text" [readonly]="mode=='VIEW'" maxlength="100" class="form-control" id="addressLine2" [(ngModel)]="req.addressLine2">
+          <input formControlName="addressLine2" type="text" [readonly]="mode=='VIEW'" maxlength="100" class="form-control" id="addressLine2" >
         </div>
       </div>
 
       <div class="form-group row">
         <label for="addressZip" class="col-sm-2 col-form-label">Zip/City/State</label>
         <div class="col-sm-2">
-          <input name="addressZip" type="text" placeholder="Zip code" [readonly]="mode=='VIEW'" maxlength="10" class="form-control"
-            id="addressZip" [(ngModel)]="req.addressZip">
+          <input formControlName="addressZip" type="text" placeholder="Zip code" [readonly]="mode=='VIEW'" maxlength="10" class="form-control"
+            id="addressZip">
         </div>
         <div class="col-sm-4">
-          <input name="addressCity" type="text" placeholder="City" [readonly]="mode=='VIEW'" class="form-control" id="addressCity"
-            [(ngModel)]="req.addressCity">
+          <input formControlName="addressCity" type="text" placeholder="City" [readonly]="mode=='VIEW'" class="form-control" id="addressCity">
         </div>
         <div class="col-sm-4">
-          <select name="addressState" [disabled]="mode=='VIEW'" class="form-control" id="addressState" [(ngModel)]="req.addressState">
+          <select formControlName="addressState" [disabled]="mode=='VIEW'" class="form-control" id="addressState">
             <option>Select State</option>
             <option>CA</option>
             <option>WA</option>
@@ -113,7 +109,7 @@
       <div class="form-group row">
         <label for="vehicleMake" class="col-sm-2 col-form-label">Make</label>
         <div class="col-sm-2">
-          <select name="vehicleMake" [disabled]="mode=='VIEW'" class="form-control" id="vehicleMake" [(ngModel)]="req.vehicleMake">
+          <select formControlName="vehicleMake" [disabled]="mode=='VIEW'" class="form-control" id="vehicleMake">
             <option>Honda</option>
             <option>Toyota</option>
             <option>Chrysler</option>
@@ -123,38 +119,36 @@
         </div>
         <label for="vehicleModel" class="col-sm-1 col-form-label">Model</label>
         <div class="col-sm-3">
-          <input name="vehicleModel" type="text" [readonly]="mode=='VIEW'" class="form-control" id="vehicleModel" [(ngModel)]="req.vehicleModel">
+          <input formControlName="vehicleModel" type="text" [readonly]="mode=='VIEW'" class="form-control" id="vehicleModel">
         </div>
         <label for="vehicleYear" class="col-sm-1 col-form-label">Year</label>
         <div class="col-sm-3">
-          <input name="vehicleYear" type="number" [readonly]="mode=='VIEW'" maxlength="4" min="1990" max="2018" class="form-control"
-            id="vehicleYear" [(ngModel)]="req.vehicleYear">
+          <input formControlName="vehicleYear" type="number" [readonly]="mode=='VIEW'" maxlength="4" min="1990" max="2018" class="form-control"
+            id="vehicleYear" >
         </div>
       </div>
       <div class="form-group row">
         <label for="vehicleVin" class="col-sm-2 col-form-label">Car VIN# (If available)</label>
         <div class="col-sm-4">
-          <input name="vehicleVin" maxlength="17" type="text" [readonly]="mode=='VIEW'" class="form-control" id="vehicleVin" placeholder="VIN"
-            [(ngModel)]="req.vehicleVin">
+          <input formControlName="vehicleVin" maxlength="17" type="text" [readonly]="mode=='VIEW'" class="form-control" id="vehicleVin" placeholder="VIN"
+            >
         </div>
         <legend class="col-sm-2 col-form-label">Car Location </legend>
         <div class="col-sm-4">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="vehicleLocation" id="home" value="home" checked
-              [(ngModel)]="req.vehicleLocation">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="vehicleLocation" id="home" value="home" >
             <label class="form-check-label" for="home">
               Home
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="vehicleLocation" id="work" value="work" [(ngModel)]="req.vehicleLocation">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="vehicleLocation" id="work" value="work">
             <label class="form-check-label" for="work">
               Work
             </label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" name="vehicleLocation" id="otherLocation" value="text"
-              [(ngModel)]="req.vehicleLocation">
+            <input class="form-check-input" type="radio" [disabled]="mode=='VIEW'" formControlName="vehicleLocation" id="otherLocation" value="text">
             <label class="form-check-label" for="otherLocation">
               Others
             </label>
@@ -164,20 +158,20 @@
       <div class="form-group row">
         <label for="symptoms" class="col-sm-2 col-form-label">Symptoms</label>
         <div class="col-sm-4">
-          <textarea name="symptoms" class="form-control" [readonly]="mode=='VIEW'" id="symptoms" rows="3" [(ngModel)]="req.symptoms"></textarea>
+          <textarea formControlName="symptoms" class="form-control" [readonly]="mode=='VIEW'" id="symptoms" rows="3"></textarea>
         </div>
         <label for="userComments" class="col-sm-2 col-form-label">Other Comments</label>
         <div class="col-sm-4">
-          <textarea name="userComments" class="form-control" [readonly]="mode=='VIEW'" id="userComments" rows="3" [(ngModel)]="req.userComments"></textarea>
+          <textarea formControlName="userComments" class="form-control" [readonly]="mode=='VIEW'" id="userComments" rows="3"></textarea>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 text-right">
         <button class="btn btn-secondary" name="cancel" type="cancel" (click)="cancel()">Cancel</button>
-        <button class="btn btn-primary" *ngIf="currentStep=='finish'" name="submit2" type="submit" [disabled]="!f.valid" [class.visible]="mode!='VIEW'"
+        <button class="btn btn-primary" *ngIf="currentStep=='finish'" name="submit2" type="submit" [disabled]="!wizardForm.valid" [class.visible]="mode!='VIEW'"
           [class.d-none]="mode=='VIEW'">Finish</button>
-        <button class="btn btn-secondary" name="edit" type="button" (click)="edit(f)" [class.visible]="mode=='VIEW'" [class.d-none]="mode!='VIEW'">Edit</button>
+        <button class="btn btn-secondary" name="edit" type="button" (click)="edit()" [class.visible]="mode=='VIEW'" [class.d-none]="mode!='VIEW'">Edit</button>
         <button class="btn btn-primary" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'">Previous</button>
         <button class="btn btn-primary" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish'"> Next</button>
       </div>
