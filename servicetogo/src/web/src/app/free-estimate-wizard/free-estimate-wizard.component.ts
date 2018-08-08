@@ -139,6 +139,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     if (this.currentStep == 'car') {
       this.currentStep = 'finish';
       this.stepCarOK = true;
+      this.updateModel();
     }
     if (this.currentStep == 'contact') {
       this.currentStep = 'car'

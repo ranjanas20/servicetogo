@@ -1,0 +1,103 @@
+<div class="form-group row">
+  <label for="requestId" >Request ID: {{request.requestId}}</label>
+</div>
+
+<div class="form-group row">
+  <label for="customerName" >
+    Name: {{request.customerFirstName +' '+ request.customerMiddleName +' '+ request.customerLastName}}
+  </label>
+</div>
+
+<div class="form-group row">
+  <label for="email" >Email: {{request.email}}
+    &nbsp;&nbsp;&nbsp;
+    Phone: {{request.customerPhone}}
+  </label>
+</div>
+
+
+<div class="form-group row">
+  <label for="requestedDate">Service Requested On: {{request.requestedDate}}
+  &nbsp;&nbsp;&nbsp; Preferred contact: </label>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" disabled  [checked]="request.preferredContactMethod =='phone'"  [value]="request.preferredContactMethod">
+      <label class="form-check-label" for="phone">Phone</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" disabled  [checked]="request.preferredContactMethod =='email'" [value]="request.preferredContactMethod">
+      <label class="form-check-label" for="email">Email</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" disabled  [checked]="request.preferredContactMethod =='sms'" [value]="request.preferredContactMethod">
+      <label class="form-check-label" for="sms">Text Messag</label>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="addressLine1">Address: {{request.addressLine1 }} &nbsp; {{request.addressLine2 }} </label>
+  </div>
+
+  <div class="form-group row">
+    <label for="addressZip">Zip/City/State: {{request.addressZip}} &nbsp; {{request.addressCity}} &nbsp; {{request.addressState}} </label>
+  </div>
+<!--
+<div class="form-group row">
+<label for="vehicleMake" class="col-sm-2 col-form-label">Make</label>
+<div class="col-sm-2">
+  <select formControlName="vehicleMake" disabled class="form-control" id="vehicleMake">
+    <option>Honda</option>
+    <option>Toyota</option>
+    <option>Chrysler</option>
+    <option>GM</option>
+    <option>Ford</option>
+  </select>
+</div>
+<label for="vehicleModel" class="col-sm-1 col-form-label">Model</label>
+<div class="col-sm-3">
+  <input formControlName="vehicleModel" type="text" readonly class="form-control" id="vehicleModel">
+</div>
+<label for="vehicleYear" class="col-sm-1 col-form-label">Year</label>
+<div class="col-sm-3">
+  <input formControlName="vehicleYear" type="number" readonly maxlength="4" min="1990" max="2018" class="form-control"
+    id="vehicleYear" >
+</div>
+</div>
+<div class="form-group row">
+<label for="vehicleVin" class="col-sm-2 col-form-label">Car VIN# (If available)</label>
+<div class="col-sm-4">
+  <input formControlName="vehicleVin" maxlength="17" type="text" readonly class="form-control" id="vehicleVin" placeholder="VIN"
+    >
+</div>
+<legend class="col-sm-2 col-form-label">Car Location </legend>
+<div class="col-sm-4">
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" disabled formControlName="vehicleLocation" id="home" value="home" >
+    <label class="form-check-label" for="home">
+      Home
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" disabled formControlName="vehicleLocation" id="work" value="work">
+    <label class="form-check-label" for="work">
+      Work
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" disabled formControlName="vehicleLocation" id="otherLocation" value="text">
+    <label class="form-check-label" for="otherLocation">
+      Others
+    </label>
+  </div>
+</div>
+</div>
+<div class="form-group row">
+<label for="symptoms" class="col-sm-2 col-form-label">Symptoms</label>
+<div class="col-sm-4">
+  <textarea formControlName="symptoms" class="form-control" readonly id="symptoms" rows="3"></textarea>
+</div>
+<label for="userComments" class="col-sm-2 col-form-label">Other Comments</label>
+<div class="col-sm-4">
+  <textarea formControlName="userComments" class="form-control" readonly id="userComments" rows="3"></textarea>
+</div>
+</div>
+-->

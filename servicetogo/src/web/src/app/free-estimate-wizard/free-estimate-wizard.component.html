@@ -13,7 +13,7 @@
         <hr/>
       </div>
       <div class="col-md-auto" [class.text-info]="currentStep=='finish'" [class.text-secondary]="currentStep!='finish'">
-        <i class="fa fa-circle-o" [class.fa-lg]="currentStep=='finish'" aria-hidden="true"></i> Finish</div>
+        <i class="fa fa-circle-o" [class.fa-lg]="currentStep=='finish'"  aria-hidden="true"></i> Finish</div>
     </div>
   </div>
   <app-msg-util [messageText]="alertMessage" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
@@ -166,6 +166,12 @@
         </div>
       </div>
     </div>
+
+    <div class="panel" *ngIf="currentStep=='finish'">
+      <app-view-estimate [request]="req"></app-view-estimate>
+    </div>
+
+
     <div class="row">
       <div class="col-sm-12 text-right">
         <button class="btn btn-secondary" name="cancel" type="cancel" (click)="cancel()">Cancel</button>

@@ -22,6 +22,7 @@ import { MsgUtilComponent } from './msg-util/msg-util.component';
 import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
 import { AuthGuard } from './shared/auth-guard.service';
 import { FreeEstimateWizardComponent } from './free-estimate-wizard/free-estimate-wizard.component';
+import { ViewEstimateComponent } from './view-estimate/view-estimate.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { FreeEstimateWizardComponent } from './free-estimate-wizard/free-estimat
     MyProfileComponent,
     MsgUtilComponent,
     ProgressMaskComponent,
-    FreeEstimateWizardComponent
+    FreeEstimateWizardComponent,
+    ViewEstimateComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
