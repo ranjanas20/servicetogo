@@ -29,77 +29,80 @@ export class FreeEstimateWizardComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
   initForm() {
     this.wizardForm = new FormGroup({
-      'requestId': new FormControl('', [Validators.required]),
-      'customerId': new FormControl('', [Validators.required]),
-      'requestedDate': new FormControl('', [Validators.required]),
-      'email': new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
-      'customerFirstName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'customerLastName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'customerMiddleName': new FormControl('', [Validators.maxLength(50)]),
-      'customerPhone': new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      'preferredContactMethod': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'addressLine1': new FormControl('', [Validators.maxLength(100)]),
-      'addressLine2': new FormControl('', [Validators.maxLength(50)]),
-      'addressCity': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      'addressZip': new FormControl('', [Validators.required, Validators.maxLength(5)]),
-      'addressState': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'vehicleMake': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'vehicleModel': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'vehicleYear': new FormControl('', [Validators.required, Validators.maxLength(4)]),
-      'vehicleVin': new FormControl('', [Validators.required, Validators.maxLength(16)]),
-      'symptoms': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      'userComments': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      'vehicleLocation': new FormControl('', [Validators.required, Validators.maxLength(50)])
-
+      contact: new FormGroup({
+        'requestId': new FormControl('', []),
+        'customerId': new FormControl('', []),
+        'requestedDate': new FormControl('', [Validators.required]),
+        'email': new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
+        'customerFirstName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'customerLastName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'customerMiddleName': new FormControl('', [Validators.maxLength(50)]),
+        'customerPhone': new FormControl('', [Validators.required, Validators.maxLength(10)]),
+        'preferredContactMethod': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'addressLine1': new FormControl('', [Validators.maxLength(100)]),
+        'addressLine2': new FormControl('', [Validators.maxLength(50)]),
+        'addressCity': new FormControl('', [Validators.required, Validators.maxLength(100)]),
+        'addressZip': new FormControl('', [Validators.required, Validators.maxLength(5)]),
+        'addressState': new FormControl('', [Validators.required, Validators.maxLength(50)])
+      }),
+      car: new FormGroup({
+        'vehicleMake': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'vehicleModel': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'vehicleYear': new FormControl('', [Validators.required, Validators.maxLength(4)]),
+        'vehicleVin': new FormControl('', [ Validators.maxLength(16)]),
+        'symptoms': new FormControl('', [ Validators.maxLength(100)]),
+        'userComments': new FormControl('', [Validators.maxLength(100)]),
+        'vehicleLocation': new FormControl('', [ Validators.maxLength(50)])
+      })
     });
   }
   updateForm() {
-    this.wizardForm.get("requestId").setValue(this.req.requestId);
-    this.wizardForm.get("customerId").setValue(this.req.customerId);
-    this.wizardForm.get("customerFirstName").setValue(this.req.customerFirstName);
-    this.wizardForm.get("customerLastName").setValue(this.req.customerLastName);
-    this.wizardForm.get("customerMiddleName").setValue(this.req.customerMiddleName);
-    this.wizardForm.get("email").setValue(this.req.email);
-    this.wizardForm.get("customerPhone").setValue(this.req.customerPhone);
-    this.wizardForm.get("addressLine1").setValue(this.req.addressLine1);
-    this.wizardForm.get("addressLine2").setValue(this.req.addressLine2);
-    this.wizardForm.get("addressCity").setValue(this.req.addressCity);
-    this.wizardForm.get("addressState").setValue(this.req.addressState);
-    this.wizardForm.get("addressZip").setValue(this.req.addressZip);
-    this.wizardForm.get("requestedDate").setValue(this.req.requestedDate);
+    this.wizardForm.get('contact').get("requestId").setValue(this.req.requestId);
+    this.wizardForm.get('contact').get("customerId").setValue(this.req.customerId);
+    this.wizardForm.get('contact').get("customerFirstName").setValue(this.req.customerFirstName);
+    this.wizardForm.get('contact').get("customerLastName").setValue(this.req.customerLastName);
+    this.wizardForm.get('contact').get("customerMiddleName").setValue(this.req.customerMiddleName);
+    this.wizardForm.get('contact').get("email").setValue(this.req.email);
+    this.wizardForm.get('contact').get("customerPhone").setValue(this.req.customerPhone);
+    this.wizardForm.get('contact').get("addressLine1").setValue(this.req.addressLine1);
+    this.wizardForm.get('contact').get("addressLine2").setValue(this.req.addressLine2);
+    this.wizardForm.get('contact').get("addressCity").setValue(this.req.addressCity);
+    this.wizardForm.get('contact').get("addressState").setValue(this.req.addressState);
+    this.wizardForm.get('contact').get("addressZip").setValue(this.req.addressZip);
+    this.wizardForm.get('contact').get("requestedDate").setValue(this.req.requestedDate);
+    this.wizardForm.get('contact').get("preferredContactMethod").setValue(this.req.preferredContactMethod);
 
-    this.wizardForm.get("vehicleMake").setValue(this.req.vehicleMake);
-    this.wizardForm.get("vehicleModel").setValue(this.req.vehicleModel);
-    this.wizardForm.get("vehicleYear").setValue(this.req.vehicleYear);
-    this.wizardForm.get("vehicleVin").setValue(this.req.vehicleVin);
-    this.wizardForm.get("symptoms").setValue(this.req.symptoms);
-    this.wizardForm.get("userComments").setValue(this.req.userComments);
-    this.wizardForm.get("preferredContactMethod").setValue(this.req.preferredContactMethod);
-    this.wizardForm.get("vehicleLocation").setValue(this.req.vehicleLocation);
+    this.wizardForm.get('car').get("vehicleMake").setValue(this.req.vehicleMake);
+    this.wizardForm.get('car').get("vehicleModel").setValue(this.req.vehicleModel);
+    this.wizardForm.get('car').get("vehicleYear").setValue(this.req.vehicleYear);
+    this.wizardForm.get('car').get("vehicleVin").setValue(this.req.vehicleVin);
+    this.wizardForm.get('car').get("symptoms").setValue(this.req.symptoms);
+    this.wizardForm.get('car').get("userComments").setValue(this.req.userComments);
+    this.wizardForm.get('car').get("vehicleLocation").setValue(this.req.vehicleLocation);
   }
   updateModel() {
-    this.req.requestId = this.wizardForm.get("requestId").value;
-    this.req.customerId = this.wizardForm.get("customerId").value;
-    this.req.customerFirstName = this.wizardForm.get("customerFirstName").value;
-    this.req.customerLastName = this.wizardForm.get("customerLastName").value;
-    this.req.customerMiddleName = this.wizardForm.get("customerMiddleName").value;
-    this.req.email = this.wizardForm.get("email").value;
-    this.req.customerPhone = this.wizardForm.get("customerPhone").value;
-    this.req.addressLine1 = this.wizardForm.get("addressLine1").value;
-    this.req.addressLine2 = this.wizardForm.get("addressLine2").value;
-    this.req.addressCity = this.wizardForm.get("addressCity").value;
-    this.req.addressState = this.wizardForm.get("addressState").value;
-    this.req.addressZip = this.wizardForm.get("addressZip").value;
-    this.req.requestedDate = this.wizardForm.get("requestedDate").value;
+    this.req.requestId = this.wizardForm.get('contact').get("requestId").value;
+    this.req.customerId = this.wizardForm.get('contact').get("customerId").value;
+    this.req.customerFirstName = this.wizardForm.get('contact').get("customerFirstName").value;
+    this.req.customerLastName = this.wizardForm.get('contact').get("customerLastName").value;
+    this.req.customerMiddleName = this.wizardForm.get('contact').get("customerMiddleName").value;
+    this.req.email = this.wizardForm.get('contact').get("email").value;
+    this.req.customerPhone = this.wizardForm.get('contact').get("customerPhone").value;
+    this.req.addressLine1 = this.wizardForm.get('contact').get("addressLine1").value;
+    this.req.addressLine2 = this.wizardForm.get('contact').get("addressLine2").value;
+    this.req.addressCity = this.wizardForm.get('contact').get("addressCity").value;
+    this.req.addressState = this.wizardForm.get('contact').get("addressState").value;
+    this.req.addressZip = this.wizardForm.get('contact').get("addressZip").value;
+    this.req.requestedDate = this.wizardForm.get('contact').get("requestedDate").value;
+    this.req.preferredContactMethod = this.wizardForm.get('contact').get("preferredContactMethod").value;
 
-    this.req.vehicleMake = this.wizardForm.get("vehicleMake").value;
-    this.req.vehicleModel = this.wizardForm.get("vehicleModel").value;
-    this.req.vehicleYear = this.wizardForm.get("vehicleYear").value;
-    this.req.vehicleVin = this.wizardForm.get("vehicleVin").value;
-    this.req.symptoms = this.wizardForm.get("symptoms").value;
-    this.req.userComments = this.wizardForm.get("userComments").value;
-    this.req.preferredContactMethod = this.wizardForm.get("preferredContactMethod").value;
-    this.req.vehicleLocation = this.wizardForm.get("vehicleLocation").value;
+    this.req.vehicleMake = this.wizardForm.get('car').get("vehicleMake").value;
+    this.req.vehicleModel = this.wizardForm.get('car').get("vehicleModel").value;
+    this.req.vehicleYear = this.wizardForm.get('car').get("vehicleYear").value;
+    this.req.vehicleVin = this.wizardForm.get('car').get("vehicleVin").value;
+    this.req.symptoms = this.wizardForm.get('car').get("symptoms").value;
+    this.req.userComments = this.wizardForm.get('car').get("userComments").value;
+    this.req.vehicleLocation = this.wizardForm.get('car').get("vehicleLocation").value;
   }
   ngOnInit() {
     this.initForm();
@@ -135,16 +138,27 @@ export class FreeEstimateWizardComponent implements OnInit {
     }
 
   }
+  isStepValid(){
+    if(this.currentStep == 'contact'){
+        return this.wizardForm.get("contact").valid
+    }else if(this.currentStep == 'car'){
+      return this.wizardForm.get("car").valid;
+    }else{
+      return true;
+    }
+  }
   next() {
+    this.updateModel();
     if (this.currentStep == 'car') {
       this.currentStep = 'finish';
       this.stepCarOK = true;
-      this.updateModel();
     }
     if (this.currentStep == 'contact') {
       this.currentStep = 'car'
       this.stepContactOK = true;
     }
+    console.log(this.wizardForm);
+
   }
   previous() {
     if (this.currentStep == 'car') {
@@ -165,6 +179,8 @@ export class FreeEstimateWizardComponent implements OnInit {
   edit() {
     this.mode = 'EDIT';
     this.hideAlert();
+    this.currentStep='contact';
+    this.updateForm();
   }
   hideAlert() {
     this.showMessage = false;
@@ -180,6 +196,7 @@ export class FreeEstimateWizardComponent implements OnInit {
         (response) => {
           this.req = response.data;
           this.mode = 'VIEW';
+          this.currentStep='done';
           this.showAlert('Saved successfully');
         },
         (error) => {
@@ -191,6 +208,7 @@ export class FreeEstimateWizardComponent implements OnInit {
         (response) => {
           this.req = response.data;
           this.mode = 'VIEW';
+          this.currentStep='done';
           this.showAlert('Created a new estimate request successfully, Request Id: ' + this.req.requestId);
         },
         (error) => {
@@ -198,26 +216,5 @@ export class FreeEstimateWizardComponent implements OnInit {
         });
     }
   }
-  toModel(form: NgForm): CarServiceRequestTrackerModel {
-    let req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
-    req.customerFirstName = form.value.customerFirstName;
-    req.customerLastName = form.value.customerLastName;
-    req.email = form.value.email;
-    req.customerPhone = form.value.customerPhone;
-    req.addressCity = form.value.addressCity;
-    req.addressState = form.value.addressState;
-    req.addressZip = form.value.addressZip;
-    req.vehicleMake = form.value.vehicleMake;
-    req.vehicleModel = form.value.vehicleModel;
-    req.vehicleYear = form.value.vehicleYear;
-    req.preferredContactMethod = form.value.preferredContactMethod;
-    req.vehicleLocation = form.value.vehicleLocation;
-    req.symptoms = form.value.symptoms;
-    req.userComments = form.value.userComments;
-    req.requestedDate = form.value.requestedDate;
-    req.vehicleVin = form.value.vehicleVin;
-    req.addressLine1 = form.value.addressLine1;
-    req.addressLine2 = form.value.addressLine2;
-    return req;
-  }
+  
 }
