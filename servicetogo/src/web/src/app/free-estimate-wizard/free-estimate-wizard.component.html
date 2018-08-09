@@ -1,5 +1,5 @@
 <div class="container  m-t-3">
-  <h3>Estimate</h3>
+  <h3>Estimate ({{mode}})</h3>
   <div class="container m-3">
     <div class="row">
       <div class="col-md-auto ml-1" [class.text-info]="currentStep=='contact'" [class.text-secondary]="currentStep!='contact'">
@@ -7,13 +7,13 @@
       <div class="col-md-1 m-0 p-0">
         <hr/>
       </div>
-      <div class="col-md-auto" [class.text-info.fa-lg]="currentStep=='car'" [class.text-secondary]="currentStep!='car'">
+      <div class="col-md-auto" [class.text-info]="currentStep=='car'" [class.text-secondary]="currentStep!='car'">
         <i class="fa" [class.fa-lg]="currentStep=='car'" [class.fa-circle-o]="!stepCarOK" [class.fa-check-circle-o]="stepCarOK"  aria-hidden="true"></i> Fill out your car information</div>
       <div class="col-md-1 m-0 p-0">
         <hr/>
       </div>
       <div class="col-md-auto" [class.text-info]="currentStep=='finish'" [class.text-secondary]="currentStep!='finish'">
-        <i class="fa fa-circle-o" [class.fa-lg]="currentStep=='finish'"  aria-hidden="true"></i> Finish</div>
+        <i class="fa" [class.fa-lg]="currentStep=='finish'" [class.fa-circle-o]="currentStep!='done'" [class.fa-check-circle-o]="currentStep=='done'"  aria-hidden="true"></i> Finish</div>
     </div>
   </div>
   <app-msg-util [messageText]="alertMessage" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
@@ -177,12 +177,14 @@
 
     <div class="row">
       <div class="col-sm-12 text-right">
-        <button class="btn btn-secondary" name="cancel" type="cancel" (click)="cancel()">Cancel</button>
+        <button class="btn btn-secondary" *ngIf="currentStep!='done'" name="cancel" type="button" (click)="cancel()">Cancel</button>
+        <button class="btn btn-secondary" *ngIf="currentStep=='done'" name="close" type="button" (click)="cancel()">Close</button>
+
         <button class="btn btn-primary" *ngIf="currentStep=='finish'" name="submit2" type="submit" [disabled]="!wizardForm.valid" [class.visible]="mode!='VIEW'"
           [class.d-none]="mode=='VIEW'">Finish</button>
-        <button class="btn btn-secondary" name="edit" type="button" (click)="edit()" [class.visible]="mode=='VIEW'" [class.d-none]="mode!='VIEW'">Edit</button>
-        <button class="btn btn-primary" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact' || currentStep=='done'">Previous</button>
-        <button class="btn btn-primary" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid() || currentStep=='done'"> Next</button>
+        <button class="btn btn-warning" name="edit" type="button" (click)="edit()" [class.d-none]="mode!='VIEW'">Edit</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done'" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'">Previous</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done'" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid()"> Next</button>
       </div>
     </div>
   </form>

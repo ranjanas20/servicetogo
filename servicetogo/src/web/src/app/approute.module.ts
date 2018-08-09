@@ -17,6 +17,7 @@ const appRoutes: Routes=[
   {path:'faq', component: FaqComponent},
   {path:'free-estimate', component: FreeEstimateComponent},
   {path:'estimate-wizard', component: FreeEstimateWizardComponent},
+  {path:'estimate-wizard/:requestId/:mode', component: FreeEstimateWizardComponent},
   {path:'free-estimate/:requestId/:mode', component: FreeEstimateComponent},
   {path: 'my-requests', component: MyRequestsComponent, canActivate: [AuthGuard]},
   {path: 'howitworks', component: HowitworksComponent},
