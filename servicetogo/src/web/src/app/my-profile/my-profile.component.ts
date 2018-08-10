@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { CustomerProfileModel } from '../shared/customerprofile.model';
-import { UserCredentialModel } from '../shared/usercredential.model';
+import { CustomerProfileModel } from '../shared/model/customerprofile.model';
+import { UserCredentialModel } from '../shared/model/usercredential.model';
 import { CustomerService } from '../shared/customer.service';
-import { ResponseModel } from '../shared/response.model';
+import { ResponseModel } from '../shared/model/response.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -42,13 +42,13 @@ export class MyProfileComponent implements OnInit {
       'email': new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
       'customerFirstName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
       'customerLastName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'customerMiddleName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      'customerMiddleName': new FormControl('', [Validators.maxLength(50)]),
       'customerPhone': new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      'addressLine1': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      'addressLine2': new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      'addressCity': new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      'addressZip': new FormControl('', [Validators.required, Validators.maxLength(5)]),
-      'addressState': new FormControl('', [Validators.required, Validators.maxLength(50)])
+      'addressLine1': new FormControl('', [ Validators.maxLength(100)]),
+      'addressLine2': new FormControl('', [ Validators.maxLength(50)]),
+      'addressCity': new FormControl('', [Validators.maxLength(100)]),
+      'addressZip': new FormControl('', [Validators.maxLength(5)]),
+      'addressState': new FormControl('', [Validators.maxLength(50)])
     });
 
     this.loginForm = new FormGroup({

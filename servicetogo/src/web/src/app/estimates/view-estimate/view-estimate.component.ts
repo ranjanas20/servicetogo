@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CarServiceRequestTrackerModel } from '../shared/carservicerequesttracker.model';
+import { CarServiceRequestTrackerModel } from '../../shared/model/carservicerequesttracker.model';
 
 @Component({
   selector: 'app-view-estimate',

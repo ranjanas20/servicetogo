@@ -3,8 +3,8 @@ import { Environment } from "./environment.service";
 
 import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http'
 import { Observable } from "rxjs/Observable";
-import { CarServiceRequestTrackerModel } from "./carservicerequesttracker.model";
-import { ResponseModel } from "./response.model";
+import { CarServiceRequestTrackerModel } from "./model/carservicerequesttracker.model";
+import { ResponseModel } from "./model/response.model";
 
 @Injectable()
 export class RequestCrudService{

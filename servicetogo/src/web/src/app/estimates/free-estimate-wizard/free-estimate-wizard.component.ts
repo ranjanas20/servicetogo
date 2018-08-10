@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { RequestCrudService } from '../shared/requestcrud.service';
-import { CarServiceRequestTrackerModel } from '../shared/carservicerequesttracker.model';
+import { RequestCrudService } from '../../shared/requestcrud.service';
+import { CarServiceRequestTrackerModel } from '../../shared/model/carservicerequesttracker.model';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

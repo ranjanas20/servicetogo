@@ -1,12 +1,11 @@
-import { Subject } from 'rxjs/Subject'
 import 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Environment } from './environment.service';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http'
-import { ResponseModel } from './response.model';
+import { ResponseModel } from './model/response.model';
 import { Observable } from 'rxjs/Observable';
-import { UserCredentialModel } from './usercredential.model';
-import { BehaviorSubject } from 'rxjs/Rx';
+import { UserCredentialModel } from './model/usercredential.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class AuthService { 

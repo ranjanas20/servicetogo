@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './home/header/header.component';
 import { HomeComponent } from './home/home.component';
-import { FaqComponent } from './faq/faq.component';
-import { HowitworksComponent } from './howitworks/howitworks.component';
-import { FreeEstimateComponent } from './free-estimate/free-estimate.component';
+import { FaqComponent } from './home/faq/faq.component';
+import { HowitworksComponent } from './home/howitworks/howitworks.component';
+import { FreeEstimateComponent } from './estimates/free-estimate/free-estimate.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
@@ -18,11 +18,13 @@ import { Environment } from './shared/environment.service';
 import { MyRequestService } from './shared/myrequest.service';
 import { RequestCrudService } from './shared/requestcrud.service';
 import { CustomerService } from './shared/customer.service';
-import { MsgUtilComponent } from './msg-util/msg-util.component';
-import { ProgressMaskComponent } from './progress-mask/progress-mask.component';
+import { MsgUtilComponent } from './util/msg-util/msg-util.component';
+import { ProgressMaskComponent } from './util/progress-mask/progress-mask.component';
 import { AuthGuard } from './shared/auth-guard.service';
-import { FreeEstimateWizardComponent } from './free-estimate-wizard/free-estimate-wizard.component';
-import { ViewEstimateComponent } from './view-estimate/view-estimate.component';
+import { FreeEstimateWizardComponent } from './estimates/free-estimate-wizard/free-estimate-wizard.component';
+import { ViewEstimateComponent } from './estimates/view-estimate/view-estimate.component';
+import { WorklistsComponent } from './vendor/worklists/worklists.component';
+import { SkillQueueComponent } from './vendor/skill-queue/skill-queue.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { ViewEstimateComponent } from './view-estimate/view-estimate.component';
     MsgUtilComponent,
     ProgressMaskComponent,
     FreeEstimateWizardComponent,
-    ViewEstimateComponent
+    ViewEstimateComponent,
+    WorklistsComponent,
+    SkillQueueComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule

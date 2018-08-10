@@ -8,6 +8,8 @@ The configuration has been done so that we can run spring boot and angular as se
 * To create new component, in VS code terminal
 
     ng g c new-component --module app --spec false
+    ng g c folder/new-component --module app --spec false
+    
 * To create production build, in VS code terminal
 
     ng build -prod –output-path ..\main\resources\static

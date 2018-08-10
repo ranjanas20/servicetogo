@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Environment } from "./environment.service";
-import { ResponseModel } from "./response.model";
+import { ResponseModel } from "./model/response.model";
 import { Observable } from "rxjs/Observable";
-import { CustomerProfileModel } from "./customerprofile.model";
+import { CustomerProfileModel } from "./model/customerprofile.model";
 
 @Injectable()
 export class CustomerService{
