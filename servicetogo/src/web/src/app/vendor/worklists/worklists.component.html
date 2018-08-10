@@ -1,3 +1,44 @@
-<p>
-  worklists works!
-</p>
+<div class="mb-2">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="tabname=='skillqueue'" href="#" (click)="onClickUnassigned($event)">Unassigned</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="tabname=='myworklist'" href="#" (click)="onClickMyworklist($event)">My Worklist</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="tabname=='allworklist'" href="#" (click)="onClickAllworklist($event)">All Worklist</a>
+    </li>
+
+  </ul>
+</div>
+<div class="panel text-left">
+  <div class="table-responsive">
+    <table class="table table-hover table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Service Requested On</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>  
+          <th>Status</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>08/23/2018</td>
+          <td>Sanjay Kumar Singh</td>
+          <td>1606 Ridge View AVe NE #201</td>
+          <td>ISSAQUAH</td>
+          <td>Washington</td>
+          <td>98029</td>
+          <td>NEW</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

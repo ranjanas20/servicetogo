@@ -21,7 +21,7 @@ const appRoutes: Routes=[
   {path:'estimate-wizard/:requestId/:mode', component: FreeEstimateWizardComponent},
   {path:'free-estimate/:requestId/:mode', component: FreeEstimateComponent},
   {path: 'my-requests', component: MyRequestsComponent, canActivate: [AuthGuard]},
-  {path: 'worklist', component: WorklistsComponent, canActivate: [AuthGuard]},
+  {path: 'worklist', component: WorklistsComponent},
 
   {path: 'howitworks', component: HowitworksComponent},
   {path: 'signup', component: SignupComponent},
