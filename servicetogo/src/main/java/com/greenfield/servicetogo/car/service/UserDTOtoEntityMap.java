@@ -7,8 +7,10 @@ import static com.greenfield.servicetogo.car.service.DataConvertUtil.toLocalDate
 
 import com.greenfield.servicetogo.car.dto.CustomerProfileDTO;
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
+import com.greenfield.servicetogo.car.dto.ZipLookupDTO;
 import com.greenfield.servicetogo.car.entity.CustomerEntity;
 import com.greenfield.servicetogo.car.entity.UserCredentialEntity;
+import com.greenfield.servicetogo.car.entity.ZipLookupEntity;
 
 public class UserDTOtoEntityMap {
     public static UserCredentialEntity toNewUserCredentialEntity(UserCredentialDTO dto){
@@ -77,6 +79,13 @@ public class UserDTOtoEntityMap {
         dto.setCreatedOn(toLocalDateTime(entity.getCreatedOn()));
         dto.setUpdatedBy("admin");
         dto.setCreatedBy("admin");
+        return dto;
+    }
+    
+    public static ZipLookupDTO toZipLookupDTO(ZipLookupEntity entity){
+    	ZipLookupDTO dto = new ZipLookupDTO();
+        dto.setCity(entity.getCity());
+        dto.setStateName(entity.getStatesEntity().getStateName());
         return dto;
     }
 }
