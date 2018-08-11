@@ -17,15 +17,21 @@ public class ZipLookupController {
     @GetMapping("/citystate/{zipCode}")
     public ResponseDTO<ZipLookupDTO> getCityState(@PathVariable("zipCode") String zipCode){
     	
-    	ZipLookupDTO zlDTO =  zipLookupservice.findCityStateById(zipCode);
     	ResponseDTO<ZipLookupDTO> resp = new ResponseDTO<ZipLookupDTO>();
-        resp.setData(zlDTO);
-        resp.setSuccess(true);
-        resp.setRespCode("200");
-        resp.setRespMessage("SUCESS");
-        
-    	System.out.println(zlDTO.getStateName());
-        
+    	ZipLookupDTO zlDTO;
+		try {
+			zlDTO = zipLookupservice.findCityStateById(zipCode);
+			resp.setData(zlDTO);
+	        resp.setSuccess(true);
+	        resp.setRespCode("200");
+	        resp.setRespMessage("SUCESS");
+		} catch ( javax.persistence.EntityNotFoundException e) {
+			// TODO Auto-generated catch block
+			resp.setSuccess(false);
+            resp.setRespCode("NotFound");
+            resp.setRespMessage("No City/State found for Zip Code: "+zipCode);
+		}
+    	
         return resp;
 
     }
