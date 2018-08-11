@@ -1,49 +1,25 @@
-<div class="form-group row" *ngIf="request.requestId">
-  <label for="requestId" >Request ID: {{request.requestId}}</label>
-</div>
+<dl class="row">
+  <dt class="col-sm-3" *ngIf="request.requestId">Request ID:</dt>
+  <dd class="col-sm-9" *ngIf="request.requestId">{{request.requestId}}</dd>
+  <dt class="col-sm-3">Name</dt>
+  <dd class="col-sm-9">{{request.customerFirstName}} {{request.customerMiddleName}} {{request.customerLastName}}</dd>
+  <dt class="col-sm-3"> Preferred Contact Method</dt>
+  <dd class="col-sm-9">{{request.preferredContactMethod}}</dd>
+  <dt class="col-sm-3">Address:</dt>
+  <dd class="col-sm-9">
+    <p>{{request.addressLine1 }} , {{request.addressLine2 }}</p>
+    <p> {{request.addressCity}}, {{request.addressState}}, {{request.addressZip}}</p>
+  </dd>
+  <dt class="col-sm-3">Car Information</dt>
+  <dd class="col-sm-9">{{request.vehicleYear}} {{request.vehicleMake}} {{request.vehicleModel}}</dd>
+  <dt class="col-sm-3">VIN</dt>
+  <dd class="col-sm-9">{{request.vehicleVin}}</dd>
+  <dt class="col-sm-3">Car Location</dt>
+  <dd class="col-sm-9">{{request.vehicleLocation}}</dd>
 
-<div class="form-group row">
-  <label for="customerName" >
-    Name: {{request.customerFirstName +' '+ request.customerMiddleName +' '+ request.customerLastName}}
-  </label>
-</div>
+  <dt class="col-sm-3">Synptoms</dt>
+  <dd class="col-sm-9">{{request.symptoms}}</dd>
 
-<div class="form-group row">
-  <label for="email" >Email: {{request.email}}
-    &nbsp;&nbsp;&nbsp;
-    Phone: {{request.customerPhone}}
-  </label>
-</div>
-
-
-<div class="form-group row">
-  <label for="requestedDate">Service Requested On: {{request.requestedDate}}
-  &nbsp;&nbsp;&nbsp; Preferred contact: {{request.preferredContactMethod}}</label>
-</div>
-
-<div class="form-group row">
-  <label for="addressLine1">Address: {{request.addressLine1 }} &nbsp; {{request.addressLine2 }} </label>
-</div>
-
-<div class="form-group row">
-  <label for="addressZip">Zip/City/State: {{request.addressZip}} &nbsp; {{request.addressCity}} &nbsp; {{request.addressState}} </label>
-</div>
-
-<div class="form-group row">
-  <label for="vehicleMake" > Make: {{request.vehicleMake}}
-    &nbsp; &nbsp; &nbsp; Model: {{request.vehicleModel}}
-    &nbsp; &nbsp; &nbsp; Year: {{request.vehicleYear}}
-  </label>
-</div>
-
-<div class="form-group row">
-  <label for="vehicleVin">Car VIN#: {{request.vehicleVin}}
-    &nbsp; &nbsp; &nbsp; Car Location: {{request.vehicleLocation}}
-  </label>
-</div>
-
-<div class="form-group row">
-  <label for="symptoms">Symptoms: {{request.symptoms}}  &nbsp; &nbsp;
-    Other Comments: {{request.userComments}}</label>
-</div>
-
+  <dt class="col-sm-3">Comments</dt>
+  <dd class="col-sm-9"> {{request.userComments}}</dd>
+</dl>
