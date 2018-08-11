@@ -25,6 +25,7 @@ import { FreeEstimateWizardComponent } from './estimates/free-estimate-wizard/fr
 import { ViewEstimateComponent } from './estimates/view-estimate/view-estimate.component';
 import { WorklistsComponent } from './vendor/worklists/worklists.component';
 import { SkillQueueComponent } from './vendor/skill-queue/skill-queue.component';
+import { ZipLookupService } from './shared/ziplookup.service';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { SkillQueueComponent } from './vendor/skill-queue/skill-queue.component'
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
   ],
-  providers: [AuthService,Environment, MyRequestService, RequestCrudService, CustomerService, AuthGuard],
+  providers: [AuthService,Environment, MyRequestService, RequestCrudService,
+  CustomerService, AuthGuard, ZipLookupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

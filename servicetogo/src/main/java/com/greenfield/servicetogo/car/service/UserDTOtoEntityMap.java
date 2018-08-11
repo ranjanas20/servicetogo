@@ -86,6 +86,7 @@ public class UserDTOtoEntityMap {
     	ZipLookupDTO dto = new ZipLookupDTO();
         dto.setCity(entity.getCity());
         dto.setStateName(entity.getStatesEntity().getStateName());
+        dto.setStateCode(entity.getStatesEntity().getStateCode());
         return dto;
     }
 }

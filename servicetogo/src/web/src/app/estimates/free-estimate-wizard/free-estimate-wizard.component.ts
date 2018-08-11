@@ -4,6 +4,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RequestCrudService } from '../../shared/requestcrud.service';
 import { CarServiceRequestTrackerModel } from '../../shared/model/carservicerequesttracker.model';
 import { Subscription } from 'rxjs/Subscription';
+import { ZipLookupService } from '../../shared/ziplookup.service';
+import { ZipLookupModel } from '../../shared/model/ziplookup.model';
+import { ResponseModel } from '../../shared/model/response.model';
 
 @Component({
   selector: 'app-free-estimate-wizard',
@@ -23,10 +26,14 @@ export class FreeEstimateWizardComponent implements OnInit {
 
   requestIdSubscription: Subscription;
   selectRequestSubscription: Subscription;
+  zipLookupSubscription: Subscription;
+  zipLookupData: ZipLookupModel = new ZipLookupModel();
 
   constructor(private router: Router,
     private reqCrudSvc: RequestCrudService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private zipLookupSvc: ZipLookupService) { }
+
   initForm() {
     this.wizardForm = new FormGroup({
       contact: new FormGroup({
@@ -129,6 +136,7 @@ export class FreeEstimateWizardComponent implements OnInit {
       );
     }
   }
+
   ngOnDestroy() {
     if (this.requestIdSubscription) {
       this.requestIdSubscription.unsubscribe();
@@ -136,8 +144,11 @@ export class FreeEstimateWizardComponent implements OnInit {
     if (this.selectRequestSubscription) {
       this.selectRequestSubscription.unsubscribe();
     }
-
+    if (this.zipLookupSubscription) {
+      this.zipLookupSubscription.unsubscribe();
+    }
   }
+
   isStepValid(){
     if(this.currentStep == 'contact'){
         return this.wizardForm.get("contact").valid
@@ -216,5 +227,37 @@ export class FreeEstimateWizardComponent implements OnInit {
         });
     }
   }
-  
+
+  populateCityState(event){
+    console.log("lookup service called");
+    let zipcode: string = this.wizardForm.get('contact').get("addressZip").value;
+    console.log("zipcode:" + zipcode);
+    this.zipLookupSubscription = this.zipLookupSvc.getCityState(zipcode).subscribe(
+      (resp: ResponseModel) => {
+        if(resp.success) {
+          this.zipLookupData = resp.data;
+          this.displayCityState();
+        } else {
+          this.resetZipLookupData();
+          this.displayCityState();
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    event.preventDefault();
+  }
+
+  displayCityState() {
+    this.wizardForm.get('contact').get('addressCity').setValue(this.zipLookupData.city);
+    this.wizardForm.get('contact').get('addressState').setValue(this.zipLookupData.stateCode);
+  }
+
+  resetZipLookupData(){
+    this.zipLookupData.city='';
+    this.zipLookupData.stateCode='';
+    this.zipLookupData.stateName='';
+  }
+
 }

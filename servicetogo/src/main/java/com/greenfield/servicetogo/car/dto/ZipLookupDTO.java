@@ -4,6 +4,7 @@ public class ZipLookupDTO {
 
 	private String city;
 	private String stateName;
+	private String stateCode;
 	
 	
 	public String getCity() {
@@ -17,6 +18,12 @@ public class ZipLookupDTO {
 	}
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
+	}
+	public String getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
 	}
 	
 }
