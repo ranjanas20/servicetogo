@@ -16,6 +16,7 @@ export class MyRequestsComponent implements OnInit {
   totalPages: number=1;  
   pageSize: number=5;
   myRequests: CarServiceRequestTrackerModel[];
+  requestIdSelected: number;
   pageArray: number[];
   searchForm: CarServiceRequestTrackerModel;
   tabname:string='OPEN';
@@ -44,6 +45,12 @@ export class MyRequestsComponent implements OnInit {
     }
     event.preventDefault();
   }
+  confirmDelete(yes:boolean){
+    console.log("Option:"+event);
+    if(yes){
+      this.deleteRequest(this.requestIdSelected);
+    }
+  }
   sort(event,field:string){
     event.preventDefault();
   }
@@ -55,7 +62,7 @@ export class MyRequestsComponent implements OnInit {
     this.router.navigate(['/free-estimate/'+requestId+'/VIEW']);
     event.preventDefault();
   }
-  deleteMe(event,requestId:number){
+  deleteRequest(requestId:number){
     this.myReqSvc.delete(requestId).subscribe(
       (resp: string)=>{
         this.alertMessage="Request Id "+requestId+" deleted successfully!";
@@ -66,6 +73,9 @@ export class MyRequestsComponent implements OnInit {
         console.log(error);
       } 
     );
+  }
+  deleteMe(event,requestId:number){
+    this.requestIdSelected=requestId;
     event.preventDefault();
   }
   search(){

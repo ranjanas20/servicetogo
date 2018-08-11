@@ -26,6 +26,7 @@ import { ViewEstimateComponent } from './estimates/view-estimate/view-estimate.c
 import { WorklistsComponent } from './vendor/worklists/worklists.component';
 import { SkillQueueComponent } from './vendor/skill-queue/skill-queue.component';
 import { ZipLookupService } from './shared/ziplookup.service';
+import { ConfirmationDialogComponent } from './util/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ZipLookupService } from './shared/ziplookup.service';
     FreeEstimateWizardComponent,
     ViewEstimateComponent,
     WorklistsComponent,
-    SkillQueueComponent
+    SkillQueueComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
