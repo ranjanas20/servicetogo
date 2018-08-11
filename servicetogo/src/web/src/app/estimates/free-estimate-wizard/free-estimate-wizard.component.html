@@ -1,6 +1,6 @@
 <div class="container  m-t-3">
   <h3>Estimate ({{mode}})</h3>
-  <div class="container m-3">
+  <div class="container m-3" *ngIf="mode!='VIEW'">
     <div class="row">
       <div class="col-md-auto ml-1" [class.text-info]="currentStep=='contact'" [class.text-secondary]="currentStep!='contact'">
         <i class="fa" [class.fa-lg]="currentStep=='contact'"  [class.fa-circle-o]="!stepContactOK" [class.fa-check-circle-o]="stepContactOK" aria-hidden="true"></i> Fill out your contact </div>
@@ -17,8 +17,9 @@
     </div>
   </div>
   <app-msg-util [messageText]="alertMessage" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
+  <app-progress-mask [showProgress]="showProgressBar"></app-progress-mask>
   <form (ngSubmit)="onSubmit()" [formGroup]="wizardForm">
-     <div class="panel" *ngIf="currentStep=='contact'" formGroupName="contact">
+     <div class="panel" *ngIf="currentStep=='contact' && mode!='VIEW'" formGroupName="contact">
       <div class="form-group row" [class.d-none]="mode=='NEW'" [class.visible]="mode!='NEW'">
         <label for="requestId" class="col-sm-2 col-form-label">Request ID</label>
         <div class="col-sm-10">
@@ -107,7 +108,7 @@
       </div>
     </div>
 
-    <div class="panel" *ngIf="currentStep=='car'" formGroupName="car">
+    <div class="panel" *ngIf="currentStep=='car' && mode!='VIEW'" formGroupName="car">
       <div class="form-group row">
         <label for="vehicleMake" class="col-sm-2 col-form-label">Make</label>
         <div class="col-sm-2">
@@ -169,7 +170,7 @@
       </div>
     </div>
 
-    <div class="panel" *ngIf="currentStep=='finish' || currentStep=='done' ">
+    <div class="panel" *ngIf="currentStep=='finish' || currentStep=='done' ||mode=='VIEW' ">
       <app-view-estimate [request]="req"></app-view-estimate>
     </div>
 
@@ -182,8 +183,8 @@
         <button class="btn btn-primary" *ngIf="currentStep=='finish'" name="submit2" type="submit" [disabled]="!wizardForm.valid" [class.visible]="mode!='VIEW'"
           [class.d-none]="mode=='VIEW'">Finish</button>
         <button class="btn btn-warning" name="edit" type="button" (click)="edit()" [class.d-none]="mode!='VIEW'">Edit</button>
-        <button class="btn btn-primary" *ngIf="currentStep!='done'" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'">Previous</button>
-        <button class="btn btn-primary" *ngIf="currentStep!='done'" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid()"> Next</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'">Previous</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid()"> Next</button>
       </div>
     </div>
   </form>

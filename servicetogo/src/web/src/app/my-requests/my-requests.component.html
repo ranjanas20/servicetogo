@@ -14,6 +14,7 @@
       <a href="#searchform" data-toggle="collapse">
         <i class="fa fa-caret-square-o-down"></i> Search </a>
     </h5>
+    <app-progress-mask [showProgress]="showProgressBar"></app-progress-mask>
     <div id="searchform" class="collapse">
       <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
         <div class="form-row">
@@ -56,12 +57,8 @@
           </div>
       <div class="col-md-9 text-right">Page {{currentPage}} of {{totalPages}}</div>
     </div>
-    <div class="alert alert-info alert-dismissible fade show" [class.d-none]="hide==1" [class.d-block]="hide==0" role="alert" #alertBox>
-       {{alertMessage}}
-      <button type="button" class="close" (click)="hideAlert()" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+    <app-msg-util [messageText]="alertMessage" [showMessage]="hide==0" (msgHidden)="hideAlert()"></app-msg-util>  
+
     <table class="table table-hover table-sm">
       <thead>
         <tr>

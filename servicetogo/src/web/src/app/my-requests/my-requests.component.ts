@@ -22,6 +22,8 @@ export class MyRequestsComponent implements OnInit {
   tabname:string='OPEN';
   alertMessage:string="No message";
   hide:number=1;
+  showProgressBar: boolean=false;
+
   constructor(private myReqSvc: MyRequestService, private router: Router) { }
   hideAlert(){
     this.hide=1;
@@ -55,22 +57,27 @@ export class MyRequestsComponent implements OnInit {
     event.preventDefault();
   }
   editRequest(event,requestId:number){
-    this.router.navigate(['/free-estimate/'+requestId+'/EDIT']);
+    this.router.navigate(['/estimate-wizard/'+requestId+'/EDIT']);
     event.preventDefault();
   }
   viewRequest(event,requestId:number){
-    this.router.navigate(['/free-estimate/'+requestId+'/VIEW']);
+    //this.router.navigate(['/free-estimate/'+requestId+'/VIEW']);
+    this.router.navigate(['/estimate-wizard/'+requestId+'/VIEW']);
     event.preventDefault();
   }
   deleteRequest(requestId:number){
+    this.showProgressBar=true;
     this.myReqSvc.delete(requestId).subscribe(
       (resp: string)=>{
+        this.showProgressBar=false;
         this.alertMessage="Request Id "+requestId+" deleted successfully!";
         this.hide=0;
         this.search();
       }, 
       (error)=>{
         console.log(error);
+        this.showProgressBar=false;
+
       } 
     );
   }
@@ -79,6 +86,7 @@ export class MyRequestsComponent implements OnInit {
     event.preventDefault();
   }
   search(){
+    this.showProgressBar=true;
     this.searchForm.serviceStatus=this.tabname;
     this.myReqSvc.search(this.currentPage, this.pageSize, this.searchForm).subscribe(
       (resp: SearchResponseModel)=>{
@@ -86,9 +94,11 @@ export class MyRequestsComponent implements OnInit {
         this.currentPage=resp.pageNumber;
         this.totalPages=resp.totalPapges;
         this.setPageArray();
+        this.showProgressBar=false;
       }, 
       (error)=>{
         console.log(error);
+        this.showProgressBar=false;
       } 
     );
   }

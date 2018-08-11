@@ -1,14 +1,5 @@
 <div class="container  mt-3" style="max-width: 950px;">
   <h3>Free Estimate ({{mode}})</h3>
-  <div class="container m-3">
-    <div class="row">
-      <div class="col-md-auto ml-1 text-secondary"><i class="fa fa-check-circle-o fa-lg" aria-hidden="true"></i> Fill out your contact </div>
-      <div class="col-md-1 m-0 p-0"><hr/></div>
-      <div class="col-md-auto text-info" ><i class="fa fa-circle-o fa-lg" aria-hidden="true"></i> Fill out your car information</div> 
-    <div class="col-md-1 m-0 p-0" ><hr/></div>
-      <div class="col-md-auto text-secondary" ><i class="fa fa-circle-o fa-lg" aria-hidden="true"></i> Done</div>
-    </div>
-  </div>
   <app-msg-util [messageText]="alertMessage" [showMessage]="hide==0" (msgHidden)="hideAlert()"></app-msg-util>  
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="row">
@@ -19,10 +10,10 @@
         <button class="btn btn-secomdary" name="cancel" type="cancel" (click)="cancel()">Cancel</button>
       </div>
     </div>    
-    <div class="form-row" [class.d-none]="mode=='NEW'" [class.visible]="mode!='NEW'">
+    <div class="form-row" *ngIf="mode!='NEW'">
       <div class="col">
         <div class="form-group">
-          <label for="customerFirstName">Request ID: {{req.requestId}}</label>
+          <label for="requestId">Request ID: {{req.requestId}}</label>
         </div>
       </div>
     </div>

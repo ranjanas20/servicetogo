@@ -29,11 +29,47 @@ export class FreeEstimateWizardComponent implements OnInit {
   zipLookupSubscription: Subscription;
   zipLookupData: ZipLookupModel = new ZipLookupModel();
 
+  showProgressBar: boolean=false;
+
   constructor(private router: Router,
     private reqCrudSvc: RequestCrudService,
     private activatedRoute: ActivatedRoute,
     private zipLookupSvc: ZipLookupService) { }
-
+    ngOnInit() {
+      this.initForm();
+      this.requestIdSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        let paramMode = params['mode'];
+        if (paramMode) {
+          this.mode = paramMode;
+        }
+        let requestIdLocal = params['requestId'];
+        if (requestIdLocal) {
+          this.requestId = requestIdLocal;
+        }
+        console.log(this.mode);
+        if(this.requestId>0 && this.mode && this.mode != 'NEW'){
+          this.loadData(requestIdLocal, paramMode);
+        }
+        
+      });      
+    }
+  loadData(requestIdLocal:number, modeLocal: string){
+    if (requestIdLocal>0 && modeLocal != 'NEW') {
+      this.showProgressBar=true;
+      this.selectRequestSubscription = this.reqCrudSvc.getRequest(this.requestId).subscribe(
+        (record: CarServiceRequestTrackerModel) => {
+          this.req = record;
+          console.log(record);
+          this.showProgressBar=false;
+          this.updateForm(record);
+        },
+        (error) => {
+          console.log(error);
+          this.showProgressBar=false;
+        }
+      );
+    }
+  }
   initForm() {
     this.wizardForm = new FormGroup({
       contact: new FormGroup({
@@ -63,79 +99,61 @@ export class FreeEstimateWizardComponent implements OnInit {
       })
     });
   }
-  updateForm() {
-    this.wizardForm.get('contact').get("requestId").setValue(this.req.requestId);
-    this.wizardForm.get('contact').get("customerId").setValue(this.req.customerId);
-    this.wizardForm.get('contact').get("customerFirstName").setValue(this.req.customerFirstName);
-    this.wizardForm.get('contact').get("customerLastName").setValue(this.req.customerLastName);
-    this.wizardForm.get('contact').get("customerMiddleName").setValue(this.req.customerMiddleName);
-    this.wizardForm.get('contact').get("email").setValue(this.req.email);
-    this.wizardForm.get('contact').get("customerPhone").setValue(this.req.customerPhone);
-    this.wizardForm.get('contact').get("addressLine1").setValue(this.req.addressLine1);
-    this.wizardForm.get('contact').get("addressLine2").setValue(this.req.addressLine2);
-    this.wizardForm.get('contact').get("addressCity").setValue(this.req.addressCity);
-    this.wizardForm.get('contact').get("addressState").setValue(this.req.addressState);
-    this.wizardForm.get('contact').get("addressZip").setValue(this.req.addressZip);
-    this.wizardForm.get('contact').get("requestedDate").setValue(this.req.requestedDate);
-    this.wizardForm.get('contact').get("preferredContactMethod").setValue(this.req.preferredContactMethod);
+  updateForm(record:CarServiceRequestTrackerModel) {
+    let contact = this.wizardForm.get('contact');
+    let car = this.wizardForm.get('car');
 
-    this.wizardForm.get('car').get("vehicleMake").setValue(this.req.vehicleMake);
-    this.wizardForm.get('car').get("vehicleModel").setValue(this.req.vehicleModel);
-    this.wizardForm.get('car').get("vehicleYear").setValue(this.req.vehicleYear);
-    this.wizardForm.get('car').get("vehicleVin").setValue(this.req.vehicleVin);
-    this.wizardForm.get('car').get("symptoms").setValue(this.req.symptoms);
-    this.wizardForm.get('car').get("userComments").setValue(this.req.userComments);
-    this.wizardForm.get('car').get("vehicleLocation").setValue(this.req.vehicleLocation);
+    contact.get("requestId").setValue(record.requestId);
+    contact.get("customerId").setValue(record.customerId);
+    contact.get("customerFirstName").setValue(record.customerFirstName);
+    contact.get("customerLastName").setValue(record.customerLastName);
+    contact.get("customerMiddleName").setValue(record.customerMiddleName);
+    contact.get("email").setValue(record.email);
+    contact.get("customerPhone").setValue(record.customerPhone);
+    contact.get("addressLine1").setValue(record.addressLine1);
+    contact.get("addressLine2").setValue(record.addressLine2);
+    contact.get("addressCity").setValue(record.addressCity);
+    contact.get("addressState").setValue(record.addressState);
+    contact.get("addressZip").setValue(record.addressZip);
+    contact.get("requestedDate").setValue(record.requestedDate);
+    contact.get("preferredContactMethod").setValue(record.preferredContactMethod);
+
+    car.get("vehicleMake").setValue(record.vehicleMake);
+    car.get("vehicleModel").setValue(record.vehicleModel);
+    car.get("vehicleYear").setValue(record.vehicleYear);
+    car.get("vehicleVin").setValue(record.vehicleVin);
+    car.get("symptoms").setValue(record.symptoms);
+    car.get("userComments").setValue(record.userComments);
+    car.get("vehicleLocation").setValue(record.vehicleLocation);
   }
   updateModel() {
-    this.req.requestId = this.wizardForm.get('contact').get("requestId").value;
-    this.req.customerId = this.wizardForm.get('contact').get("customerId").value;
-    this.req.customerFirstName = this.wizardForm.get('contact').get("customerFirstName").value;
-    this.req.customerLastName = this.wizardForm.get('contact').get("customerLastName").value;
-    this.req.customerMiddleName = this.wizardForm.get('contact').get("customerMiddleName").value;
-    this.req.email = this.wizardForm.get('contact').get("email").value;
-    this.req.customerPhone = this.wizardForm.get('contact').get("customerPhone").value;
-    this.req.addressLine1 = this.wizardForm.get('contact').get("addressLine1").value;
-    this.req.addressLine2 = this.wizardForm.get('contact').get("addressLine2").value;
-    this.req.addressCity = this.wizardForm.get('contact').get("addressCity").value;
-    this.req.addressState = this.wizardForm.get('contact').get("addressState").value;
-    this.req.addressZip = this.wizardForm.get('contact').get("addressZip").value;
-    this.req.requestedDate = this.wizardForm.get('contact').get("requestedDate").value;
-    this.req.preferredContactMethod = this.wizardForm.get('contact').get("preferredContactMethod").value;
+    let contact = this.wizardForm.get('contact');
+    let car = this.wizardForm.get('car');
 
-    this.req.vehicleMake = this.wizardForm.get('car').get("vehicleMake").value;
-    this.req.vehicleModel = this.wizardForm.get('car').get("vehicleModel").value;
-    this.req.vehicleYear = this.wizardForm.get('car').get("vehicleYear").value;
-    this.req.vehicleVin = this.wizardForm.get('car').get("vehicleVin").value;
-    this.req.symptoms = this.wizardForm.get('car').get("symptoms").value;
-    this.req.userComments = this.wizardForm.get('car').get("userComments").value;
-    this.req.vehicleLocation = this.wizardForm.get('car').get("vehicleLocation").value;
+    this.req.requestId = contact.get("requestId").value;
+    this.req.customerId = contact.get("customerId").value;
+    this.req.customerFirstName = contact.get("customerFirstName").value;
+    this.req.customerLastName = contact.get("customerLastName").value;
+    this.req.customerMiddleName = contact.get("customerMiddleName").value;
+    this.req.email = contact.get("email").value;
+    this.req.customerPhone = contact.get("customerPhone").value;
+    this.req.addressLine1 = contact.get("addressLine1").value;
+    this.req.addressLine2 = contact.get("addressLine2").value;
+    this.req.addressCity = contact.get("addressCity").value;
+    this.req.addressState = contact.get("addressState").value;
+    this.req.addressZip = contact.get("addressZip").value;
+    this.req.requestedDate = contact.get("requestedDate").value;
+    this.req.preferredContactMethod = contact.get("preferredContactMethod").value;
+
+    this.req.vehicleMake = car.get("vehicleMake").value;
+    this.req.vehicleModel = car.get("vehicleModel").value;
+    this.req.vehicleYear = car.get("vehicleYear").value;
+    this.req.vehicleVin = car.get("vehicleVin").value;
+    this.req.symptoms = car.get("symptoms").value;
+    this.req.userComments = car.get("userComments").value;
+    this.req.vehicleLocation = car.get("vehicleLocation").value;
   }
-  ngOnInit() {
-    this.initForm();
-    this.requestIdSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-      let paramMode = params['mode'];
-      if (paramMode) {
-        this.mode = paramMode;
-      }
-      let requestIdLocal = params['requestId'];
-      if (requestIdLocal) {
-        this.requestId = requestIdLocal;
-      }
-      console.log(this.mode);
-    });
-    if (this.requestId && this.mode != 'NEW') {
-      this.selectRequestSubscription = this.reqCrudSvc.getRequest(this.requestId).subscribe(
-        (record: CarServiceRequestTrackerModel) => {
-          this.req = record;
-          console.log(record);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
-  }
+  
 
   ngOnDestroy() {
     if (this.requestIdSubscription) {
@@ -191,7 +209,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.mode = 'EDIT';
     this.hideAlert();
     this.currentStep='contact';
-    this.updateForm();
+    this.updateForm(this.req);
   }
   hideAlert() {
     this.showMessage = false;
@@ -201,6 +219,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.showMessage = true;
   }
   onSubmit() {
+    this.showProgressBar=true;
     this.updateModel();
     if (this.mode == 'EDIT') {
       this.reqCrudSvc.updateRequest(this.req).subscribe(
@@ -209,9 +228,11 @@ export class FreeEstimateWizardComponent implements OnInit {
           this.mode = 'VIEW';
           this.currentStep='done';
           this.showAlert('Saved successfully');
+          this.showProgressBar=false;
         },
         (error) => {
           console.log(error);
+          this.showProgressBar=false;
         }
       );
     } else {
@@ -221,9 +242,11 @@ export class FreeEstimateWizardComponent implements OnInit {
           this.mode = 'VIEW';
           this.currentStep='done';
           this.showAlert('Created a new estimate request successfully, Request Id: ' + this.req.requestId);
+          this.showProgressBar=false;
         },
         (error) => {
           console.log(error);
+          this.showProgressBar=false;
         });
     }
   }
