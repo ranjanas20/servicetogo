@@ -3,14 +3,15 @@
   <dd class="col-sm-9" *ngIf="request.requestId">{{request.requestId}}</dd>
   <dt class="col-sm-3">Name</dt>
   <dd class="col-sm-9">{{request.customerFirstName}} {{request.customerMiddleName}} {{request.customerLastName}}</dd>
-  <dt class="col-sm-3"> Preferred Contact Method</dt>
-  <dd class="col-sm-9">{{request.preferredContactMethod}}</dd>
+  <dt class="col-sm-3">Email</dt>
+  <dd class="col-sm-9">{{request.preferredContactMethod=='email'? request.email+'(Preferred)':request.email}}, {{request.preferredContactMethod!='email'?
+    request.customerPhone+'(Preferred)':request.customerPhone}}</dd>
   <dt class="col-sm-3">Address:</dt>
   <dd class="col-sm-9">
-    <p>{{request.addressLine1 }} , {{request.addressLine2 }}</p>
-    <p> {{request.addressCity}}, {{request.addressState}}, {{request.addressZip}}</p>
+    <p>{{request.addressLine1 }} , {{request.addressLine2 }}
+      <br> {{request.addressCity}}, {{request.addressState}}, {{request.addressZip}}</p>
   </dd>
-  <dt class="col-sm-3">Car Information</dt>
+  <dt class="col-sm-3">Car</dt>
   <dd class="col-sm-9">{{request.vehicleYear}} {{request.vehicleMake}} {{request.vehicleModel}}</dd>
   <dt class="col-sm-3">VIN</dt>
   <dd class="col-sm-9">{{request.vehicleVin}}</dd>
