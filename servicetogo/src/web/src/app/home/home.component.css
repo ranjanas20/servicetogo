@@ -2,11 +2,11 @@
   height: 450px; }
 
 .carousel-image-1 {
-  background: url("/assets/img/image1.png");
+  background: url("/assets/img/rainier1.jpg");
   background-size: cover; }
 
 .carousel-image-2 {
-  background: url("/assets/img/image2.png");
+  background: url("/assets/img/rainier2.jpg");
   background-size: cover; }
 
 .carousel-image-3 {
