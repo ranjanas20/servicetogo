@@ -1,4 +1,5 @@
-<dl class="row">
+<p *ngIf="!request.customerFirstName">No data available.</p>
+<dl class="row" *ngIf="request.customerFirstName">
   <dt class="col-sm-3" *ngIf="request.requestId">Request ID:</dt>
   <dd class="col-sm-9" *ngIf="request.requestId">{{request.requestId}}</dd>
   <dt class="col-sm-3">Name</dt>

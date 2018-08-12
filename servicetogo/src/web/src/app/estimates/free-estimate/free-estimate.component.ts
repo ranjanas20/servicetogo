@@ -89,6 +89,7 @@ export class FreeEstimateComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          this.showAlert('Error Saving '+error);
         }
       );
     }else{

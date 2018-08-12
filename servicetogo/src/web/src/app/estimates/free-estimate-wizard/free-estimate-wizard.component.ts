@@ -20,6 +20,8 @@ export class FreeEstimateWizardComponent implements OnInit {
   mode: string = 'NEW';
   showMessage: boolean = false;
   alertMessage: string = "No message";
+  alertMessageTypeError:boolean=false;
+
   req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
   requestId: number;
   wizardForm: FormGroup;
@@ -215,9 +217,17 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.showMessage = false;
   }
   showAlert(msg: string) {
+    this.alertMessageTypeError=false;
     this.alertMessage = msg;
     this.showMessage = true;
   }
+  showErrorAlert(msg: string) {
+    this.alertMessageTypeError=true;
+    this.alertMessage = msg;
+    this.showMessage = true;
+  }
+  
+
   onSubmit() {
     this.showProgressBar=true;
     this.updateModel();
@@ -233,6 +243,7 @@ export class FreeEstimateWizardComponent implements OnInit {
         (error) => {
           console.log(error);
           this.showProgressBar=false;
+          this.showErrorAlert('Error Saving: '+error.message);
         }
       );
     } else {
@@ -247,6 +258,7 @@ export class FreeEstimateWizardComponent implements OnInit {
         (error) => {
           console.log(error);
           this.showProgressBar=false;
+          this.showErrorAlert('Error Saving: '+error.message);
         });
     }
   }

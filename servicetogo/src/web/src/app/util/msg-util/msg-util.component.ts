@@ -8,6 +8,8 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges,EventEmitter, Output
 export class MsgUtilComponent implements OnInit, OnChanges {
   @Input('messageText') messageText: string;
   @Input('showMessage') showMessage: boolean;
+  @Input('messageTypeError') messageTypeError:boolean=false;
+  
   @Output() msgHidden= new EventEmitter<boolean>();
   constructor() { }
 

@@ -16,7 +16,7 @@
         <i class="fa" [class.fa-lg]="currentStep=='finish'" [class.fa-circle-o]="currentStep!='done'" [class.fa-check-circle-o]="currentStep=='done'"  aria-hidden="true"></i> Finish</div>
     </div>
   </div>
-  <app-msg-util [messageText]="alertMessage" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
+  <app-msg-util [messageText]="alertMessage" [messageTypeError]="alertMessageTypeError" [showMessage]="showMessage" (msgHidden)="hideAlert()"></app-msg-util>
   <app-progress-mask [showProgress]="showProgressBar"></app-progress-mask>
   <form (ngSubmit)="onSubmit()" [formGroup]="wizardForm">
      <div class="panel" *ngIf="currentStep=='contact' && mode!='VIEW'" formGroupName="contact">
