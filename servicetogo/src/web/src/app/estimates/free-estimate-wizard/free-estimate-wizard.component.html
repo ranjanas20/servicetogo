@@ -177,14 +177,14 @@
 
     <div class="row">
       <div class="col-sm-12 text-right">
-        <button class="btn btn-secondary" *ngIf="currentStep!='done'" name="cancel" type="button" (click)="cancel()">Cancel</button>
-        <button class="btn btn-secondary" *ngIf="currentStep=='done'" name="close" type="button" (click)="cancel()">Close</button>
+        <button class="btn btn-secondary" *ngIf="currentStep!='done'" name="cancel" type="button" (click)="cancel()"><i class="fa fa-ban"></i> Cancel</button>
+        <button class="btn btn-secondary" *ngIf="currentStep=='done'" name="close" type="button" (click)="cancel()"><i class="fa fa-times"></i> Close</button>
 
         <button class="btn btn-primary" *ngIf="currentStep=='finish'" name="submit2" type="submit" [disabled]="!wizardForm.valid" [class.visible]="mode!='VIEW'"
-          [class.d-none]="mode=='VIEW'">Finish</button>
-        <button class="btn btn-warning" name="edit" type="button" (click)="edit()" [class.d-none]="mode!='VIEW'">Edit</button>
-        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'">Previous</button>
-        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid()"> Next</button>
+          [class.d-none]="mode=='VIEW'"><i class="fa fa-check-circle"></i> Finish</button>
+        <button class="btn btn-primary" name="edit" type="button" (click)="edit()" [class.d-none]="mode!='VIEW'"><i class="fa fa-edit"></i> Edit</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="prev" type="button" (click)="previous()" [disabled]="currentStep=='contact'"><i class="fa fa-angle-double-left"></i> Previous</button>
+        <button class="btn btn-primary" *ngIf="currentStep!='done' && mode!='VIEW'" name="next" type="button" (click)="next()" [disabled]="currentStep=='finish' || !isStepValid()">Next <i class="fa fa-angle-double-right"></i></button>
       </div>
     </div>
   </form>

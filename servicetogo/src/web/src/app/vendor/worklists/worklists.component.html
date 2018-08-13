@@ -80,8 +80,8 @@
             </div>
             <div class="form-row">
               <div class="col">
-                <button class="btn btn-primary mb-1" type="submit" [disabled]="!searchFormGroup.valid">Search</button>
-                <button class="btn btn-info mb-1" type="button" (click)="clearSearchForm()">Clear</button>
+                <button class="btn btn-primary mb-1" type="submit" [disabled]="!searchFormGroup.valid"><i class="fa fa-search"></i> Search</button>
+                <button class="btn btn-info mb-1" type="button" (click)="clearSearchForm()"><i class="fa fa-eraser"></i> Clear</button>
               </div>
             </div>
           </form>
@@ -143,8 +143,8 @@
           <div class="card-body">
             <h5 class="font-weight-bold">Details</h5>
             <app-view-estimate [request]="reqSelected"></app-view-estimate>
-            <a href="#" class="btn btn-primary">Assign</a>
-            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-primary"><i class="fa fa-user"></i> Assign</a>
+            <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
           </div>
         </div>
       </div>
