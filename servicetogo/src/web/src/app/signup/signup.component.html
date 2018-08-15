@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="mt-4">
-        <button class="btn btn-primary" type="submit"><i class="fa fa-check-circle"></i> Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid"><i class="fa fa-check-circle"></i> Submit</button>
         <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home"><i class="fa fa-ban"></i> Cancel</button>
       </div>
       </form>

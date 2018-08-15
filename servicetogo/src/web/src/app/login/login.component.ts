@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
       }
       }, 
       (error)=>{
+        this.alertMessage="Login error, try again.";
+        this.showMessage=true;
         console.log(error);
       } 
     );

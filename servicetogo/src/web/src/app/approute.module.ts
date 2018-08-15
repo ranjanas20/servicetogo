@@ -11,6 +11,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AuthGuard } from './shared/auth-guard.service';
 import { FreeEstimateWizardComponent } from './estimates/free-estimate-wizard/free-estimate-wizard.component';
 import { WorklistsComponent } from './vendor/worklists/worklists.component';
+import { DashboardComponent } from './vendor/dashboard/dashboard.component';
 
 const appRoutes: Routes=[
   {path:'',  redirectTo: 'home',pathMatch:'full' },
@@ -22,7 +23,7 @@ const appRoutes: Routes=[
   {path:'free-estimate/:requestId/:mode', component: FreeEstimateComponent},
   {path: 'my-requests', component: MyRequestsComponent, canActivate: [AuthGuard]},
   {path: 'worklist', component: WorklistsComponent},
-
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'howitworks', component: HowitworksComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},

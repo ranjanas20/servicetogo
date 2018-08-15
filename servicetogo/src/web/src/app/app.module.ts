@@ -27,7 +27,8 @@ import { WorklistsComponent } from './vendor/worklists/worklists.component';
 import { SkillQueueComponent } from './vendor/skill-queue/skill-queue.component';
 import { ZipLookupService } from './shared/ziplookup.service';
 import { ConfirmationDialogComponent } from './util/confirmation-dialog/confirmation-dialog.component';
-
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { DashboardComponent } from './vendor/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +48,12 @@ import { ConfirmationDialogComponent } from './util/confirmation-dialog/confirma
     ViewEstimateComponent,
     WorklistsComponent,
     SkillQueueComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    DashboardComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule
+    BrowserModule, FormsModule, HttpClientModule, AppRouteModule, ReactiveFormsModule,
+    Ng2GoogleChartsModule
   ],
   providers: [AuthService,Environment, MyRequestService, RequestCrudService,
   CustomerService, AuthGuard, ZipLookupService],
