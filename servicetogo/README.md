@@ -20,3 +20,4 @@ The configuration has been done so that we can run spring boot and angular as se
 
 [Google chart for NG2: https://www.npmjs.com/package/ng2-google-charts](https://www.npmjs.com/package/ng2-google-charts)
 
+[Google chart: https://google-developers.appspot.com/chart/](https://google-developers.appspot.com/chart/)
