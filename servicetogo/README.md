@@ -17,3 +17,6 @@ The configuration has been done so that we can run spring boot and angular as se
 **Note:**
 
 [Learn more about md file: https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/)
+
+[Google chart for NG2: https://www.npmjs.com/package/ng2-google-charts](https://www.npmjs.com/package/ng2-google-charts)
+
