@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -14,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class ServicetogoApplication {
+public class ServicetogoApplication   {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServicetogoApplication.class, args);
@@ -37,4 +36,39 @@ public class ServicetogoApplication {
 	        }
 	    };
 	}
+	
+	/*
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+		.httpBasic()
+	    .and()
+        .authorizeRequests()
+            .antMatchers("/").permitAll()
+            .anyRequest().authenticated()
+            .and()
+        .formLogin()
+            .loginPage("http://localhost:4200/#/login")
+            .permitAll()
+            .and()
+        .logout()
+            .permitAll(); 
+	}
+
+	@Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        @SuppressWarnings("deprecation")
+		UserDetails user =
+             User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+    */
+	
+	
 }

@@ -11,8 +11,8 @@ import { ResponseModel } from '../shared/model/response.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  showMessage:boolean=false;
-  alertMessage:string='';
+  showMessage: boolean = false;
+  alertMessage: string = '';
   constructor(private authsvc: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -26,28 +26,49 @@ export class LoginComponent implements OnInit {
         ])
     });
   }
-  hideAlert(){
-    this.showMessage=false;
+  hideAlert() {
+    this.showMessage = false;
   }
   onSubmit() {
     console.log(this.loginForm);
     this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
-      (data: ResponseModel)=>{        
+      (resp) => {
+        if (typeof resp === 'string') {
+          this.authsvc.loggedin.next(true);
+          this.authsvc.username.next(this.loginForm.value.username);
+          this.router.navigate(['home']);
+        } else {
+          this.alertMessage = "Login unsuccessful, try again.";
+          this.showMessage = true;
+          console.log(resp);
+        }
+      },
+      (error) => {
+        this.alertMessage = "Login error, try again.";
+        this.showMessage = true;
+        console.log(error);
+      }
+    );
+  }
+  onSubmit2() {
+    console.log(this.loginForm);
+    this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+      (data: ResponseModel) => {
         if (data.success) {
           this.authsvc.loggedin.next(true);
-          this.authsvc.username.next(this.loginForm.value.username);          
+          this.authsvc.username.next(this.loginForm.value.username);
           this.router.navigate(['home']);
-      } else {
-          this.alertMessage="Login unsuccessful, try again.";
-          this.showMessage=true;
+        } else {
+          this.alertMessage = "Login unsuccessful, try again.";
+          this.showMessage = true;
           console.log(data.respMessage);
-      }
-      }, 
-      (error)=>{
-        this.alertMessage="Login error, try again.";
-        this.showMessage=true;
+        }
+      },
+      (error) => {
+        this.alertMessage = "Login error, try again.";
+        this.showMessage = true;
         console.log(error);
-      } 
+      }
     );
   }
 }

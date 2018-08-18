@@ -15,7 +15,24 @@ public class RoleEntity extends Auditable {
     @Column(name="role_description")
     private String roleDescription;
 
-    @Override
+    
+    public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getRoleDescription() {
+		return roleDescription;
+	}
+
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
