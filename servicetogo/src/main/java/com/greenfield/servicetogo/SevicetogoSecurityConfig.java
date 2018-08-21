@@ -27,9 +27,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.greenfield.servicetogo.car.service.CustomUserDetailsService;
 
 
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableWebSecurity
-@Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableWebSecurity
+//@Configuration
+//UNUSED MAY DELETE LATER
 public class SevicetogoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired

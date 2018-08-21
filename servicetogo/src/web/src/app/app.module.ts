@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './home/header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +29,7 @@ import { ZipLookupService } from './shared/ziplookup.service';
 import { ConfirmationDialogComponent } from './util/confirmation-dialog/confirmation-dialog.component';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DashboardComponent } from './vendor/dashboard/dashboard.component';
+import { XhrInterceptor } from './shared/xhrInterceptor.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { DashboardComponent } from './vendor/dashboard/dashboard.component';
     Ng2GoogleChartsModule
   ],
   providers: [AuthService,Environment, MyRequestService, RequestCrudService,
-  CustomerService, AuthGuard, ZipLookupService],
+  CustomerService, AuthGuard, ZipLookupService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
