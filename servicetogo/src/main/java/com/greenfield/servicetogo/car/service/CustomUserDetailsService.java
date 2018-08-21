@@ -32,8 +32,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
        System.out.println("username:"+customUserDetails.getUsername());
        System.out.println("passwd:"+customUserDetails.getPassword());
-       System.out.println("Role Size:"+customUserDetails.getRoles().size()+customUserDetails.getRoles().iterator().next().getRoleName());
-       System.out.println("Authorities Size:"+customUserDetails.getAuthorities().size());
+       //System.out.println("Role Size:"+customUserDetails.getRoles().size()+customUserDetails.getRoles().iterator().next().getRoleName());
+       //System.out.println("Authorities Size:"+customUserDetails.getAuthorities().size());
        
        //return customUserDetails; 
 

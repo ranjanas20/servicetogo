@@ -1,16 +1,20 @@
 package com.greenfield.servicetogo.car.service;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
 import com.greenfield.servicetogo.car.entity.CustomerEntity;
+import com.greenfield.servicetogo.car.entity.RoleEntity;
 import com.greenfield.servicetogo.car.entity.UserCredentialEntity;
 import com.greenfield.servicetogo.car.repository.CustomerRepository;
 import com.greenfield.servicetogo.car.repository.UserCredentialRepository;
@@ -62,4 +66,22 @@ public class UserProfileService {
         return false;
     }
 
+    public Set<RoleEntity> getRolesForUser(String loginId){
+    	Set<RoleEntity> roleEntity = Collections.emptySet();
+    	if (loginId == null) {
+             throw new IllegalArgumentException("loginid is not valid");
+        }
+        Optional<UserCredentialEntity> user = credentialRepository.findByLoginId(loginId);
+        
+        //if present then do return it else throw exception
+        user.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        
+        if (user.isPresent()) {
+        	 roleEntity = user.get().getRoles();
+        	 System.out.println("Size of Roles:" + roleEntity.size());
+             return roleEntity;
+        }
+    	return roleEntity;
+    }
+    
 }

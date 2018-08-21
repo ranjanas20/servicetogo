@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { RoleModel } from '../../shared/model/role.model';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
   loggedIn: boolean;
   username:string='';
+  userroles: RoleModel[];
   subscription: Subscription;
   subscription2: Subscription;
   constructor(private authsvc: AuthService, private router: Router) {
@@ -20,10 +22,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.authsvc.loggedin.subscribe((loggedin: boolean)=>{
       this.loggedIn = loggedin;
-    })
+    });
     this.authsvc.username.subscribe(
       (name)=>{
         this.username=name;
+      }
+    );
+    this.authsvc.userroles.subscribe(
+      (roles)=>{
+        console.log("role size from header component:"+roles.length);
+        this.userroles=roles;
       }
     );
   }

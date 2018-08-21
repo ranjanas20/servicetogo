@@ -5,10 +5,14 @@ import static com.greenfield.servicetogo.car.service.DataConvertUtil.setAuditabl
 import static com.greenfield.servicetogo.car.service.DataConvertUtil.setAuditableNEW;
 import static com.greenfield.servicetogo.car.service.DataConvertUtil.toLocalDateTime;
 
+import java.util.Set;
+
 import com.greenfield.servicetogo.car.dto.CustomerProfileDTO;
+import com.greenfield.servicetogo.car.dto.RoleDTO;
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
 import com.greenfield.servicetogo.car.dto.ZipLookupDTO;
 import com.greenfield.servicetogo.car.entity.CustomerEntity;
+import com.greenfield.servicetogo.car.entity.RoleEntity;
 import com.greenfield.servicetogo.car.entity.UserCredentialEntity;
 import com.greenfield.servicetogo.car.entity.ZipLookupEntity;
 
@@ -87,6 +91,13 @@ public class UserDTOtoEntityMap {
         dto.setCity(entity.getCity());
         dto.setStateName(entity.getStatesEntity().getStateName());
         dto.setStateCode(entity.getStatesEntity().getStateCode());
+        return dto;
+    }
+    
+    public static RoleDTO toRoleDTO(RoleEntity roleEntity){
+    	RoleDTO dto = new RoleDTO();
+        dto.setRoleName(roleEntity.getRoleName());
+        dto.setRoleDescription(roleEntity.getRoleDescription());
         return dto;
     }
 }

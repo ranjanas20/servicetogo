@@ -1,15 +1,18 @@
 import 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Environment } from './environment.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { ResponseModel } from './model/response.model';
 import { Observable } from 'rxjs/Observable';
 import { UserCredentialModel } from './model/usercredential.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { RoleResponseModel } from './model/roleresponse.model';
+import { RoleModel } from './model/role.model';
 
 
 @Injectable()
 export class AuthService {
+    userroles: BehaviorSubject<RoleModel[]>= new BehaviorSubject([]);
     private url: string = this.env.REST_URL;
     loggedin: BehaviorSubject<boolean> = new BehaviorSubject(false);
     username: BehaviorSubject<string> = new BehaviorSubject('');
@@ -75,6 +78,25 @@ export class AuthService {
 
         });
     }
+    getUserRoles(username: string) {
+
+    return this.http.get<RoleResponseModel>(this.env.REST_URL + '/getroles', {
+      observe: 'body',
+      responseType: 'json',
+      params: new HttpParams().append('loginId',username),
+      headers: new HttpHeaders().set("token", "Sanjay"),
+      withCredentials: true
+    })
+    .map(
+      (resp) => {
+          return resp;
+      }
+    ).catch((error) => {
+      console.log(error);
+      return Observable.throw("Error is getting Roles");
+
+    });
+    }
     login(user: string, pwd: string) {
         let ttk = 'Basic ' + btoa(user + ':' + pwd);
         console.log(ttk);
@@ -85,8 +107,8 @@ export class AuthService {
         let cred: UserCredentialModel = new UserCredentialModel();
         cred.loginId = user;
         cred.loginPassword = pwd;
-        return this.http.get(this.env.REST_URL + '/dummylogin', 
-                { 
+        return this.http.get(this.env.REST_URL + '/dummylogin',
+                {
                     headers: headers2,
                     withCredentials: true
 
