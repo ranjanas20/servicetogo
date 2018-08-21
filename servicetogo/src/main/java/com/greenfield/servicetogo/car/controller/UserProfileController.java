@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.greenfield.servicetogo.car.dto.RoleDTO;
 import com.greenfield.servicetogo.car.dto.UserCredentialDTO;
 import com.greenfield.servicetogo.car.entity.RoleEntity;
+import com.greenfield.servicetogo.car.service.ServicetogoUtil;
 import com.greenfield.servicetogo.car.service.UserDTOtoEntityMap;
 import com.greenfield.servicetogo.car.service.UserProfileService;
 
@@ -65,20 +66,14 @@ public class UserProfileController {
         return dto;
     }
 
-    private String getCurrentLoggedInUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            return currentUserName;
-        }
-        return "";
-    }
+    
     //Spring will auto inject the Principal for authenticated calls
     @GetMapping(value = "/getroles")
     public ResponseDTO<Set<RoleDTO>> getRoles(Principal principal) {
+    	
         // this is how we can get current user
-        String currentUserName = getCurrentLoggedInUser();
-        System.out.println("From Spring SecurityContextHolder: " + currentUserName);
+        //String currentUserName = ServicetogoUtil.getCurrentLoggedInUser();
+        //System.out.println("From Spring SecurityContextHolder: " + currentUserName);
 
         String loginId = principal.getName();
         System.out.println("From Spring Controller Auto Injection: " + loginId);
