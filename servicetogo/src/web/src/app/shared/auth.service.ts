@@ -12,7 +12,7 @@ import { RoleModel } from './model/role.model';
 
 @Injectable()
 export class AuthService {
-    userroles: BehaviorSubject<RoleModel[]>= new BehaviorSubject([]);
+    userroles: BehaviorSubject<RoleModel[]> = new BehaviorSubject([]);
     private url: string = this.env.REST_URL;
     loggedin: BehaviorSubject<boolean> = new BehaviorSubject(false);
     username: BehaviorSubject<string> = new BehaviorSubject('');
@@ -80,22 +80,20 @@ export class AuthService {
     }
     getUserRoles(username: string) {
 
-    return this.http.get<RoleResponseModel>(this.env.REST_URL + '/getroles', {
-      observe: 'body',
-      responseType: 'json',
-      params: new HttpParams().append('loginId',username),
-      headers: new HttpHeaders().set("token", "Sanjay"),
-      withCredentials: true
-    })
-    .map(
-      (resp) => {
-          return resp;
-      }
-    ).catch((error) => {
-      console.log(error);
-      return Observable.throw("Error is getting Roles");
+        return this.http.get<RoleResponseModel>(this.env.REST_URL + '/getroles', {
+            observe: 'body',
+            responseType: 'json',
+            withCredentials: true
+        })
+            .map(
+                (resp) => {
+                    return resp;
+                }
+            ).catch((error) => {
+                console.log(error);
+                return Observable.throw("Error is getting Roles");
 
-    });
+            });
     }
     login(user: string, pwd: string) {
         let ttk = 'Basic ' + btoa(user + ':' + pwd);
@@ -107,13 +105,13 @@ export class AuthService {
         let cred: UserCredentialModel = new UserCredentialModel();
         cred.loginId = user;
         cred.loginPassword = pwd;
-        return this.http.get(this.env.REST_URL + '/dummylogin',
-                {
-                    headers: headers2,
-                    withCredentials: true
+        return this.http.get(this.env.REST_URL + '/basiclogin',
+            {
+                headers: headers2,
+                withCredentials: true
 
-                }
-            ).map(
+            }
+        ).map(
             (resp) => {
                 return "SUCCESS";
             }
