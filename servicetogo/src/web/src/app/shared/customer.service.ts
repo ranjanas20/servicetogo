@@ -9,11 +9,12 @@ import { CustomerProfileModel } from "./model/customerprofile.model";
 export class CustomerService{
     constructor(private env: Environment, private http: HttpClient) { }
 
-    getCustProfile(username: string) {       
+    getCustProfile(username: string) {
         return this.http.get<ResponseModel>(this.env.REST_URL + '/profilebyid', {
                 observe: 'body',
                 responseType: 'json',
                 params: new HttpParams().append('loginId',username),
+                withCredentials: true,
                 headers: new HttpHeaders().set("token", "Sanjay")
             })
             .map(
@@ -30,7 +31,8 @@ export class CustomerService{
         return this.http.put<ResponseModel>(this.env.REST_URL + '/saveprofile', profile,{
             observe: 'body',
             responseType: 'json',
-            headers: new HttpHeaders().set("token", "Sanjay")
+            headers: new HttpHeaders().set("token", "Sanjay"),
+            withCredentials: true
         })
         .map(
             (resp) => {

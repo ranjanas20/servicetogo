@@ -22,7 +22,8 @@ export class AuthService {
     signup(cred: UserCredentialModel) {
         return this.http.post<ResponseModel>(this.env.REST_URL + '/signup', cred, {
             observe: 'body',
-            responseType: 'json'
+            responseType: 'json',
+            withCredentials: true
         })
             .map(
                 (data) => {
@@ -37,7 +38,8 @@ export class AuthService {
     changeCredentials(cred: UserCredentialModel) {
         return this.http.post<ResponseModel>(this.env.REST_URL + '/credupdate', cred, {
             observe: 'body',
-            responseType: 'json'
+            responseType: 'json',
+            withCredentials: true
         })
             .map(
                 (data) => {

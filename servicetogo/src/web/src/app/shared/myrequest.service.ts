@@ -31,7 +31,7 @@ export class MyRequestService {
             });
     }
     delete(requestId: number) {
-        return this.http.delete(this.env.REST_URL + '/request/' + requestId)
+        return this.http.delete(this.env.REST_URL + '/request/' + requestId, {withCredentials: true})
             .map(
                 (data) => {
                     return data;

@@ -14,9 +14,10 @@ export class AllRequestService {
             observe: 'body',
             responseType: 'json',
             headers: new HttpHeaders().set("token", "Sanjay"),
+            withCredentials: true,
             params: new HttpParams().set("pageNo", pageNo.toString()).set("pageSize", pageSize.toString())
         })
-            .map( 
+            .map(
                 (data) => {
                     return data;
                 }
