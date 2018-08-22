@@ -21,10 +21,10 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+        <li class="nav-item" *ngIf="roleList.length >0 && roleList.indexOf(env.ROLE_MANAGER) != -1">
               <a class="nav-link" style="cursor: pointer" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-            </li>
-        <li class="nav-item">
+        </li>
+        <li class="nav-item" *ngIf="roleList.length >0 && (roleList.indexOf(env.ROLE_MANAGER) != -1 || roleList.indexOf(env.ROLE_EMPLOYEE) != -1 )">
           <a class="nav-link" style="cursor: pointer" routerLink="/worklist" routerLinkActive="active">Worklist</a>
         </li>
         <li class="nav-item dropdown mr-3" *ngIf="loggedIn">
@@ -33,7 +33,7 @@
             Manage
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdown-manage">
-            <a class="dropdown-item" style="cursor: pointer" routerLink="/my-requests">
+            <a class="dropdown-item" style="cursor: pointer" routerLink="/my-requests" *ngIf="roleList.length >0 && roleList.indexOf(env.ROLE_CUSTOMER) != -1">
               <i class="fa fa-car" aria-hidden="true"></i> My Service Requests</a>
             <a style="cursor: pointer" class="dropdown-item" routerLink="/my-profile">
               <i class="fa fa-user-circle"></i> Profile

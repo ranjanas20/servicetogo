@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
     this.authsvc.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       (resp) => {
         if (typeof resp === 'string') {
-          this.authsvc.loggedin.next(true);
-          this.authsvc.username.next(this.loginForm.value.username);
+          //get roles before setting Objects and redirect
           this.getRoles(this.loginForm.value.username);
           //this.router.navigate(['home']);
         } else {
@@ -63,6 +62,8 @@ export class LoginComponent implements OnInit {
         this.myRoles=resp.data;
         console.log(this.myRoles);
         this.authsvc.userroles.next(this.myRoles);
+        this.authsvc.loggedin.next(true);
+        this.authsvc.username.next(username);
         this.router.navigate(['home']);
       },
       (error)=>{

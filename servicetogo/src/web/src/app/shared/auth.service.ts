@@ -12,10 +12,12 @@ import { RoleModel } from './model/role.model';
 
 @Injectable()
 export class AuthService {
-    userroles: BehaviorSubject<RoleModel[]> = new BehaviorSubject([]);
+
     private url: string = this.env.REST_URL;
     loggedin: BehaviorSubject<boolean> = new BehaviorSubject(false);
     username: BehaviorSubject<string> = new BehaviorSubject('');
+    userroles: BehaviorSubject<RoleModel[]> = new BehaviorSubject([]);
+
     constructor(private env: Environment, private http: HttpClient) { }
     signup(cred: UserCredentialModel) {
         return this.http.post<ResponseModel>(this.env.REST_URL + '/signup', cred, {
@@ -51,34 +53,7 @@ export class AuthService {
         this.loggedin.next(false);
         this.username.next('');
     }
-    login3(user: string, pwd: string) {
-        let body = new URLSearchParams();
-        body.set('username', user);
-        body.set('password', pwd);
-        body.set('submit', 'Login');
-        let options = {
-            responseType: 'json',
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        };
-        console.log(body.toString());
-        return this.http.post(this.env.REST_URL + '/login', body.toString(), {
-            observe: 'body',
-            responseType: 'text',
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        }).map(
-            (resp) => {
-                if (resp.indexOf("Your login attempt was not successful") > 0) {
-                    return Observable.throw("You user or password not valid");
-                }
-                return user;
-            }
-        ).catch((error) => {
-            console.log(error);
-            return Observable.throw("Something went wrong");
-
-        });
-    }
-    getUserRoles(username: string) {
+      getUserRoles(username: string) {
 
         return this.http.get<RoleResponseModel>(this.env.REST_URL + '/getroles', {
             observe: 'body',

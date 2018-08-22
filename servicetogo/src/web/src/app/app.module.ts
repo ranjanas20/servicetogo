@@ -30,6 +30,7 @@ import { ConfirmationDialogComponent } from './util/confirmation-dialog/confirma
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { DashboardComponent } from './vendor/dashboard/dashboard.component';
 import { XhrInterceptor } from './shared/xhrInterceptor.service';
+import { UtilService } from './shared/util.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { XhrInterceptor } from './shared/xhrInterceptor.service';
     Ng2GoogleChartsModule
   ],
   providers: [AuthService,Environment, MyRequestService, RequestCrudService,
-  CustomerService, AuthGuard, ZipLookupService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  CustomerService, AuthGuard, ZipLookupService, UtilService,
+  { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
