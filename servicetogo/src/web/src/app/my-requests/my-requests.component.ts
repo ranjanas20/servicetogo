@@ -12,14 +12,18 @@ import { Router } from '@angular/router';
 })
 
 export class MyRequestsComponent implements OnInit {
+  tabname:string='OPEN';
+
   currentPage: number=1;
-  totalPages: number=1;  
+  totalPages: number=1;
   pageSize: number=5;
-  myRequests: CarServiceRequestTrackerModel[];
-  requestIdSelected: number;
   pageArray: number[];
   searchForm: CarServiceRequestTrackerModel;
-  tabname:string='OPEN';
+
+  myRequests: CarServiceRequestTrackerModel[];
+  requestIdSelected: number;
+  reqSelected: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
+
   alertMessage:string="No message";
   hide:number=1;
   showProgressBar: boolean=false;
@@ -34,13 +38,25 @@ export class MyRequestsComponent implements OnInit {
   }
   getRequests(event,status:string){
     this.currentPage=1;
-    this.totalPages=1;  
+    this.totalPages=1;
     this.tabname = status;
-    this.search();  
+    this.search();
     event.preventDefault();
   }
+
+  selectRow(reqId: number) {
+    this.requestIdSelected = reqId;
+    let i: number;
+    for (i = 0; i < this.myRequests.length; i++) {
+      if (reqId === this.myRequests[i].requestId) {
+        this.reqSelected = this.myRequests[i];
+        break;
+      }
+    }
+  }
+
   gotoPage(event,newPage:number){
-   
+
     if(newPage!=this.currentPage){
       this.currentPage=newPage;
       this.search();
@@ -73,12 +89,12 @@ export class MyRequestsComponent implements OnInit {
         this.alertMessage="Request Id "+requestId+" deleted successfully!";
         this.hide=0;
         this.search();
-      }, 
+      },
       (error)=>{
         console.log(error);
         this.showProgressBar=false;
 
-      } 
+      }
     );
   }
   deleteMe(event,requestId:number){
@@ -95,24 +111,33 @@ export class MyRequestsComponent implements OnInit {
         this.totalPages=resp.totalPapges;
         this.setPageArray();
         this.showProgressBar=false;
-      }, 
+
+        if (this.myRequests.length > 0) {
+          this.reqSelected = this.myRequests[0];
+          this.requestIdSelected = this.reqSelected.requestId;
+        }else{
+          this.reqSelected = new CarServiceRequestTrackerModel();
+          this.requestIdSelected = 0;
+        }
+        this.showProgressBar = false;
+      },
       (error)=>{
         console.log(error);
         this.showProgressBar=false;
-      } 
+      }
     );
   }
   previous(event){
     if(this.currentPage!=1){
       this.currentPage = this.currentPage -1;
       this.search();
-    }     
+    }
     event.preventDefault();
   }
   next(event){
     if(this.currentPage!=this.totalPages){
       this.currentPage = this.currentPage +1;
-      this.search();      
+      this.search();
     }
     event.preventDefault();
   }
@@ -122,7 +147,7 @@ export class MyRequestsComponent implements OnInit {
   }
   ngOnInit() {
     this.searchForm = new CarServiceRequestTrackerModel();
-    this.search();    
+    this.search();
   }
   ngOnDestroy(){
 

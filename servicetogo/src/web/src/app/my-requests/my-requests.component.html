@@ -9,102 +9,69 @@
       </li>
     </ul>
   </div>
+
   <div class="card-body">
-    <h5 class="card-title">
-      <a href="#searchform" data-toggle="collapse">
-        <i class="fa fa-caret-square-o-down"></i> Search </a>
-    </h5>
-    <app-progress-mask [showProgress]="showProgressBar"></app-progress-mask>
-    <div id="searchform" class="collapse">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
-        <div class="form-row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="customerLastName">Last Name</label>
-              <input type="text" id="customerLastName" class="form-control" ngModel name="customerLastName" placeholder="Last Name">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="customerFirstName">First Name</label>
-              <input type="text" id="customerFirstName" class="form-control" ngModel name="customerFirstName" placeholder="First Name">
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col">
-            <button class="btn btn-primary mb-1" type="submit" [disabled]="!f.valid">Search</button>
-            <button class="btn btn-info mb-1" type="button" (click)="clearSearchForm(f)">Clear</button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <app-msg-util [messageText]="alertMessage" [showMessage]="hide==0" (msgHidden)="hideAlert()"></app-msg-util>
     <div class="row">
-        <div class="col-md-3 text-left">
+      <div class="col-sm-7">
+
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered table-sm">
+            <thead >
+              <tr>
+                <th scope="col-2"> ID# <a href="#" (click)="sort($event,'requestId')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                <th scope="col-2">Request Date <a href="#" (click)="sort($event,'requestedDate')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                <th scope="col-2">Status <a href="#" (click)="sort($event,'serviceStatus')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
+                <th scope="col-4">Make/ Model/ Year</th>
+               </tr>
+            </thead>
+            <tbody>
+              <tr [class.table-active]="req.requestId===requestIdSelected" *ngFor="let req of myRequests" (click)="selectRow(req.requestId)">
+                <td>{{req.requestId}}</td>
+                <td>{{req.requestedDate | date:'fullDate'}}</td>
+                <td>{{req.serviceStatus}}</td>
+                <td>{{req.vehicleYear}} {{req.vehicleMake}} {{req.vehicleModel}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-3 text-left">
             <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm">
-              <li class="page-item">
-                <a class="page-link" href="#" (click)="previous($event)"><i class="fa fa-backward" aria-hidden="true"></i></a>
-              </li>
-              <li class="page-item" [class.active]="p==currentPage"  *ngFor="let p of pageArray">
-                <a class="page-link" href="#" (click)="gotoPage($event,p)">{{p}}</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#" (click)="next($event)"><i class="fa fa-forward" aria-hidden="true"></i></a>
-              </li>
-            </ul>
+              <ul class="pagination pagination-sm">
+                <li class="page-item">
+                  <a class="page-link" href="#" (click)="previous($event)">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li class="page-item" [class.active]="p==currentPage" *ngFor="let p of pageArray">
+                  <a class="page-link" href="#" (click)="gotoPage($event,p)">{{p}}</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#" (click)="next($event)">
+                    <i class="fa fa-forward" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
             </nav>
           </div>
-      <div class="col-md-9 text-right">Page {{currentPage}} of {{totalPages}}</div>
+          <div class="col-md-9 text-right">Page {{currentPage}} of {{totalPages}}</div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="font-weight-bold">Details</h5>
+            <app-view-estimate [request]="reqSelected"></app-view-estimate>
+            <a href="#" class="btn btn-primary" (click)="editRequest($event,reqSelected.requestId)"><i class="fa fa-edit"></i> Edit</a>
+            <a href="#" class="btn btn-primary" (click)="deleteMe($event,reqSelected.requestId)"
+              data-toggle="modal" data-target="#confirmModal">
+              <i class="fa fa-trash"></i> Delete
+            </a>
+            <app-confirmation-dialog (onOptionClick)="confirmDelete($event)" [messageToShow]="'Do you really want to delete?'"></app-confirmation-dialog>
+          </div>
+        </div>
+      </div>
     </div>
-    <app-msg-util [messageText]="alertMessage" [showMessage]="hide==0" (msgHidden)="hideAlert()"></app-msg-util>  
-
-    <table class="table table-hover table-sm">
-      <thead>
-        <tr>
-          <th scope="col"> ID# <a href="#" (click)="sort($event,'requestId')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-          <th scope="col">Request Date <a href="#" (click)="sort($event,'requestedDate')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-          <th scope="col">Status <a href="#" (click)="sort($event,'serviceStatus')"><i class="fa fa-sort" aria-hidden="true"></i></a></th>
-          <th scope="col">Make/ Model/ Year</th>
-
-          <th scope="col">Service Address</th>
-          <th scope="col">Scheduled Date</th>
-          <th scope="col">Service Date</th>
-          <th scope="col">Serviced By</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let req of myRequests">
-          <td><a href="#" (click)="viewRequest($event,req.requestId)">{{req.requestId}}</a></td>
-          <td>{{req.requestedDate | date:'fullDate'}}</td>
-          <td>{{req.serviceStatus}}</td>
-          <td>{{req.vehicleYear}} {{req.vehicleMake}} {{req.vehicleModel}}</td>
-
-          <td>{{req.addressLine1}}</td>
-          <td>{{req.serviceScheduleDatetime}}</td>
-          <td>{{req.serviceCompletionDatetime}}</td>
-          <td>{{req.serviceCompletedByFirstName}} {{req.serviceCompletedByLastName}}</td>
-          <td><a href="#" (click)="editRequest($event,req.requestId)"> <i class="fa fa-edit" title="Edit"></i></a></td>
-          <td><a href="#" (click)="deleteMe($event,req.requestId)" data-toggle="modal" data-target="#confirmModal">  <i class="fa fa-trash" title="Delete"></i></a></td>
-        </tr>
-      </tbody>
-    </table>
-    <app-confirmation-dialog (onOptionClick)="confirmDelete($event)" [messageToShow]="'Do you really want to delete?'"></app-confirmation-dialog>
-
-    <nav aria-label="Page navigation">
-    <ul class="pagination pagination-sm">
-      <li class="page-item">
-        <a class="page-link" href="#" (click)="previous($event)"><i class="fa fa-backward" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" [class.active]="p==currentPage"  *ngFor="let p of pageArray">
-        <a class="page-link active"  href="#" (click)="gotoPage($event,p)">{{p}}</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" (click)="next($event)"><i class="fa fa-forward" aria-hidden="true"></i></a>
-      </li>
-    </ul>
-  </nav>
   </div>
-</div>
+ </div>

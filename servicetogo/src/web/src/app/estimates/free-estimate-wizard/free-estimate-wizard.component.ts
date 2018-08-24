@@ -52,8 +52,8 @@ export class FreeEstimateWizardComponent implements OnInit {
         if(this.requestId>0 && this.mode && this.mode != 'NEW'){
           this.loadData(requestIdLocal, paramMode);
         }
-        
-      });      
+
+      });
     }
   loadData(requestIdLocal:number, modeLocal: string){
     if (requestIdLocal>0 && modeLocal != 'NEW') {
@@ -155,7 +155,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.req.userComments = car.get("userComments").value;
     this.req.vehicleLocation = car.get("vehicleLocation").value;
   }
-  
+
 
   ngOnDestroy() {
     if (this.requestIdSubscription) {
@@ -171,6 +171,7 @@ export class FreeEstimateWizardComponent implements OnInit {
 
   isStepValid(){
     if(this.currentStep == 'contact'){
+        console.log("valid"+this.wizardForm.get("contact").valid);
         return this.wizardForm.get("contact").valid
     }else if(this.currentStep == 'car'){
       return this.wizardForm.get("car").valid;
@@ -226,7 +227,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.alertMessage = msg;
     this.showMessage = true;
   }
-  
+
 
   onSubmit() {
     this.showProgressBar=true;
