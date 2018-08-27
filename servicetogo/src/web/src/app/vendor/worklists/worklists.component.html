@@ -108,7 +108,7 @@
               <tr [class.table-active]="req.requestId===requestIdSelected" *ngFor="let req of myRequests" (click)="selectRow(req.requestId)">
                 <td>{{req.requestId}}</td>
                 <td>{{req.requestedDate}}</td>
-                <td>{{req.customerFirstName}}{{req.customerMiddleName}}{{req.customerLastName}}</td>
+                <td>{{req.customerFirstName}} &nbsp;{{req.customerMiddleName}}&nbsp;{{req.customerLastName}}</td>
                 <td>{{req.addressCity}}, {{req.addressZip}}</td>
                 <td>{{req.vehicleYear}} {{req.vehicleMake}} {{req.vehicleModel}}</td>
               </tr>

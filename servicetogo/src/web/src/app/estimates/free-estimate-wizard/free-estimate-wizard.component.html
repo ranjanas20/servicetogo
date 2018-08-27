@@ -1,5 +1,5 @@
 <div class="container  m-t-3">
-  <h3>Estimate ({{mode}})</h3>
+  <h3>Estimate {{(mode)}}</h3>
   <div class="container m-3" *ngIf="mode!='VIEW'">
     <div class="row">
       <div class="col-md-auto ml-1" [class.text-info]="currentStep=='contact'" [class.text-secondary]="currentStep!='contact'">
@@ -42,7 +42,7 @@
         <label for="email" class="col-sm-2 col-form-label">Contact</label>
         <div class="col-sm-5">
           <input type="email" formControlName="email"  class="form-control" maxlength="100" id="email" placeholder="name@example.com">
-          <span class="help-block" *ngIf="!wizardForm.get('contact').get('email').valid && wizardForm.get('contact').get('email').touched">Please enter a valid email</span>
+          <span class="help-block text-danger" *ngIf="!wizardForm.get('contact').get('email').valid && wizardForm.get('contact').get('email').touched">Please enter a valid email</span>
         </div>
         <div class="col-sm-5">
           <input type="text" formControlName="customerPhone"  maxlength="10" class="form-control" id="customerPhone"

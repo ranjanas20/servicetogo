@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { ZipLookupService } from '../../shared/ziplookup.service';
 import { ZipLookupModel } from '../../shared/model/ziplookup.model';
 import { ResponseModel } from '../../shared/model/response.model';
+import { AuthService } from '../../shared/auth.service';
+import { CustomerProfileModel } from '../../shared/model/customerprofile.model';
+import { CustomerService } from '../../shared/customer.service';
 
 @Component({
   selector: 'app-free-estimate-wizard',
@@ -21,7 +24,7 @@ export class FreeEstimateWizardComponent implements OnInit {
   showMessage: boolean = false;
   alertMessage: string = "No message";
   alertMessageTypeError:boolean=false;
-
+  loginuser: string = '';
   req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
   requestId: number;
   wizardForm: FormGroup;
@@ -36,7 +39,10 @@ export class FreeEstimateWizardComponent implements OnInit {
   constructor(private router: Router,
     private reqCrudSvc: RequestCrudService,
     private activatedRoute: ActivatedRoute,
-    private zipLookupSvc: ZipLookupService) { }
+    private zipLookupSvc: ZipLookupService,
+    private authsvc: AuthService,
+    private custsvc: CustomerService) { }
+
     ngOnInit() {
       this.initForm();
       this.requestIdSubscription = this.activatedRoute.params.subscribe((params: Params) => {
@@ -54,6 +60,14 @@ export class FreeEstimateWizardComponent implements OnInit {
         }
 
       });
+      if (this.mode && this.mode == 'NEW') {
+        this.authsvc.username.subscribe(
+          (name)=>{
+            this.loginuser=name;
+          }
+        );
+        this.loadUserProfileData(this.loginuser);
+      }
     }
   loadData(requestIdLocal:number, modeLocal: string){
     if (requestIdLocal>0 && modeLocal != 'NEW') {
@@ -72,6 +86,39 @@ export class FreeEstimateWizardComponent implements OnInit {
       );
     }
   }
+  loadUserProfileData(username: string){
+    this.showProgressBar=true;
+    this.custsvc.getCustProfile(username).subscribe(
+        (record: CustomerProfileModel) => {
+          this.req = this.getCarServiceReqTrackModel(record);
+          console.log(record);
+          console.log(this.req);
+          this.showProgressBar=false;
+          this.updateForm(this.req);
+        },
+        (error) => {
+          console.log(error);
+          this.showProgressBar=false;
+        }
+      );
+  }
+//convert CustomerProfileModel to CarServiceRequestTrackerModel
+  getCarServiceReqTrackModel(cpModel: CustomerProfileModel ){
+    let data: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
+    data.customerId = cpModel.customerId;
+    data.customerFirstName=cpModel.customerFirstName;
+    data.customerMiddleName=cpModel.customerMiddleName;
+    data.customerLastName=cpModel.customerLastName;
+    data.customerPhone=cpModel.customerPhone;
+    data.email=cpModel.email;
+    data.addressLine1=cpModel.addressLine1;
+    data.addressLine2=cpModel.addressLine2;
+    data.addressCity=cpModel.addressCity;
+    data.addressState=cpModel.addressState;
+    data.addressZip=cpModel.addressZip;
+    return data;
+  }
+
   initForm() {
     this.wizardForm = new FormGroup({
       contact: new FormGroup({
