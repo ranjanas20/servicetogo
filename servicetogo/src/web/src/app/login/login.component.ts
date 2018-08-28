@@ -42,12 +42,14 @@ export class LoginComponent implements OnInit {
           this.getRoles(this.loginForm.value.username);
           //this.router.navigate(['home']);
         } else {
+          this.loginForm.get("password").setValue('');
           this.alertMessage = "Login unsuccessful, try again.";
           this.showMessage = true;
           console.log(resp);
         }
       },
       (error) => {
+        this.loginForm.get("password").setValue('');
         this.alertMessage = "Login error, try again.";
         this.showMessage = true;
         console.log(error);
