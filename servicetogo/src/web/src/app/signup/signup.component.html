@@ -5,30 +5,94 @@
       <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
         <div class="form-group">
           <label for="loginId">Username</label>
-          <input type="text" id="loginId" class="form-control" formControlName="loginId">
+          <input type="text" id="username" class="form-control" formControlName="username">
+          <!--validations for username -->
+          <div *ngIf="username.invalid && (username.dirty || username.touched)"
+              class="help-block text-danger">
+
+            <div *ngIf="username.errors.required">
+              Username is required.
+            </div>
+            <div *ngIf="username.errors.minlength">
+              Username must be at least 3 characters long.
+            </div>
+            <div *ngIf="username.errors.maxlength">
+              Username must not be more than 10 characters long.
+            </div>
+            <div *ngIf="username.errors.pattern">
+              Username must start with letter and followed by letter, number and '_'.
+            </div>
+          </div>
+          <!--ends validations for username -->
         </div>
         <div class="form-group">
           <label for="email">E-mail</label>
           <input type="email" id="email" class="form-control" formControlName="email">
-          <span class="help-block" *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter a valid email.</span>
+          <!--validations for email -->
+          <div *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="help-block text-danger">
+
+            <div *ngIf="email.errors.required">
+              Email is required.
+            </div>
+            <div *ngIf="email.errors.email">
+              Please enter a valid Email.
+            </div>
+          </div>
+          <!--ends validations for email -->
         </div>
         <div class="form-group ">
           <label for="loginPassword">Password</label>
           <div class="row">
             <div class="col">
               <input type="password" id="loginPassword" class="form-control" formControlName="loginPassword" placeholder="Enter password">
+              <!--validations for loginPassword -->
+                <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)"
+                    class="help-block text-danger">
 
+                  <div *ngIf="loginPassword.errors.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="loginPassword.errors.minlength">
+                    Password must be at least 5 characters long.
+                  </div>
+                  <div *ngIf="loginPassword.errors.maxlength">
+                    Password must not be more than 20 characters long.
+                  </div>
+                </div>
+              <!--ends validations for loginPassword -->
             </div>
             <div class="col">
               <input type="password" id="retypePassword" class="form-control" formControlName="retypePassword" placeholder="Re-enter Password">
+              <!--validations for retypePassword -->
+              <div *ngIf="retypePassword.invalid && (retypePassword.dirty || retypePassword.touched)"
+                class="help-block text-danger">
 
+                <div *ngIf="retypePassword.errors.required">
+                  Retype-Password is required.
+                </div>
+                <div *ngIf="retypePassword.errors.minlength">
+                  Retype-Password must be at least 5 characters long.
+                </div>
+                <div *ngIf="retypePassword.errors.maxlength">
+                  Retype-Password must not be more than 20 characters long.
+                </div>
+              </div>
+              <!--ends validations for retypePassword -->
             </div>
-
-          </div>
         </div>
-        <div class="mt-4">
-        <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid"><i class="fa fa-check-circle"></i> Submit</button>
-        <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home"><i class="fa fa-ban"></i> Cancel</button>
+
+        <div *ngIf="(signupForm.errors?.matchPasswordError)
+        && (signupForm.controls.retypePassword.touched || signupForm.controls.retypePassword.dirty)
+        && (signupForm.controls.loginPassword.touched || signupForm.controls.loginPassword.dirty)"
+        class="cross-validation-error-message help-block text-danger">
+            Password does not match.
+        </div>
+      </div> <!--form group-->
+
+      <div class="mt-4">
+          <button class="btn btn-primary" type="submit" [disabled]="!formStatus"><i class="fa fa-check-circle"></i> Submit</button>
+          <button class="btn btn-secomdary" name="cancel" type="cancel" routerLink="/home"><i class="fa fa-ban"></i> Cancel</button>
       </div>
       </form>
     </div>

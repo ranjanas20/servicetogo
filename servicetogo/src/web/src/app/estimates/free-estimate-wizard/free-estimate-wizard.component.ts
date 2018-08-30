@@ -10,6 +10,7 @@ import { ResponseModel } from '../../shared/model/response.model';
 import { AuthService } from '../../shared/auth.service';
 import { CustomerProfileModel } from '../../shared/model/customerprofile.model';
 import { CustomerService } from '../../shared/customer.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-free-estimate-wizard',
@@ -28,7 +29,6 @@ export class FreeEstimateWizardComponent implements OnInit {
   req: CarServiceRequestTrackerModel = new CarServiceRequestTrackerModel();
   requestId: number;
   wizardForm: FormGroup;
-
   requestIdSubscription: Subscription;
   selectRequestSubscription: Subscription;
   zipLookupSubscription: Subscription;
@@ -54,7 +54,7 @@ export class FreeEstimateWizardComponent implements OnInit {
         if (requestIdLocal) {
           this.requestId = requestIdLocal;
         }
-        console.log(this.mode);
+        //console.log(this.mode);
         if(this.requestId>0 && this.mode && this.mode != 'NEW'){
           this.loadData(requestIdLocal, paramMode);
         }
@@ -66,7 +66,9 @@ export class FreeEstimateWizardComponent implements OnInit {
             this.loginuser=name;
           }
         );
-        this.loadUserProfileData(this.loginuser);
+        if (this.loginuser != '') {
+          this.loadUserProfileData(this.loginuser, this.mode);
+        }
       }
     }
   loadData(requestIdLocal:number, modeLocal: string){
@@ -75,9 +77,9 @@ export class FreeEstimateWizardComponent implements OnInit {
       this.selectRequestSubscription = this.reqCrudSvc.getRequest(this.requestId).subscribe(
         (record: CarServiceRequestTrackerModel) => {
           this.req = record;
-          console.log(record);
+          //console.log(record);
           this.showProgressBar=false;
-          this.updateForm(record);
+          this.updateForm(record,modeLocal);
         },
         (error) => {
           console.log(error);
@@ -86,15 +88,15 @@ export class FreeEstimateWizardComponent implements OnInit {
       );
     }
   }
-  loadUserProfileData(username: string){
+  loadUserProfileData(username: string, locmode:string){
     this.showProgressBar=true;
     this.custsvc.getCustProfile(username).subscribe(
         (record: CustomerProfileModel) => {
           this.req = this.getCarServiceReqTrackModel(record);
-          console.log(record);
-          console.log(this.req);
+          //console.log(record);
+          //console.log(this.req);
           this.showProgressBar=false;
-          this.updateForm(this.req);
+          this.updateForm(this.req,locmode);
         },
         (error) => {
           console.log(error);
@@ -120,17 +122,23 @@ export class FreeEstimateWizardComponent implements OnInit {
   }
 
   initForm() {
+
+    let dp = new DatePipe(navigator.language);
+    let p = 'y-MM-dd'; // YYYY-MM-DD
+    let currentDate = dp.transform(new Date(), p);
+    //console.log('date:'+currentDate);
+
     this.wizardForm = new FormGroup({
       contact: new FormGroup({
         'requestId': new FormControl('', []),
         'customerId': new FormControl('', []),
-        'requestedDate': new FormControl('', [Validators.required]),
+        'requestedDate': new FormControl(currentDate, [Validators.required]),
         'email': new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
         'customerFirstName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
         'customerLastName': new FormControl('', [Validators.required, Validators.maxLength(50)]),
         'customerMiddleName': new FormControl('', [Validators.maxLength(50)]),
         'customerPhone': new FormControl('', [Validators.required, Validators.maxLength(10)]),
-        'preferredContactMethod': new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        'preferredContactMethod': new FormControl('phone', [Validators.required, Validators.maxLength(50)]),
         'addressLine1': new FormControl('', [Validators.maxLength(100)]),
         'addressLine2': new FormControl('', [Validators.maxLength(50)]),
         'addressCity': new FormControl('', [Validators.required, Validators.maxLength(100)]),
@@ -147,8 +155,8 @@ export class FreeEstimateWizardComponent implements OnInit {
         'vehicleLocation': new FormControl('', [ Validators.maxLength(50)])
       })
     });
-  }
-  updateForm(record:CarServiceRequestTrackerModel) {
+   }
+  updateForm(record:CarServiceRequestTrackerModel, mode: string) {
     let contact = this.wizardForm.get('contact');
     let car = this.wizardForm.get('car');
 
@@ -164,9 +172,12 @@ export class FreeEstimateWizardComponent implements OnInit {
     contact.get("addressCity").setValue(record.addressCity);
     contact.get("addressState").setValue(record.addressState);
     contact.get("addressZip").setValue(record.addressZip);
-    contact.get("requestedDate").setValue(record.requestedDate);
-    contact.get("preferredContactMethod").setValue(record.preferredContactMethod);
+    if(mode != 'NEW'){
+      contact.get("requestedDate").setValue(record.requestedDate);
+      contact.get("preferredContactMethod").setValue(record.preferredContactMethod);
+    }
 
+    //upload car details
     car.get("vehicleMake").setValue(record.vehicleMake);
     car.get("vehicleModel").setValue(record.vehicleModel);
     car.get("vehicleYear").setValue(record.vehicleYear);
@@ -218,7 +229,7 @@ export class FreeEstimateWizardComponent implements OnInit {
 
   isStepValid(){
     if(this.currentStep == 'contact'){
-        console.log("valid"+this.wizardForm.get("contact").valid);
+        //console.log("valid"+this.wizardForm.get("contact").valid);
         return this.wizardForm.get("contact").valid
     }else if(this.currentStep == 'car'){
       return this.wizardForm.get("car").valid;
@@ -259,7 +270,7 @@ export class FreeEstimateWizardComponent implements OnInit {
     this.mode = 'EDIT';
     this.hideAlert();
     this.currentStep='contact';
-    this.updateForm(this.req);
+    this.updateForm(this.req,this.mode);
   }
   hideAlert() {
     this.showMessage = false;
@@ -312,24 +323,26 @@ export class FreeEstimateWizardComponent implements OnInit {
   }
 
   populateCityState(event){
-    console.log("lookup service called");
+    //console.log("lookup service called");
     let zipcode: string = this.wizardForm.get('contact').get("addressZip").value;
-    console.log("zipcode:" + zipcode);
-    this.zipLookupSubscription = this.zipLookupSvc.getCityState(zipcode).subscribe(
-      (resp: ResponseModel) => {
-        if(resp.success) {
-          this.zipLookupData = resp.data;
-          this.displayCityState();
-        } else {
-          this.resetZipLookupData();
-          this.displayCityState();
+    //console.log("zipcode:" + zipcode);
+    if (zipcode != ''){
+      this.zipLookupSubscription = this.zipLookupSvc.getCityState(zipcode).subscribe(
+        (resp: ResponseModel) => {
+          if(resp.success) {
+            this.zipLookupData = resp.data;
+            this.displayCityState();
+          } else {
+            this.resetZipLookupData();
+            this.displayCityState();
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    event.preventDefault();
+      );
+      event.preventDefault();
+    }
   }
 
   displayCityState() {

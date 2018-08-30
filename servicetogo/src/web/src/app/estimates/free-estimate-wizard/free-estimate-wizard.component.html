@@ -27,34 +27,38 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="customerFirstName" class="col-sm-2 col-form-label">Name</label>
+        <label for="customerFirstName" class="col-sm-2 col-form-label">Name*</label>
         <div class="col-sm-4">
           <input formControlName="customerFirstName" type="text"  class="form-control" id="customerFirstName" >
+          <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('customerFirstName').touched && (!wizardForm.get('contact').get('customerFirstName').valid) ">Please enter first name</span>
         </div>
         <div class="col-sm-2">
           <input formControlName="customerMiddleName" type="text"  class="form-control" id="customerMiddleName" >
         </div>
         <div class="col-sm-4">
           <input formControlName="customerLastName" type="text"  class="form-control" id="customerLastName" >
+          <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('customerLastName').touched && (!wizardForm.get('contact').get('customerLastName').valid) ">Please enter last name</span>
         </div>
       </div>
       <div class="form-group row">
-        <label for="email" class="col-sm-2 col-form-label">Contact</label>
+        <label for="email" class="col-sm-2 col-form-label">Contact*</label>
         <div class="col-sm-5">
           <input type="email" formControlName="email"  class="form-control" maxlength="100" id="email" placeholder="name@example.com">
-          <span class="help-block text-danger" *ngIf="!wizardForm.get('contact').get('email').valid && wizardForm.get('contact').get('email').touched">Please enter a valid email</span>
+          <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('email').touched && !wizardForm.get('contact').get('email').valid">Please enter a valid email</span>
         </div>
         <div class="col-sm-5">
           <input type="text" formControlName="customerPhone"  maxlength="10" class="form-control" id="customerPhone"
             placeholder="0000000000" >
+            <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('customerPhone').touched && (!wizardForm.get('contact').get('customerPhone').valid)">Please enter a phone number</span>
         </div>
       </div>
       <div class="form-group row">
-        <label for="requestedDate" class="col-sm-2 col-form-label">Service Requested On</label>
+        <label for="requestedDate" class="col-sm-2 col-form-label">Service Requested On*</label>
         <div class="col-sm-4">
           <input formControlName="requestedDate" type="date"  class="form-control" id="requestedDate">
+          <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('requestedDate').touched && (!wizardForm.get('contact').get('requestedDate').valid)">Please enter request date</span>
         </div>
-        <legend class="col-sm-2 col-form-label">Preferred contact</legend>
+        <legend class="col-sm-2 col-form-label">Preferred contact*</legend>
         <div class="col-sm-4">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio"  formControlName="preferredContactMethod" value="phone">
@@ -88,10 +92,11 @@
       </div>
 
       <div class="form-group row">
-        <label for="addressZip" class="col-sm-2 col-form-label">Zip/City/State</label>
+        <label for="addressZip" class="col-sm-2 col-form-label">Zip/City/State*</label>
         <div class="col-sm-2">
           <input formControlName="addressZip" type="text" placeholder="Zip code"  maxlength="10" class="form-control"
             id="addressZip" (focusout)="populateCityState($event)" >
+            <span class="help-block text-danger" *ngIf="wizardForm.get('contact').get('addressZip').touched && (!wizardForm.get('contact').get('addressZip').valid)">Please enter zip code</span>
         </div>
         <div class="col-sm-4">
           <input formControlName="addressCity" type="text" placeholder="City"  class="form-control" id="addressCity">
@@ -110,7 +115,7 @@
 
     <div class="panel" *ngIf="currentStep=='car' && mode!='VIEW'" formGroupName="car">
       <div class="form-group row">
-        <label for="vehicleMake" class="col-sm-2 col-form-label">Make</label>
+        <label for="vehicleMake" class="col-sm-2 col-form-label">Make*</label>
         <div class="col-sm-2">
           <select formControlName="vehicleMake" class="form-control" id="vehicleMake">
             <option>Honda</option>
@@ -120,11 +125,11 @@
             <option>Ford</option>
           </select>
         </div>
-        <label for="vehicleModel" class="col-sm-1 col-form-label">Model</label>
+        <label for="vehicleModel" class="col-sm-1 col-form-label">Model*</label>
         <div class="col-sm-3">
           <input formControlName="vehicleModel" type="text"  class="form-control" id="vehicleModel">
         </div>
-        <label for="vehicleYear" class="col-sm-1 col-form-label">Year</label>
+        <label for="vehicleYear" class="col-sm-1 col-form-label">Year*</label>
         <div class="col-sm-3">
           <input formControlName="vehicleYear" type="number"  maxlength="4" min="1990" max="2018" class="form-control"
             id="vehicleYear" >
