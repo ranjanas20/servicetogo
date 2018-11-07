@@ -4,7 +4,7 @@ CREATE TABLE public.zip_lookup (
 	city varchar(100) NOT NULL,
 	state_code varchar(10) NOT null,
 CONSTRAINT zip_lookup_pkey PRIMARY KEY (zip_code)
-)
+);
 
 	
 CREATE TABLE public.states (
